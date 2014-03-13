@@ -1,0 +1,647 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>SwingGift.com</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+        <!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+
+        <!-- jQueryMobileCSS - original without styling -->
+        <link rel="stylesheet" href="css/jquerymobile.css" />
+
+        <!-- nativeDroid core CSS -->
+        <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
+
+        <!-- nativeDroid: Light/Dark -->
+        <link rel="stylesheet" href="css/jquerymobile.nativedroid.light.css"  id='jQMnDTheme' />
+
+        <!-- nativeDroid: Color Schemes -->
+        <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.yellow.css" id='jQMnDColor' />
+
+        <!-- mycss: extra css file -->
+        <link rel="stylesheet" href="css/mycss.css" />
+
+
+        <!-- jQuery / jQueryMobile Scripts -->
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/jquery.mobile-1.3.1.min.js"></script>
+
+        <!-- Database create -->
+        <script src="js/database.js"></script>
+        
+        <!-- Intro screen fade -->
+        <script src="js/introscreen.js"></script>
+        
+        <!-- Intro screen fade -->
+        <script src="js/sentMail.js"></script>
+        
+        
+
+    </head>
+    <body>
+
+        <div data-role="page" data-theme="b" id="intro"> 
+            <div class="introText">
+                Welkom bij de SwingGift App  
+            </div>
+        </div>
+
+        <!-- Index page -->
+        <div data-role="page" data-theme='b' id="index">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content">   
+                <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b"> 
+                    <li data-role="list-divider">
+                        <a href="#wallet" data-icon="tag"  data-role="button" data-inline="true" data-mini="true" style="float: right; border: #c7c7c7;
+                           border-style: solid;">My wallet</a>
+                        Welkom bij de SwingGift App ! 
+                    </li>
+                    <li>
+                        <h1>Gratis persoonlijke videoboodschap.</h1>
+                        <p id="testSQL"></p>
+                    </li>
+
+                    <li>
+                        <div class="wrap">
+
+                            <!-- Define all of the tiles: -->
+                            <div class="box">
+                                <div class="boxInner">
+                                    <img src="img/bongo.jpg" alt="Line-up" />
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="boxInner">
+                                    <img src="img/aveve.png" alt="Map" />
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="boxInner">
+                                    <img src="img/base.png" alt="social" />
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="boxInner">
+                                    <img src="img/bol.jpg" alt="extra" />
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="boxInner">
+                                    <img src="img/decathlon.png" alt="Line-up" />
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="boxInner">
+                                    <img src="img/fnac.jpg" alt="Map" />
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="boxInner">
+                                    <img src="img/plopsa.png" alt="social" />
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="boxInner">
+                                    <img src="img/proximus.jpg" alt="extra" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Info page -->
+        <div data-role="page" data-theme='b' id="info">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content">
+                <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
+                    <li data-role="list-divider">
+                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
+                    </li>
+                    <li>
+                        <div class="wrapper">
+                            <div class="h_iframe">
+                                <img class="ratio" src="img/ratioVideo.gif" alt="ratio"/>
+                                <iframe src="http://www.youtube.com/embed/WsFWhL4Y84Y" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div data-role='collapsible' data-content-theme='b'>
+                            <h4>SwingGroup</h4>
+                            <div>Any content</div>
+                        </div>
+                    </li>
+                    <li >
+                        <div data-role='collapsible' data-content-theme='b'>
+                            <h4>FAQ</h4>
+                            <ul data-role="listview">
+                                <li><a href="#faq">Wat is SwingGift?</a></li>
+                                <li><a href="#">Welke bonnen zijn er zoal?</a></li>
+                                <li><a href="#">Ook voor bedrijven?</a></li>
+                                <li><a href="#">De levering?</a></li>
+                                <li><a href="#">Een factuur?</a></li>
+                            </ul>
+
+                        </div>
+                    </li>
+                    <li >
+                        <div data-role='collapsible' data-content-theme='b'>
+                            <h4>Contact</h4>
+                            <div>Heeft u een vraag? <a href="#contact">Contacteer ons!</a></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact page -->
+        <div data-role="page" data-theme='b' id="contact">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
+
+            <form id="contactForm" >
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <label for="textinput1">
+                            Name
+                        </label>
+                        <input id="fullnameid" name="fullname" placeholder="" value="" type="text" />
+                    </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <label for="textinput2">
+                            E-Mail
+                        </label>
+                        <input id="emailid" name="email" placeholder="" value="" type="text" />
+                    </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="textarea1">
+                            Message
+                        </label>
+                        <textarea id="commentid" name="comment" placeholder="" data-mini="true"></textarea>
+                    </fieldset>
+                </div>
+                <h3 id="return"></h3>
+                <button data-theme="b" id="submitid"  data-iconpos="left" name="submit" type="submit" onclick="sentMail()">Submit</button>
+
+            </form>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shop page -->
+        <div data-role="page" data-theme='b' id="shop">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content">
+                <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/></a>
+
+                <ul id="searchShop" data-role='listview'  data-filter='true' data-filter-placeholder='Zoek een geschenk ...' data-filter-theme='b'>
+
+                    <li data-role="list-divider">
+                        <a href="#panel" data-role="button" data-inline="true" data-mini="true" style="float: right; margin-top: -10px;" >Advanced search ...
+                        </a><br/>
+                    </li>
+
+                    <li data-role="list-divider">MEEST VERKOCHTE CADEAUBONNEN</li>
+                    <li>
+                        <a href="#item">
+                            <img src="http://www.placehold.it/150x150">
+                            <h2>Bart Smit waardebon</h2>
+                            <p>Prijs: &#8364;10</p>
+                        </a>
+                    </li>
+                    <li>
+                        <img src="http://www.placehold.it/150x150">
+                        <h2>Bongo Familieweekend</h2>
+                        <p>Prijs: &#8364;189,9</p>
+                    </li>
+
+                    <li data-role="list-divider">Alle bonnen</li>
+                    <li>
+                        <img src="http://www.placehold.it/150x150">
+                        <h2>Inno giftcard</h2>
+                        <p>Prijs: &#8364;50</p>
+                    </li>
+                    <li>
+                        <img src="http://www.placehold.it/150x150">
+                        <h2>Bol.com waardebon</h2>
+                        <p>Bedrag vrij te kiezen</p>
+                    </li>
+                    <li>
+                        <a href="#">Meer ...</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div data-role="panel" id="panel" data-theme='b'>
+                <div data-role="header" data-theme='b'><a href="#shop" data-icon="mail-reply" data-rel="close"></a>
+                    <h5><small> Advanced search...</small></h5>
+                </div>
+
+                <form>
+                    <ul data-role="listview" data-inset="true">
+
+                        <li data-role="fieldcontain">
+                            <fieldset data-role="controlgroup"   data-mini="true">
+                                <fieldset data-role="controlgroup">
+                                    <legend>Type</legend>
+                                    <input type="checkbox" name="checkbox-1a" id="checkbox-1ab" checked="" value="cheetos">
+                                    <label for="checkbox-1ab">Belevenisbonnen</label>
+                                    <input type="checkbox" name="checkbox-2a" id="checkbox-2ab">
+                                    <label for="checkbox-2ab">Nationale handelaren</label>
+                                    <input type="checkbox" name="checkbox-3a" id="checkbox-3ab">
+                                    <label for="checkbox-3ab">Lokale handelaren</label>
+                                    <input type="checkbox" name="checkbox-4a" id="checkbox-4ab">
+                                    <label for="checkbox-4ab">Webshops</label>
+                                </fieldset>
+
+                            </fieldset>
+                        </li>
+
+                        <li data-role="fieldcontain">
+                            <fieldset data-role="controlgroup"   data-mini="true">
+                                <fieldset data-role="controlgroup">
+                                    <legend>Type</legend>
+                                    <input type="checkbox" name="checkbox-1b" id="checkbox-1abc" checked="" value="cheetos">
+                                    <label for="checkbox-1abc">Beauty & Wellness</label>
+                                    <input type="checkbox" name="checkbox-2b" id="checkbox-2abc">
+                                    <label for="checkbox-2abc">Nationale handelaren</label>
+                                    <input type="checkbox" name="checkbox-3b" id="checkbox-3abc">
+                                    <label for="checkbox-3abc">Lokale handelaren</label>
+                                    <input type="checkbox" name="checkbox-4b" id="checkbox-4abc">
+                                    <label for="checkbox-4abc">Webshops</label>
+                                </fieldset>
+
+                            </fieldset>
+                        </li>
+
+                        <li data-role="fieldcontain">
+                            <div data-role='rangeslider'>
+                                <label for='rangeslider1a'>RangeSlider:</label>
+                                <input type='range' name='range1a' id='range1a' min='0' max='200' value='40'>
+                                <label for='rangeslider1b'>RangeSlider:</label>
+                                <input type='range' name='range1b' id='range1b' min='0' max='200' value='140'>
+                            </div>
+                        </li> 
+                    </ul>
+                    <button data-theme="b" id="submitSearch" data-iconpos="left" name="submit" type="submit">Search</button>
+                </form>
+            </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- voucher page -->
+        <div data-role="page" data-theme='b' id="voucher">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content">
+                <form action="#voucher" method="post" >
+
+                    <div data-role="fieldcontain">
+                        <label for="username">Voucher code</label>
+                        <input type="text" name="username" id="username"  />
+                    </div>                      
+
+                    <button data-theme="b" data-icon="arrow-r" name="submit" type="submit">Submit</button>
+                </form>
+                <a href="#personalisatie">voorlopige link voor test</a>
+                <br/>
+                <div data-role="collapsible" data-content-theme='b'>
+                    <h1>Info</h1>
+                    <div>Hier komt de info i.v.m. voucher codes</div>
+                </div>
+            </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Wallet page -->
+        <div data-role="page" data-theme='b' id="wallet">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content" data-theme='b'>
+                <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
+                    <li data-role="list-divider">
+                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
+                    </li>
+                    <li data-role='collapsible' data-content-theme='b'>
+                        <h6>Wat is dit?</h6>
+                        <p>Uitleg over de wallet</p>
+                    </li>
+                    <li data-role='collapsible' data-content-theme='b'>
+                        <h6>Openstaande voucher codes:</h6>
+                        <ul data-role="listview">
+                            <li><a href="#shop">KBC Code: &#8364;25</a></li>
+                        </ul>
+                    </li>
+                    <li data-role='collapsible' data-content-theme='b'>
+                        <h6>Aangekochte digibonnen:</h6>
+                        <ul data-role="listview">
+                            <li><a href="#detailWallet">Bart Smith: &#8364;20</a></li>
+                            <li><a href="#detailWallet">Bongo: verwenweekend</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item page -->
+        <div data-role="page" data-theme='b' id="item">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content" data-theme='b'>
+                <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
+                    <li data-role="list-divider">
+                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
+                        <a href='#popupDialog' data-rel='popup' data-position-to='window' data-icon="plus" data-role="button" data-inline="true" data-transition='pop' data-mini="true" >Buy this!</a>
+                        <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/></a>
+                    </li>
+                    <li id="bart_Smit_10">
+                        <img src="http://www.placehold.it/150x150">
+                        <h2>Bart Smit waardebon</h2>
+                        <p>Prijs: &#8364;10</p>
+                        <p>Met deze cadeaucard kunt u bij alle Bart Smit filialen in Nederland,
+                            België en Luxemburg alsmede op www.bartsmit.com betalen. 
+                            Het tegoed op deze kaart is onbeperkt geldig, kan in delen worden verbruikt, 
+                            maar kan niet contant worden uitbetaald. 
+                            Het saldo van de kaart kunt u checken op www.bartsmit.com of in de winkel.</p>
+                    </li>
+                </ul>
+
+                <div data-role='popup' id='popupDialog' data-theme='b'>
+                    <div data-role='content' data-theme='b'>
+                        <form id="addItem">
+
+                            <label for="slider2b">How much?</label>
+                            <input type="number" name="aantal" value="1"/>
+                            <input type="hidden" name="prijs" value="10" />
+
+                        </form>
+
+                        <div class='showastabs center nobg'>
+                             <a href='#shop' data-icon='ok' data-iconpos='left' data-role='button' data-inline='true' onclick="winkelmandje()">Add</a>
+                            <a href='#' data-rel='back' data-icon='delete' data-iconpos='left' data-role='button' data-inline='true'>Cancel</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shoppingcart page -->
+        <div data-role="page" data-theme='b' id="shoppingcart">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content" data-theme='b'>
+                <ul id="shoppingcartList" data-role='listview'>
+                    <li data-role="list-divider">
+                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
+                    </li>
+                    <li data-role="list-divider">
+                        Shopping cart items:
+                    </li>
+                    <li>
+                        <a href="#item">
+                            <h2>Bart Smit waardebon</h2>
+                            <p align="right">Prijs: &#8364;10</p>
+                        </a>
+                    </li>
+                    <li>
+                        <h2>Bongo Familieweekend</h2>
+                        <p align="right">Prijs: &#8364;189,9</p>
+                    </li>
+                    <li>
+
+                        <p align="right">Totale prijs: &#8364;199,9</p>
+                    </li>
+                    <li>
+
+                    </li>
+                </ul>
+                <a href="#betaalgegevens" data-role="button" data-icon="truck">Complete order</a>
+            </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personalisatie page -->
+        <div data-role="page" data-theme='b' id="personalisatie">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content" data-theme='b'>
+                <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
+                    <li data-role="list-divider">
+                        Titel van de boodschap
+                    </li>
+                    <li>
+                        <div class="wrapper">
+                            <div class="h_iframe">
+                                <img class="ratio" src="img/ratioVideo.gif" alt="ratio"/>
+                                <iframe src="http://www.youtube.com/embed/WsFWhL4Y84Y" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div data-role='collapsible' data-content-theme='b'>
+                            <h4>Tekstboodschap</h4>
+                            <div>Any content</div>
+                        </div>                        
+                    </li>
+                    <li>
+                        <a href="#shop" data-icon="check" data-role="button" >Let's start shopping!</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQVraag page -->
+        <div data-role="page" data-theme='b' id="faq">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content" data-theme='b'>
+                <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
+                    <li data-role="list-divider">
+                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
+                    </li>
+                    <li data-role="list-divider">
+                        Wat is SwingGift?
+                    </li>
+                    <li>
+                        <p>
+                            SwingGift is de grootste en meest gevarieerde collectie cadeaubonnen in de Benelux. 24/7 kun je via internet cadeaubonnen uitkiezen en bestellen voor vrienden, familie, klanten of collega’s. De cadeaubonnen worden bij jezelf of bij de gelukkige thuis afgeleverd per e-mail of in een knappe, herbruikbare box.
+                        </p>    
+                    </li> 
+                </ul>
+
+            </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
