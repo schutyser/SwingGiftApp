@@ -6,29 +6,157 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width">
-        
-        
+        <title>SwingGift.com</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+        <!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+
+        <!-- jQueryMobileCSS - original without styling -->
+        <link rel="stylesheet" href="css/jquerymobile.css" />
+
+        <!-- nativeDroid core CSS -->
+        <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
+
+        <!-- nativeDroid: Light/Dark -->
+        <link rel="stylesheet" href="css/jquerymobile.nativedroid.light.css"  id='jQMnDTheme' />
+
+        <!-- nativeDroid: Color Schemes -->
+        <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.yellow.css" id='jQMnDColor' />
+
         <!-- mycss: extra css file -->
         <link rel="stylesheet" href="css/mycss.css" />
+
+
+        <!-- jQuery / jQueryMobile Scripts -->
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/jquery.mobile-1.3.1.min.js"></script>
+
+        <!-- Database create -->
+        <script src="js/database.js"></script>
+
+        <!-- Database create -->
+        <script src="js/winkelmandje.js"></script>      
+
+        <!-- Intro screen fade -->
+        <script src="js/introscreen.js"></script>
+
+        <!-- Intro screen fade -->
+        <script src="js/sentMail.js"></script>
+
+
     </head>
     <body>
-           <div data-role="content">
-                <div id='slider' class='swipe'>
-                            <div class='swipe-wrap'>
-                                <div><img src="img/SwingGift_logo_nl.png"/></div>
-                                <div><img src="img/SwingGift_logo_nl.png"/></div>
-                                <div><img src="img/SwingGift_logo_nl.png"/></div>
-                            </div>
-                        </div>
+        <!-- Shop page -->
+        <div data-role="page" data-theme='b' id="shop">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
             </div>
-            
-          <!-- swiper -->
-        <script src='js/swipe.js'></script>
-        <script>
-            window.mySwipe = $('#mySwipe').Swipe().data('Swipe');
-        </script>
+
+            <div data-role="content">
+                <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/></a>
+                <ul id="searchShop" data-role="listview"  data-filter="true" data-filter-placeholder="Zoek een geschenk ..." data-filter-theme='b'>
+                    <li data-role = "list-divider" ><a href = "#panel" data-role = "button" data-inline = "true" data-mini = "true" style = "float: right; margin-top: -10px;"> Advanced search...
+                        </a><br/>
+                    </li>
+                    <li data-role = "list-divider" > MEEST VERKOCHTE CADEAUBONNEN </li>
+                </ul>
+            </div>
+
+            <div data-role="panel" id="panel" data-theme='b'>
+                <div data-role="header" data-theme='b'><a href="#shop" data-icon="mail-reply" data-rel="close"></a>
+                    <h5><small> Advanced search...</small></h5>
+                </div>
+
+                <form>
+                    <ul data-role="listview" data-inset="true">
+
+                        <li data-role="fieldcontain">
+                            <fieldset data-role="controlgroup"   data-mini="true">
+                                <fieldset data-role="controlgroup">
+                                    <legend>Type</legend>
+                                    <input type="checkbox" name="checkbox-1a" id="checkbox-1ab" checked="" value="cheetos">
+                                    <label for="checkbox-1ab">Belevenisbonnen</label>
+                                    <input type="checkbox" name="checkbox-2a" id="checkbox-2ab">
+                                    <label for="checkbox-2ab">Nationale handelaren</label>
+                                    <input type="checkbox" name="checkbox-3a" id="checkbox-3ab">
+                                    <label for="checkbox-3ab">Lokale handelaren</label>
+                                    <input type="checkbox" name="checkbox-4a" id="checkbox-4ab">
+                                    <label for="checkbox-4ab">Webshops</label>
+                                </fieldset>
+
+                            </fieldset>
+                        </li>
+
+                        <li data-role="fieldcontain">
+                            <fieldset data-role="controlgroup"   data-mini="true">
+                                <fieldset data-role="controlgroup">
+                                    <legend>Type</legend>
+                                    <input type="checkbox" name="checkbox-1b" id="checkbox-1abc" checked="" value="cheetos">
+                                    <label for="checkbox-1abc">Beauty & Wellness</label>
+                                    <input type="checkbox" name="checkbox-2b" id="checkbox-2abc">
+                                    <label for="checkbox-2abc">Nationale handelaren</label>
+                                    <input type="checkbox" name="checkbox-3b" id="checkbox-3abc">
+                                    <label for="checkbox-3abc">Lokale handelaren</label>
+                                    <input type="checkbox" name="checkbox-4b" id="checkbox-4abc">
+                                    <label for="checkbox-4abc">Webshops</label>
+                                </fieldset>
+
+                            </fieldset>
+                        </li>
+
+                        <li data-role="fieldcontain">
+                            <div data-role='rangeslider'>
+                                <label for='rangeslider1a'>RangeSlider:</label>
+                                <input type='range' name='range1a' id='range1a' min='0' max='200' value='40'>
+                                <label for='rangeslider1b'>RangeSlider:</label>
+                                <input type='range' name='range1b' id='range1b' min='0' max='200' value='140'>
+                            </div>
+                        </li> 
+                    </ul>
+                    <button data-theme="b" id="submitSearch" data-iconpos="left" name="submit" type="submit">Search</button>
+                </form>
+            </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        
+          <!-- Item page -->
+        <div data-role="page" data-theme='b' id="item">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content" data-theme='b' id="itemContent">
+
+            </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

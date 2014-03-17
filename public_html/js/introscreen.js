@@ -1,5 +1,5 @@
 $(function() {
-  setTimeout(hideIntro, 1500);
+  //setTimeout(hideIntro, 1500);
 });
 
 function hideIntro() {

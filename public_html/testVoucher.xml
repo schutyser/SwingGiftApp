@@ -1,46 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vouchers>
-<voucher>
-    <giftID>1</giftID>
-    <supplierName>supplierName1</supplierName>
-    <title_NL>title_NL1</title_NL>
-    <title_FR>title_FR1</title_FR>
-    <decr_NL>decr_NL1</decr_NL>
-    <decr_FR>decr_FR1</decr_FR>
-    <brands_NL>brands_NL1</brands_NL>
-    <brands_FR>brands_FR1</brands_FR>
-    <exclusion_NL>exclusion_NL1</exclusion_NL>
-    <exclusion_FR>exclusion_FR1</exclusion_FR>
-    <price_inclBTW>price_inclBTW1</price_inclBTW>
-    <serviceFee>serviceFee1</serviceFee>
-    <isEvoucher>isEvouche1r</isEvoucher>
-    <isFixValidDate>isFixValidDate1</isFixValidDate>
-    <Validtxt>Validtx1t</Validtxt>
-    <mainAfb>mainAf1</mainAfb>
-    <detailAfb1>detailAfb11</detailAfb1>
-    <detailAfb2>detailAfb21</detailAfb2>
-    <detailAfb3>detailAfb31</detailAfb3>
-</voucher>
+    <voucher>
+        <giftID>1</giftID>
+        <supplierName>supplierName1</supplierName>
+        <title_NL>title_NL1</title_NL>
+        <title_FR>title_FR1</title_FR>
+        <decr_NL>
+            Met deze cadeaucard kunt u bij alle Bart Smit filialen in Nederland,
+            België en Luxemburg alsmede op www.bartsmit.com betalen. 
+            Het tegoed op deze kaart is onbeperkt geldig, kan in delen worden verbruikt, 
+            maar kan niet contant worden uitbetaald. 
+            Het saldo van de kaart kunt u checken op www.bartsmit.com of in de winkel.
+        </decr_NL>
+        <decr_FR>decr_FR1</decr_FR>
+        <brands_NL>brands_NL1</brands_NL>
+        <brands_FR>brands_FR1</brands_FR>
+        <exclusion_NL>exclusion_NL1</exclusion_NL>
+        <exclusion_FR>exclusion_FR1</exclusion_FR>
+        <price_inclBTW>10</price_inclBTW>
+        <serviceFee>serviceFee1</serviceFee>
+        <isEvoucher>isEvouche1r</isEvoucher>
+        <isFixValidDate>isFixValidDate1</isFixValidDate>
+        <Validtxt>Validtx1t</Validtxt>
+        <mainAfb>http://www.placehold.it/150x150</mainAfb>
+        <detailAfb1>detailAfb11</detailAfb1>
+        <detailAfb2>detailAfb21</detailAfb2>
+        <detailAfb3>detailAfb31</detailAfb3>
+    </voucher>
 
-<voucher>
-    <giftID>2</giftID>
-    <supplierName>supplierName2</supplierName>
-    <title_NL>title_NL2</title_NL>
-    <title_FR>title_FR2</title_FR>
-    <decr_NL>decr_NL2</decr_NL>
-    <decr_FR>decr_FR2</decr_FR>
-    <brands_NL>brands_NL2</brands_NL>
-    <brands_FR>brands_FR2</brands_FR>
-    <exclusion_NL>exclusion_NL2</exclusion_NL>
-    <exclusion_FR>exclusion_FR2</exclusion_FR>
-    <price_inclBTW>price_inclBTW2</price_inclBTW>
-    <serviceFee>serviceFee2</serviceFee>
-    <isEvoucher>isEvoucher2</isEvoucher>
-    <isFixValidDate>isFixValidDate2</isFixValidDate>
-    <Validtxt>Validtxt2</Validtxt>
-    <mainAfb>mainAfb2</mainAfb>
-    <detailAfb1>detailAfb12</detailAfb1>
-    <detailAfb2>detailAfb22</detailAfb2>
-    <detailAfb3>detailAfb32</detailAfb3>
-</voucher>
+    <voucher>
+        <giftID>2</giftID>
+        <supplierName>supplierName2</supplierName>
+        <title_NL>title_NL2</title_NL>
+        <title_FR>title_FR2</title_FR>
+        <decr_NL>decr_NL2</decr_NL>
+        <decr_FR>decr_FR2</decr_FR>
+        <brands_NL>brands_NL2</brands_NL>
+        <brands_FR>brands_FR2</brands_FR>
+        <exclusion_NL>exclusion_NL2</exclusion_NL>
+        <exclusion_FR>exclusion_FR2</exclusion_FR>
+        <price_inclBTW>20</price_inclBTW>
+        <serviceFee>serviceFee2</serviceFee>
+        <isEvoucher>isEvoucher2</isEvoucher>
+        <isFixValidDate>isFixValidDate2</isFixValidDate>
+        <Validtxt>Validtxt2</Validtxt>
+        <mainAfb>http://www.placehold.it/150x150</mainAfb>
+        <detailAfb1>detailAfb12</detailAfb1>
+        <detailAfb2>detailAfb22</detailAfb2>
+        <detailAfb3>detailAfb32</detailAfb3>
+    </voucher>
+
+    <voucher>
+        <giftID>3</giftID>
+        <supplierName>supplierName1</supplierName>
+        <title_NL>title_NL3</title_NL>
+        <title_FR>title_FR1</title_FR>
+        <decr_NL>decr_NL3</decr_NL>
+        <decr_FR>decr_FR1</decr_FR>
+        <brands_NL>brands_NL1</brands_NL>
+        <brands_FR>brands_FR1</brands_FR>
+        <exclusion_NL>exclusion_NL1</exclusion_NL>
+        <exclusion_FR>exclusion_FR1</exclusion_FR>
+        <price_inclBTW>15</price_inclBTW>
+        <serviceFee>serviceFee1</serviceFee>
+        <isEvoucher>isEvouche1r</isEvoucher>
+        <isFixValidDate>isFixValidDate1</isFixValidDate>
+        <Validtxt>Validtx1t</Validtxt>
+        <mainAfb>http://www.placehold.it/150x150</mainAfb>
+        <detailAfb1>detailAfb11</detailAfb1>
+        <detailAfb2>detailAfb21</detailAfb2>
+        <detailAfb3>detailAfb31</detailAfb3>
+    </voucher>
 </vouchers>
