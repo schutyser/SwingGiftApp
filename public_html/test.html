@@ -57,7 +57,7 @@ and open the template in the editor.
             </div>
 
             <div data-role="content">
-                <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/></a>
+                <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" onclick="successCB3()" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/><strong><span class="winkelmandje"></span></strong></a>
                 <ul id="searchShop" data-role="listview"  data-filter="true" data-filter-placeholder="Zoek een geschenk ..." data-filter-theme='b'>
                     <li data-role = "list-divider" ><a href = "#panel" data-role = "button" data-inline = "true" data-mini = "true" style = "float: right; margin-top: -10px;"> Advanced search...
                         </a><br/>
@@ -132,9 +132,9 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-        
-        
-          <!-- Item page -->
+
+
+        <!-- Item page -->
         <div data-role="page" data-theme='b' id="item">
 
             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
@@ -152,7 +152,30 @@ and open the template in the editor.
                     <ul>
                         <li><a href="#shop" data-icon="gift">Shop</a></li>
                         <li><a href="#index" data-icon="home">Home</a></li>
-                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shoppingcart page -->
+        <div data-role="page" data-theme='b' id="shoppingcart">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+                <div data-role="content" data-theme='b' id="shoppingContent">
+
+                </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
                         <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
                     </ul>
                 </div>

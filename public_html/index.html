@@ -43,12 +43,14 @@
 
     </head>
     <body>
-
+        
+        <!--
         <div data-role="page" data-theme="b" id="intro"> 
             <div class="introText">
                 Welkom bij de SwingGift App  
             </div>
-        </div>
+        </div> 
+        -->
 
         <!-- Index page -->
         <div data-role="page" data-theme='b' id="index">
@@ -67,7 +69,7 @@
                         Welkom bij de SwingGift App ! 
                     </li>
                     <li>
-                        <h1>Gratis persoonlijke videoboodschap.</h1>
+                        SwingGift is de grootste en meest gevarieerde collectie cadeaubonnen in de Benelux. 24/7 kun je via internet cadeaubonnen uitkiezen en bestellen voor vrienden, familie, klanten of collega&#39;s.
                     </li>
 
                     <li>
@@ -256,7 +258,7 @@
             </div>
 
             <div data-role="content">
-                <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/></a>
+                <a href="#shoppingcart" class="winkelmandje" data-role="button" data-inline="true" data-mini="true" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/></a>
 
                 <ul id="searchShop" data-role='listview'  data-filter='true' data-filter-placeholder='Zoek een geschenk ...' data-filter-theme='b'>
 
@@ -268,13 +270,13 @@
                     <li data-role="list-divider">MEEST VERKOCHTE CADEAUBONNEN</li>
                     <li>
                         <a href="#item">
-                            <img src="http://www.placehold.it/150x150">
+                            <img src="img/bart.jpg">
                             <h2>Bart Smit waardebon</h2>
                             <p>Prijs: &#8364;10</p>
                         </a>
                     </li>
                     <li>
-                        <img src="http://www.placehold.it/150x150">
+                        <img src="img/bongo.jpg">
                         <h2>Bongo Familieweekend</h2>
                         <p>Prijs: &#8364;189,9</p>
                     </li>
@@ -465,7 +467,7 @@
                     <li data-role="list-divider">
                         <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
                         <a href='#popupDialog' data-rel='popup' data-position-to='window' data-icon="plus" data-role="button" data-inline="true" data-transition='pop' data-mini="true" >Buy this!</a>
-                        <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/></a>
+                        <a href="#shoppingcart" class="winkelmandje" data-role="button" data-inline="true" data-mini="true" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/></a>
                     </li>
                     <li id="bart_Smit_10">
                         <img src="http://www.placehold.it/150x150">
@@ -564,8 +566,8 @@
         <div data-role="page" data-theme='b' id="personalisatie">
 
             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
-                <h1>SwingGift<small>.com</small></h1>
-                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <h1>Bedrijfsnaam</h1>
+                <a href="index.html"><img src="http://www.placehold.it/150x150" class="autoresize" alt="swingGiftLogo"/> </a>
                 <a href="#info" data-icon="info" data-role="button">Info</a>
             </div>
 

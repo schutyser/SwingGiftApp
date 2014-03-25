@@ -3,7 +3,7 @@
     <voucher>
         <giftID>1</giftID>
         <supplierName>supplierName1</supplierName>
-        <title_NL>title_NL1</title_NL>
+        <title_NL>Bart Smit waardebon</title_NL>
         <title_FR>title_FR1</title_FR>
         <decr_NL>
             Met deze cadeaucard kunt u bij alle Bart Smit filialen in Nederland,
@@ -31,7 +31,7 @@
     <voucher>
         <giftID>2</giftID>
         <supplierName>supplierName2</supplierName>
-        <title_NL>title_NL2</title_NL>
+        <title_NL>Bongo Familieweekend</title_NL>
         <title_FR>title_FR2</title_FR>
         <decr_NL>decr_NL2</decr_NL>
         <decr_FR>decr_FR2</decr_FR>
