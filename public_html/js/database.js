@@ -1,5 +1,6 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 var giftID;
+var eindeNodig;
 // PhoneGap is ready
 //
 function onDeviceReady() {
@@ -20,6 +21,14 @@ function setGiftID(id) {
     }
 }
 
+function geteindeNodig() {
+    return eindeNodig;
+}
+
+function seteindeNodig(boolean) {
+    eindeNodig = boolean;
+}
+
 function populateDB(tx) {
     console.log("populateDB");
     tx.executeSql('DROP TABLE IF EXISTS vouchers');
@@ -29,7 +38,7 @@ function populateDB(tx) {
 }
 
 function errorCB(err) {
-    console.log("Error processing SQL: " + err.code);
+    console.log("Error processing SQL: " + err.code + " message: " + err.message);
 }
 
 // Transaction success callback
@@ -37,7 +46,17 @@ function errorCB(err) {
 function successCB() {
     db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(queryDB, errorCB);
+}
 
+function successCBAll() {
+    db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
+    db.transaction(queryDBAll, errorCB);
+
+}
+
+function successCBFilter() {
+    db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
+    db.transaction(queryDBFilter, errorCB);
 }
 
 function successCB2(i) {
@@ -53,9 +72,38 @@ function successCB3() {
 
 }
 
+function successCB4() {
+    db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
+    db.transaction(queryDB4, errorCB);
+
+}
+
 function queryDB(tx) {
     console.log("qyeryDB");
+    seteindeNodig("true");
+    tx.executeSql('SELECT * FROM vouchers limit 2', [], listItems, errorCB);
+}
+
+function queryDBAll(tx) {
+    console.log("qyeryDB");
+    seteindeNodig("false");
     tx.executeSql('SELECT * FROM vouchers', [], listItems, errorCB);
+}
+
+function queryDBFilter(tx) {
+    console.log("qyeryDBFilter");
+    seteindeNodig("true");
+    var evoucher = window.localStorage.getItem("evoucher");
+    var supplierNames = window.localStorage.getArray("supplierName");
+    var minPrijs = window.localStorage.getItem("minPrijs");
+    var maxPrijs = window.localStorage.getItem("maxPrijs");
+    
+    console.log(minPrijs + maxPrijs + evoucher);
+
+    if (evoucher !== "false")
+        tx.executeSql('SELECT * FROM vouchers where price_inclBTW between' + minPrijs + ' AND ' + maxPrijs + ' AND supplierName IN (' + supplierNames + ') AND isEvoucher="' + evoucher + '"', [], listItems, errorCB);
+    else
+        tx.executeSql('SELECT * FROM vouchers where price_inclBTW between' + minPrijs + ' AND ' + maxPrijs + ' AND supplierName IN (' + supplierNames + ')', [], listItems, errorCB);
 }
 
 function queryDB2(tx) {
@@ -66,6 +114,10 @@ function queryDB2(tx) {
 
 function queryDB3(tx) {
     tx.executeSql('SELECT * FROM vouchers WHERE giftID IN (' + getIds() + ')', [], shoppingCart, errorCB);
+}
+function queryDB4(tx) {
+
+    tx.executeSql('SELECT DISTINCT supplierName FROM vouchers', [], advancedSearch1, errorCB);
 }
 
 function xmlParse() {
@@ -108,32 +160,49 @@ function xmlParse() {
 
 function listItems(tx, results) {
 
+
     var len = results.rows.length;
+    var content = "";
+    console.log("listitem:" + len);
+
+    var begin = '<li data-role = "list-divider" >\n\
+            <a href = "#panel" data-role ="button" data-inline = "true" data-mini = "true" onclick="successCB4()" style = "float: right; margin-top: -10px;"> Advanced search...\n\
+                        </a><br/>\n\
+                    </li>\n\
+                    <li data-role = "list-divider" >AAANGEBODEN CADEAUBONNEN </li>';
 
     for (var i = 0; i < len; i++) {
         var id = results.rows.item(i).giftID;
         var imageUrl = results.rows.item(i).mainAfb;
         var titel = results.rows.item(i).title_NL;
         var prijs = results.rows.item(i).price_inclBTW;
+        console.log(id + titel + prijs);
 
-        var content =
+        var con =
                 '<li><a href = #item onclick="successCB2(' + id + ')">\n\
             <img src = ' + imageUrl + ' >\n\
             <h2> ' + titel + ' </h2>\n\
             <p> Prijs: &#8364; ' + prijs + ' </p>\n\
             </a></li>';
 
-
-        $('#searchShop').append(content);
+        content = content + con;
 
     }
 
-    var einde = '<li><a href = "#alleBonnen" > Meer... </a></li>';
-    $('#searchShop').append(einde);
+    var einde;
+    if (geteindeNodig() === "true")
+        einde = '<li><a href = "#shop" onclick="successCBAll()"> Toon alle bonnen... </a></li>';
+    else einde ="";
 
-    $('ul').listview('refresh');
+    console.log(begin + content + einde);
+    $('#searchShop').html(begin + content + einde).trigger('create');
 
-
+    if ($('#searchShop').hasClass('ui-listview')) {
+        $('#searchShop').listview('refresh');
+    }
+    else {
+        $('#searchShop').trigger('submit');
+    }
 }
 
 function detailItem(tx, results) {
@@ -149,7 +218,7 @@ function detailItem(tx, results) {
                     <li data-role="list-divider">\n\
                         <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>\n\
                         <a href="#popupDialog' + id + '" data-rel=\'popup\' data-position-to=\'window\' data-icon="plus" data-role="button" data-inline="true" data-transition=\'pop\' data-mini="true" >Buy this!</a>\n\
-                        <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/></a>\n\
+                        <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" onclick="successCB3()" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/><strong><span class="winkelmandje"></span></strong></a>\n\
                     </li>\n\
                     <li id="' + id + '">\n\
                         <img src="' + imageUrl + '">\n\
@@ -219,19 +288,20 @@ function shoppingCart(tx, results) {
             var titel = results.rows.item(i).title_NL;
             var prijs = results.rows.item(i).price_inclBTW;
             var aantal = getAantalItem(id);
-            
+
             var con =
                     '<li id="' + id + '">\n\
                         <h2>' + titel + ' <a href="#" onclick="deleteItem(' + id + ')" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right" style="float:right;"></a>\n\
                         <span style="float: right;">\n\
-                        <input id="aantalItem' + id + '" type="number" name="aantal" min=1 value="'+aantal+'" style="width: 3rem;"/>x \n\
+                        <input id="aantalItem' + id + '" type="number" name="aantal" min=1 value="' + aantal + '" style="width: 3rem;"/>x \n\
                         &#8364; ' + prijs + '</span></h2>\n\
                     </li>';
-            
+
             content2 += con;
             totaleprijs += +prijs * +aantal;
         }
     }
+
 
     var content3 = '<li data-role="list-divider" style="text-align: right;">\n\
                         Totale prijs: &#8364; ' + totaleprijs + '\n\
@@ -242,14 +312,31 @@ function shoppingCart(tx, results) {
 
 
     $('#shoppingContent').html(content1 + content2 + content3).trigger("create");
-    
-    $(document).on('change', "#aantalItem"+id, function() {
-                console.log("change aantalitem" + $('#aantalItem' + id + '').val());
-                var a = $('#aantalItem' + id + '').val();
-                var a2 = getAantalItem(id);
-                var aantalNieuw =  +a - +a2;
-                console.log("change aantalNieuw" + aantalNieuw);
-                updateWinkelmand(id, prijs, aantalNieuw);
-                successCB3();
-            });
+
+    $(document).on('change', "#aantalItem" + id, function() {
+        console.log("change aantalitem" + $('#aantalItem' + id + '').val());
+        var a = $('#aantalItem' + id + '').val();
+        var a2 = getAantalItem(id);
+        var aantalNieuw = +a - +a2;
+        console.log("change aantalNieuw" + aantalNieuw);
+        updateWinkelmand(id, prijs, aantalNieuw);
+        successCB3();
+    });
+}
+
+function advancedSearch1(tx, results) {
+
+    var len = results.rows.length;
+    var content = '<fieldset data-role = "controlgroup" ><legend>Leverancier</legend>';
+    for (var i = 0; i < len; i++) {
+        var leverancier = results.rows.item(i).supplierName;
+        var con =
+                '<label for="' + leverancier + '">' + leverancier + '</label>\n\
+                <input type="checkbox" name="leverancier" id="' + leverancier + '" checked="" value="' + leverancier + '">';
+
+        content = content + con;
+    }
+    content = content + '</fieldset>';
+
+    $('#search1').html(content).trigger("create");
 }

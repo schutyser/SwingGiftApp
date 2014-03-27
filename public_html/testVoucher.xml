@@ -3,7 +3,7 @@
     <voucher>
         <giftID>1</giftID>
         <supplierName>supplierName1</supplierName>
-        <title_NL>Bart Smit waardebon</title_NL>
+        <title_NL>BartSmitwaardebon</title_NL>
         <title_FR>title_FR1</title_FR>
         <decr_NL>
             Met deze cadeaucard kunt u bij alle Bart Smit filialen in Nederland,
@@ -19,7 +19,7 @@
         <exclusion_FR>exclusion_FR1</exclusion_FR>
         <price_inclBTW>10</price_inclBTW>
         <serviceFee>serviceFee1</serviceFee>
-        <isEvoucher>isEvouche1r</isEvoucher>
+        <isEvoucher>true</isEvoucher>
         <isFixValidDate>isFixValidDate1</isFixValidDate>
         <Validtxt>Validtx1t</Validtxt>
         <mainAfb>http://www.placehold.it/150x150</mainAfb>
@@ -41,7 +41,7 @@
         <exclusion_FR>exclusion_FR2</exclusion_FR>
         <price_inclBTW>20</price_inclBTW>
         <serviceFee>serviceFee2</serviceFee>
-        <isEvoucher>isEvoucher2</isEvoucher>
+        <isEvoucher>false</isEvoucher>
         <isFixValidDate>isFixValidDate2</isFixValidDate>
         <Validtxt>Validtxt2</Validtxt>
         <mainAfb>http://www.placehold.it/150x150</mainAfb>
@@ -63,7 +63,7 @@
         <exclusion_FR>exclusion_FR1</exclusion_FR>
         <price_inclBTW>15</price_inclBTW>
         <serviceFee>serviceFee1</serviceFee>
-        <isEvoucher>isEvouche1r</isEvoucher>
+        <isEvoucher>true</isEvoucher>
         <isFixValidDate>isFixValidDate1</isFixValidDate>
         <Validtxt>Validtx1t</Validtxt>
         <mainAfb>http://www.placehold.it/150x150</mainAfb>

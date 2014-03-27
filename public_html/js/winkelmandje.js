@@ -38,6 +38,29 @@ function getIds() {
     return ids;
 }
 
+function getSuppliers() {
+    $('#filter').submit();
+    var supplierNameArray = [];
+    var supplierName = $("#search1 input:checkbox:checked").map(function() {
+            return $(this).val();
+        }).get();
+    for (var i = 0; i < supplierName.length; ++i) {
+        supplierNameArray.push('\"' + supplierName[i] + '\"');
+    }
+   
+    var evoucher = document.getElementById("evoucher").checked;
+    
+    var minPrijs = document.getElementById("minprijsID").value;
+    var maxPrijs = document.getElementById("maxprijsID").value;
+
+    window.localStorage.setArray("supplierName", supplierNameArray);
+    window.localStorage.setItem("evoucher", evoucher);
+    window.localStorage.setItem("minPrijs", minPrijs);
+    window.localStorage.setItem("maxPrijs", maxPrijs);
+
+    successCBFilter();
+}
+
 function updateWinkelmand(id, prijs, aantal) {
     var array = [];
     console.log("aantal b4 dup" + aantal);
@@ -134,7 +157,7 @@ function checkDuplicate(id, aantal) {
     return aantal;
 }
 
-function deleteItem(id){
+function deleteItem(id) {
     console.log("delete item:" + id);
     for (var i = 0; i < filledArray.length; ++i) {
         if (+filledArray[i][0] === +id) {
@@ -142,5 +165,5 @@ function deleteItem(id){
             changeButton();
             successCB3();
         }
-}
+    }
 }
