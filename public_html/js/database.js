@@ -32,7 +32,7 @@ function seteindeNodig(boolean) {
 function populateDB(tx) {
     console.log("populateDB");
     tx.executeSql('DROP TABLE IF EXISTS vouchers');
-    tx.executeSql('CREATE TABLE IF NOT EXISTS vouchers (giftID unique, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3)');
+    tx.executeSql('CREATE TABLE IF NOT EXISTS vouchers (giftID unique, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW INT, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3)');
     xmlParse();
 
 }
@@ -81,6 +81,9 @@ function successCB4() {
 function queryDB(tx) {
     console.log("qyeryDB");
     seteindeNodig("true");
+    var minPrijs = window.localStorage.getItem("minPrijs");
+    var maxPrijs = window.localStorage.getItem("maxPrijs");
+    console.log(minPrijs + maxPrijs);
     tx.executeSql('SELECT * FROM vouchers limit 2', [], listItems, errorCB);
 }
 
@@ -101,9 +104,9 @@ function queryDBFilter(tx) {
     console.log(minPrijs + maxPrijs + evoucher);
 
     if (evoucher !== "false")
-        tx.executeSql('SELECT * FROM vouchers where price_inclBTW between' + minPrijs + ' AND ' + maxPrijs + ' AND supplierName IN (' + supplierNames + ') AND isEvoucher="' + evoucher + '"', [], listItems, errorCB);
+    tx.executeSql('SELECT * FROM vouchers where (price_inclBTW between ' + +minPrijs + ' AND ' + +maxPrijs + ') AND isEvoucher="false" AND supplierName IN (' + supplierNames + ')', [], listItems, errorCB);
     else
-        tx.executeSql('SELECT * FROM vouchers where price_inclBTW between' + minPrijs + ' AND ' + maxPrijs + ' AND supplierName IN (' + supplierNames + ')', [], listItems, errorCB);
+    tx.executeSql('SELECT * FROM vouchers where (price_inclBTW between ' + +minPrijs + ' AND ' + +maxPrijs + ') AND supplierName IN (' + supplierNames + ')', [], listItems, errorCB);
 }
 
 function queryDB2(tx) {
