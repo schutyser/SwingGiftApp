@@ -100,13 +100,13 @@ function queryDBFilter(tx) {
     var supplierNames = window.localStorage.getArray("supplierName");
     var minPrijs = window.localStorage.getItem("minPrijs");
     var maxPrijs = window.localStorage.getItem("maxPrijs");
-    
+
     console.log(minPrijs + maxPrijs + evoucher);
 
     if (evoucher !== "false")
-    tx.executeSql('SELECT * FROM vouchers where (price_inclBTW between ' + +minPrijs + ' AND ' + +maxPrijs + ') AND isEvoucher="false" AND supplierName IN (' + supplierNames + ')', [], listItems, errorCB);
+        tx.executeSql('SELECT * FROM vouchers where (price_inclBTW between ' + +minPrijs + ' AND ' + +maxPrijs + ') AND isEvoucher="false" AND supplierName IN (' + supplierNames + ')', [], listItems, errorCB);
     else
-    tx.executeSql('SELECT * FROM vouchers where (price_inclBTW between ' + +minPrijs + ' AND ' + +maxPrijs + ') AND supplierName IN (' + supplierNames + ')', [], listItems, errorCB);
+        tx.executeSql('SELECT * FROM vouchers where (price_inclBTW between ' + +minPrijs + ' AND ' + +maxPrijs + ') AND supplierName IN (' + supplierNames + ')', [], listItems, errorCB);
 }
 
 function queryDB2(tx) {
@@ -168,8 +168,16 @@ function listItems(tx, results) {
     var content = "";
     console.log("listitem:" + len);
 
-    var begin = '<li data-role = "list-divider" >\n\
-            <a href = "#panel" data-role ="button" data-inline = "true" data-mini = "true" onclick="successCB4()" style = "float: right; margin-top: -10px;"> Advanced search...\n\
+    var begin1;
+
+    if (geteindeNodig() === "true")
+        begin1 = "";
+    else {
+        begin1 = "<ul id='searchShopList' data-role=\"listview\"  data-filter=\"true\" data-filer-placeholder=\"Zoek een geschenk ...\" data-filter-theme='b'>";
+    }
+
+    var begin2 = '<li data-role = "list-divider" >\n\
+            <a href = "#panel" data-role ="button" data-inline = "true" data-mini = "true" onclick="successCB4()" style = "margin-top: -10px;"> Advanced search...\n\
                         </a><br/>\n\
                     </li>\n\
                     <li data-role = "list-divider" >AAANGEBODEN CADEAUBONNEN </li>';
@@ -194,17 +202,18 @@ function listItems(tx, results) {
 
     var einde;
     if (geteindeNodig() === "true")
-        einde = '<li><a href = "#shop" onclick="successCBAll()"> Toon alle bonnen... </a></li>';
-    else einde ="";
+        einde = '<li><a href = "#shop" onclick="successCBAll()"> Toon alle bonnen... </a></li></ul>';
+    else
+        einde = "";
 
-    console.log(begin + content + einde);
-    $('#searchShop').html(begin + content + einde).trigger('create');
+    console.log(begin1 + begin2 + content + einde);
+    $('#searchShopList').html(begin1 + begin2 + content + einde).trigger('create');
 
-    if ($('#searchShop').hasClass('ui-listview')) {
-        $('#searchShop').listview('refresh');
+    if ($('#searchShopList').hasClass('ui-listview')) {
+        $('#searchShopList').listview('refresh');
     }
     else {
-        $('#searchShop').trigger('submit');
+        $('#searchShopList').trigger('submit');
     }
 }
 
