@@ -83,7 +83,6 @@ function queryDB(tx) {
     seteindeNodig("true");
     var minPrijs = window.localStorage.getItem("minPrijs");
     var maxPrijs = window.localStorage.getItem("maxPrijs");
-    console.log(minPrijs + maxPrijs);
     tx.executeSql('SELECT * FROM vouchers limit 2', [], listItems, errorCB);
 }
 
@@ -137,8 +136,8 @@ function xmlParse() {
                 voucher.push($(this).find("title_FR").text());
                 voucher.push($(this).find("decr_NL").text());
                 voucher.push($(this).find("decr_FR").text());
-                voucher.push($(this).find("title_FR").text());
-                voucher.push($(this).find("title_FR").text());
+                voucher.push($(this).find("brands_NL").text());
+                voucher.push($(this).find("brands_FR").text());
                 voucher.push($(this).find("exclusion_NL").text());
                 voucher.push($(this).find("exclusion_FR").text());
                 voucher.push($(this).find("price_inclBTW").text());
@@ -166,7 +165,6 @@ function listItems(tx, results) {
 
     var len = results.rows.length;
     var content = "";
-    console.log("listitem:" + len);
 
     var begin1;
 
@@ -206,7 +204,6 @@ function listItems(tx, results) {
     else
         einde = "";
 
-    console.log(begin1 + begin2 + content + einde);
     $('#searchShopList').html(begin1 + begin2 + content + einde).trigger('create');
 
     if ($('#searchShopList').hasClass('ui-listview')) {
@@ -250,7 +247,7 @@ function detailItem(tx, results) {
                             <label  name="prijs">Totale prijs: &#8364;<span id="prijsCalcu' + id + '">' + prijs + '</span></label> \n\
                         </form>\n\
                         <div>\n\
-                        <a href="#shop" data-icon="ok" data-iconpos="left" data-role="button" data-inline="true" onclick="winkelmandje(' + id + ')">Add</a>\n\
+                        <a href="#thema" data-icon="ok" data-iconpos="left" data-role="button" data-inline="true" onclick="winkelmandje(' + id + ')">Add</a>\n\
                             <a href="#" data-rel=\'back\' data-icon="delete" data-iconpos="left" data-role="button" data-inline="true">Cancel</a>\n\
                         </div>\n\
                     </div>\n\
@@ -319,7 +316,7 @@ function shoppingCart(tx, results) {
                         Totale prijs: &#8364; ' + totaleprijs + '\n\
                     </li>\n\
                     <li>\n\
-                        <a href="#betaalgegevens" data-role="button" data-icon="truck">Complete order</a>\n\
+                        <a href="#betaalgegevens1" data-role="button" data-icon="truck">Complete order</a>\n\
                     </li></ul>';
 
 
@@ -351,4 +348,86 @@ function advancedSearch1(tx, results) {
     content = content + '</fieldset>';
 
     $('#search1').html(content).trigger("create");
+}
+
+function personalisatiePaginaXML(voucherCode) {
+    $.ajax({
+        type: "GET",
+        url: "personalisatiePagina.xml",
+        dataType: "xml",
+        success: function(xml) {
+            $(xml).find('personalisatie').each(function() {
+                var pers = [];
+                pers.push($(this).find("naam").text());
+                pers.push($(this).find("logo").text());
+                pers.push($(this).find("titel").text());
+                pers.push($(this).find("video").text());
+                pers.push($(this).find("tekstboodschap").find("titelTekst").text());
+                pers.push($(this).find("tekstboodschap").find("tekstboodschapTekst").text());
+
+                console.log("Perspagina xml:" + pers);
+
+                maakPersPagina(pers);
+            });
+        }
+    });
+
+}
+
+function maakPersPagina(pers) {
+    var contentList;
+    console.log("maak pers pagina");
+
+    var header = '<div data-role="header" id="headerPers"  data-position="fixed" data-tap-toggle="false" data-theme=\'b\'>\n\
+                <h1>' + pers[0] + '</h1>\n\
+                <a href="index.html"><img src="' + pers[1] + '" class="autoresize" alt="swingGiftLogo"/> </a>\n\
+                <a href="#info" data-icon="info" data-role="button">Info</a></div>';
+
+    if (pers[3] !== "") {
+        contentList = '<div data-role="content" data-theme=\'b\'>\n\
+                <ul data-role="listview" id="listPers" data-inset="false" data-icon="false" data-divider-theme="b">\n\
+                <li data-role="list-divider">\n\
+                        ' + pers[2] + '\n\
+                    </li>\n\
+                    <li>\n\
+                        <div class="wrapper">\n\
+                            <div class="h_iframe">\n\
+                                <img class="ratio" src="img/ratioVideo.gif" alt="ratio"/>\n\
+                                <iframe src="' + pers[3] + '" frameborder="0" allowfullscreen></iframe>\n\
+                            </div>\n\
+                        </div>\n\
+                    </li>\n\
+                    <li>\n\
+                        <div data-role=\'collapsible\' data-content-theme=\'b\'>\n\
+                            <h4>' + pers[4] + '</h4>\n\
+                            <div>' + pers[5] + '</div>\n\
+                        </div></li><li>\n\
+                        <a href="#shop" data-icon="check" data-role="button" >Let\'s start shopping!</a>\n\
+                    </li></ul>';
+    }
+    else {
+        contentList = '<div data-role="content" data-theme=\'b\'>\n\
+                <ul data-role="listview" id="listPers" data-inset="false" data-icon="false" data-divider-theme="b">\n\
+                <li data-role="list-divider">\n\
+                        ' + pers[2] + '\n\
+                    </li>\n\
+                    <li>\n\
+                            <h4>' + pers[4] + '</h4>\n\
+                            <p>' + pers[5] + '</p>\n\
+                        </li><li>\n\
+                        <a href="#shop" data-icon="check" data-role="button" >Let\'s start shopping!</a>\n\
+                    </li></ul>';
+    }
+    var footer =
+    '<div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme=\'b\'>\n\
+                <div data-role="navbar">\n\
+                    <ul>\n\
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>\n\
+                        <li><a href="#index" data-icon="home">Home</a></li>\n\
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> \n\
+                    </ul>\n\
+                </div>\n\
+            </div>';
+
+    $('#personalisatie').html(header + contentList + footer).trigger("pagecreate");
 }

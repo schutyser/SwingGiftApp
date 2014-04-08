@@ -5,7 +5,7 @@
 }
 
 .winkelmandje{
-    
+
 }
 .swipe {
     overflow: hidden;
@@ -79,6 +79,41 @@
 }
 .boxInner img {
     width: 100%;
+}
+
+.fixedButton {
+    z-index:999;
+    position: fixed;
+    top:45%;
+    padding: 5px 10px;
+    right: -24px;
+    cursor: pointer;
+    border: none;
+    background: #666666;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 1px 1px #6B5645;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#6B5645), to(#513E2F));
+    background-image: -webkit-linear-gradient(#666666, #513E2F);
+    background-image: -moz-linear-gradient(#666666, #513E2F);
+    background-image: -ms-linear-gradient(#666666, #513E2F);
+    background-image: -o-linear-gradient(#666666, #513E2F);
+    background-image: linear-gradient(#666666, #513E2F);
+    -moz-border-radius-topleft: .6em;
+    -webkit-border-top-left-radius: .6em;
+    border-top-left-radius: .6em;
+
+    -moz-border-radius-topright: .6em;
+    -webkit-border-top-right-radius: .6em;
+    border-top-right-radius: .6em;
+
+    -moz-box-shadow: 0 0 12px rgba(0, 0, 0, .6);
+    -webkit-box-shadow: 0 0 12px rgba(0, 0, 0, .6);
+    box-shadow: 0 0 12px rgba(0, 0, 0, .6);
+
+    -webkit-transform:rotate(-90deg);
+    -moz-transform:rotate(-90deg);
+    -o-transform:rotate(-90deg);
 }
 
 @media only screen and (max-width : 480px) {

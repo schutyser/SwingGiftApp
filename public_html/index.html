@@ -29,21 +29,21 @@
 
         <!-- Database create -->
         <script src="js/database.js"></script>
-        
+
         <!-- Database create -->
         <script src="js/winkelmandje.js"></script>      
-        
+
         <!-- Intro screen fade -->
         <script src="js/introscreen.js"></script>
-        
+
         <!-- Intro screen fade -->
         <script src="js/sentMail.js"></script>
-        
-        
+
+
 
     </head>
     <body>
-        
+
         <!--
         <div data-role="page" data-theme="b" id="intro"> 
             <div class="introText">
@@ -209,7 +209,7 @@
             <form id="contactForm" >
                 <div data-role="fieldcontain">
                     <fieldset data-role="controlgroup" data-mini="true">
-                        <label for="textinput1">
+                        <label for="fullnameid">
                             Name
                         </label>
                         <input id="fullnameid" name="fullname" placeholder="" value="" type="text" />
@@ -217,7 +217,7 @@
                 </div>
                 <div data-role="fieldcontain">
                     <fieldset data-role="controlgroup" data-mini="true">
-                        <label for="textinput2">
+                        <label for="emailid">
                             E-Mail
                         </label>
                         <input id="emailid" name="email" placeholder="" value="" type="text" />
@@ -225,14 +225,14 @@
                 </div>
                 <div data-role="fieldcontain">
                     <fieldset data-role="controlgroup">
-                        <label for="textarea1">
+                        <label for="commentid">
                             Message
                         </label>
                         <textarea id="commentid" name="comment" placeholder="" data-mini="true"></textarea>
                     </fieldset>
                 </div>
                 <h3 id="return"></h3>
-                <button data-theme="b" id="submitid"  data-iconpos="left" name="submit" type="submit" onclick="sentMail()">Submit</button>
+                <button data-theme="b" id="submitid"  data-iconpos="left" name="submit" onclick="sentMail()">Submit</button>
 
             </form>
 
@@ -248,7 +248,7 @@
             </div>
         </div>
 
-       <!-- Shop page -->
+        <!-- Shop page -->
         <div data-role="page" data-theme='b' id="shop">
 
             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
@@ -259,9 +259,9 @@
 
             <div data-role="content" id="panelContent" >
                 <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" onclick="successCB3()" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/><strong><span class="winkelmandje"></span></strong></a>
-                    <ul id='searchShopList' data-role='listview'>
-                        
-                    </ul>                  
+                <ul id='searchShopList' data-role='listview'>
+
+                </ul>                  
             </div>
 
             <div data-role="panel" id="panel" data-theme='b'>
@@ -273,7 +273,7 @@
                     <ul data-role="listview" data-inset="true" >
                         <li data-role = "fieldcontain" >
                             <fieldset data-role = "controlgroup" data-mini = "true" id="search1">
-                                
+
                             </fieldset>
                         </li>
 
@@ -296,8 +296,8 @@
                             </div>
                         </li> 
                     </ul>
-                    </form>
-                <a href="#shop" data-icon="ok" data-iconpos="left" data-role="button" onclick="getSuppliers()">Search</a>     
+                </form>
+                <a href="#shop" data-icon="ok" data-iconpos="left" data-role="button" onclick="getSuppliers()" data-rel="close">Search</a>     
             </div>
 
             <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
@@ -322,17 +322,18 @@
             </div>
 
             <div data-role="content">
-                <form action="#voucher" method="post" >
+                <form id="addVoucher">
 
                     <div data-role="fieldcontain">
-                        <label for="username">Voucher code</label>
-                        <input type="text" name="username" id="username"  />
+                        <label for="voucherCode">Voucher code:</label>
+                        <input type="text" name="voucherCode" id="voucherCode" placeholder="Enter voucher code ..."  />
                     </div>                      
 
-                    <button data-theme="b" data-icon="arrow-r" name="submit" type="submit">Submit</button>
+                    <a href="#" data-role="button" data-theme="b" data-icon="arrow-r" name="addVoucherCode" onclick="voucher()">Add Voucher</a>
                 </form>
-                <a href="#personalisatie">voorlopige link voor test</a>
-                <br/>
+                <div id="errorVoucher">
+
+                </div>
                 <div data-role="collapsible" data-content-theme='b'>
                     <h1>Info</h1>
                     <div>Hier komt de info i.v.m. voucher codes</div>
@@ -349,6 +350,11 @@
                     </ul>
                 </div>
             </div>
+        </div>
+
+        <!-- Personalisatie page -->
+        <div data-role="page" data-theme='b' id="personalisatie" >
+
         </div>
 
 
@@ -447,53 +453,6 @@
             </div>
         </div>
 
-        <!-- Personalisatie page -->
-        <div data-role="page" data-theme='b' id="personalisatie">
-
-            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
-                <h1>Bedrijfsnaam</h1>
-                <a href="index.html"><img src="http://www.placehold.it/150x150" class="autoresize" alt="swingGiftLogo"/> </a>
-                <a href="#info" data-icon="info" data-role="button">Info</a>
-            </div>
-
-            <div data-role="content" data-theme='b'>
-                <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
-                    <li data-role="list-divider">
-                        Titel van de boodschap
-                    </li>
-                    <li>
-                        <div class="wrapper">
-                            <div class="h_iframe">
-                                <img class="ratio" src="img/ratioVideo.gif" alt="ratio"/>
-                                <iframe src="http://www.youtube.com/embed/WsFWhL4Y84Y" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div data-role='collapsible' data-content-theme='b'>
-                            <h4>Tekstboodschap</h4>
-                            <div>Any content</div>
-                        </div>                        
-                    </li>
-                    <li>
-                        <a href="#shop" data-icon="check" data-role="button" >Let's start shopping!</a>
-                    </li>
-                </ul>
-
-            </div>
-
-            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
-                <div data-role="navbar">
-                    <ul>
-                        <li><a href="#shop" data-icon="gift">Shop</a></li>
-                        <li><a href="#index" data-icon="home">Home</a></li>
-                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
-                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
-                    </ul>
-                </div>
-            </div>
-        </div>
-
         <!-- FAQVraag page -->
         <div data-role="page" data-theme='b' id="faq">
 
@@ -532,5 +491,188 @@
             </div>
         </div>
 
+        <!-- Thema page -->
+        <div data-role="page" data-theme='b' id="thema">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content">
+                <form>
+                    <ul data-role="listview" data-inset="true">
+                        <li data-role="fieldcontain">
+                            <fieldset data-role="controlgroup">
+                                <legend>Thema kiezen</legend>
+                                <hr />
+                                <small>KIES DE ACHTERGROND VAN JOUW BON OF BOODSCHAP:</small>
+                                <input type="radio" name="Thema" id="Expression" value="Expression" checked="checked">
+                                <label for="Expression"><img src="img/thema/BgIllustratie_Expression.jpg" alt="Expression"></label>
+                                <input type="radio" name="Thema" id="Balloon" value="Balloon">
+                                <label for="Balloon"><img src="img/thema/BgIllustratie_Balloons.jpg" alt="Balloon"></label>
+                                <input type="radio" name="Thema" id="Champagne" value="Champagne">
+                                <label for="Champagne"><img src="img/thema/BgIllustratie_Champagne1.jpg" alt="Champagne"></label>
+                                <input type="radio" name="Thema" id="Rozenblaadjes" value="Rozenblaadjes">
+                                <label for="Rozenblaadjes"><img src="img/thema/BgIllustratie_Rozenblaadjes.jpg" alt="Rozenblaadjes"></label>
+                                <input type="radio" name="Thema" id="Dali" value="Dali">
+                                <label for="Dali"><img src="img/thema/BgIllustratie_Dali.jpg" alt="Dali"></label>
+                                <input type="radio" name="Thema" id="Kerst" value="Kerst">
+                                <label for="Kerst"><img src="img/thema/BgIllustratie_Kerst.jpg" alt="Kerst"></label>
+                                <input type="radio" name="Thema" id="Creature" value="Creature">
+                                <label for="Creature"><img src="img/thema/BgIllustratie_Creature.jpg" alt="Creature"></label>
+                                <input type="radio" name="Thema" id="SwingOrange" value="SwingOrange">
+                                <label for="SwingOrange"><img src="img/thema/BgIllustratie_SwingOrange.jpg" alt="SwingOrange"></label>
+                                <input type="radio" name="Thema" id="SwingGreen" value="SwingGreen">
+                                <label for="SwingGreen"><img src="img/thema/BgIllustratie_SwingGreen.jpg" alt="SwingGreen"></label>
+                                <input type="radio" name="Thema" id="LoveYou" value="LoveYou">
+                                <label for="LoveYou"><img src="img/thema/BgIllustratie_LoveYou.jpg" alt="LoveYou"></label>
+                                <input type="radio" name="Thema" id="Paint" value="Paint">
+                                <label for="Paint"><img src="img/thema/BgIllustratie_Paint.jpg" alt="Paint"></label>
+                                <input type="radio" name="Thema" id="Kunst" value="Kunst">
+                                <label for="Kunst"><img src="img/thema/BgIllustratie_Kunst.jpg" alt="Kunst"></label>
+                            </fieldset>
+                        </li>
+                    </ul>
+                    <a href="#boodschap" data-roll="button" class="fixedButton">Volgende</a>
+
+                </form>
+            </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Boodschap page -->
+        <div data-role="page" data-theme='b' id="boodschap">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content" data-theme='b'>
+                <form>
+                    <ul data-role="listview" data-inset="true">
+                        <li data-role="fieldcontain">
+                            <label for="boodschapInhoud">Een boodschap opstellen:</label>
+                            <textarea name="boodschapInhoud" id="boodschapInhoud" placeholder="Vul hier uw boodschap in..."></textarea>
+                        </li>
+                    </ul>
+                    <a href="#shop" data-roll="button" class="fixedButton">Volgende</a>
+                </form>
+            </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Betaalgegevens1 page -->
+        <div data-role="page" data-theme='b' id="betaalgegevens1">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content" data-theme='b'>
+                <form id="betaalgegevensForm1">
+                    <ul data-role="list-divider">
+                        <li data-role="fieldcontain">
+                            <fieldset data-role="controlgroup">
+                                <legend>Jouw gegevens</legend>
+                                <label for="Voornaam">Voornaam:</label>
+                                <input type="text" name="Voornaam" id="Voornaam">
+                                <label for="Naam">Naam:</label>
+                                <input type="text" name="Naam" id="Naam">
+                                <label for="email">E-mail:</label>
+                                <input type="text" name="email" id="email">
+                                <label for="telefoonnummer">Telefoonnummer:</label>
+                                <input type="text" name="telefoonnummer" id="telefoonnummer">
+                            </fieldset>
+                        </li>
+                    </ul>
+                </form>
+                <a href="#betaalgegevens2" data-role="button">Volgende</a>
+            </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Betaalgegevens2 page -->
+        <div data-role="page" data-theme='b' id="betaalgegevens2">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content" data-theme='b'>
+                <form id="betaalgegevensForm2">
+                    <ul data-role="list-divider">
+                        <li data-role="fieldcontain">
+                            <fieldset data-role="controlgroup">
+                                <legend>Betalingswijze</legend>
+                                <input type="radio" name="Betalingswijze" id="Overschrijving" value="Overschrijving" checked="checked">
+                                <label for="Overschrijving">Overschrijving (we verwerken jouw bestelling na ontvangst van jouw betaling)</label>
+                                <input type="radio" name="Betalingswijze" id="Online" value="Online">
+                                <label for="Online">Online beveiligde betaling via KBC, Dexia, ING, Maestro, VISA of Mastercard</label>
+                            </fieldset>
+                        </li>
+                        <li>
+                            <fieldset data-role="controlgroup">
+                                <input type="checkbox" name="factuur" id="factuur">
+                                <label for="factuur">Ik wil een factuur ontvangen</label>
+                            </fieldset>
+                        </li>
+                        <li>
+                            <input type="checkbox" name="voorwaarden" id="voorwaarden">
+                            <label for="voorwaarden">Ik ga akkoord met de algemene voorwaarden.</label>
+                        </li>
+                    </ul>
+                </form>
+                <a href="#betaalgegevens3" data-role="button" data-icon="truck">Afrekenen</a>
+            </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

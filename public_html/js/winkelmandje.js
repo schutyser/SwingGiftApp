@@ -39,7 +39,6 @@ function getIds() {
 }
 
 function getSuppliers() {
-    $('#filter').submit();
     var supplierNameArray = [];
     var supplierName = $("#search1 input:checkbox:checked").map(function() {
             return $(this).val();
@@ -82,7 +81,6 @@ function updateWinkelmand(id, prijs, aantal) {
 }
 
 function winkelmandje(id) {
-    $('#addItem').submit();
     console.log('winkelmandje:' + id);
     var aantal = document.getElementById("addItem" + id).elements.namedItem('aantal').value;
     var prijs = document.getElementById("addItem" + id).elements.namedItem('prijs').value;
@@ -167,3 +165,17 @@ function deleteItem(id) {
         }
     }
 }
+
+function voucher() {
+    var voucherCode = document.getElementById("voucherCode").value;
+    console.log('voucher:' + voucherCode);
+    if(voucherCode !== ""){
+    personalisatiePaginaXML(voucherCode);
+    window.location.href = "#personalisatie";
+    $('#errorVoucher').html("");
+}
+    else  {
+	var content = "<div class='message error'><i class='icon-exclamation-sign'></i><p>Voer een (geldige) voucher code in.</p></div>";
+         $('#errorVoucher').html(content);
+}
+    }
