@@ -501,11 +501,17 @@
             </div>
 
             <div data-role="content">
-                <form>
+                <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme='b'>
+                    <li data-role="list-divider">
+                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
+                        <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" onclick="successCB3()" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/><strong><span class="winkelmandje"></span></strong></a>
+                    </li>
+                </ul>
+                <form id="themaSelect">
                     <ul data-role="listview" data-inset="true">
                         <li data-role="fieldcontain">
                             <fieldset data-role="controlgroup">
-                                <legend>Thema kiezen</legend>
+                                <legend><b>Thema kiezen</b></legend>
                                 <hr />
                                 <small>KIES DE ACHTERGROND VAN JOUW BON OF BOODSCHAP:</small>
                                 <input type="radio" name="Thema" id="Expression" value="Expression" checked="checked">
@@ -535,7 +541,7 @@
                             </fieldset>
                         </li>
                     </ul>
-                    <a href="#boodschap" data-roll="button" class="fixedButton">Volgende</a>
+                    <a href="#boodschap" data-roll="button" class="fixedButton" onclick="addTheme()">Volgende</a>
 
                 </form>
             </div>
@@ -562,15 +568,73 @@
             </div>
 
             <div data-role="content" data-theme='b'>
-                <form>
+                <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme='b'>
+                    <li data-role="list-divider">
+                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
+                        <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" onclick="successCB3()" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/><strong><span class="winkelmandje"></span></strong></a>
+                    </li>
+                </ul>
+                <form id="boodschapForm">
                     <ul data-role="listview" data-inset="true">
                         <li data-role="fieldcontain">
-                            <label for="boodschapInhoud">Een boodschap opstellen:</label>
+                            <label for="boodschapInhoud"><b>Een boodschap opstellen:</b></label>
                             <textarea name="boodschapInhoud" id="boodschapInhoud" placeholder="Vul hier uw boodschap in..."></textarea>
                         </li>
+                        <li data-role="fieldcontain">
+                            <label><b>Bon adresseren:</b></label><br/><hr/>
+                            <label>Gegevens ontvanger:</label>
+                            <div data-role="fieldcontain">
+                                <label for="ontvangerVnaam">Voornaam:</label>
+                                <input name="ontvanger" id="ontvangerVnaam" type="text" placeholder="Voornaam"/>
+                            </div>
+                            <div data-role="fieldcontain">
+                                <label for="ontvangerNaam">Naam:</label>
+                                <input name="ontvanger" id="ontvangerNaam" type="text" placeholder="Naam"/>
+                            </div>
+                        </li>
+                        <li data-role="fieldcontain">
+                            <fieldset data-role="controlgroup" data-mini="true">
+                                <input type="radio" name="afhaling" id="afhalen" value="afhalen" checked="checked">
+                                <label for="afhalen">Ik wens deze bon af te halen bij SwingGift</label>
+                                <p>
+                                    SwingGift<br/>
+                                    Dampoortstraat 265 b3<br/>
+                                    8310 Brugge
+                                </p>
+                                <br/>
+                                <input type="radio" name="afhaling" id="taxipost" value="taxipost" onclick="popup('#taxipostPopUp')">
+                                <label for="taxipost">Deze bon mag opgestuurd worden via Taxipost (€5,95)</label>
+                            </fieldset>
+                        </li>
                     </ul>
-                    <a href="#shop" data-roll="button" class="fixedButton">Volgende</a>
+                    <a href="#shop" data-roll="button" class="fixedButton" onclick="addBoodschap()">Item toevoegen</a>
                 </form>
+                <div data-role="popup" id="taxipostPopUp" data-theme="b">
+                    <form>
+                        <fieldset data-role="controlgroup" data-mini="true">
+                            <legend>Voeg het adres van de ontvanger in:</legend>
+                            <hr/>
+                            <input name="firma" id="firma" type="text" placeholder="Firma"/>
+                            <input name="straat" id="straat" type="text" placeholder="Straat"/>
+                            <input name="nr" id="nr" type="number" placeholder="Nr"/>
+                            <input name="bus" id="bus" type="text" placeholder="Bus"/>
+                            <input name="postcode" id="postcode" type="text" placeholder="Postcode"/>
+                            <input name="gemeente" id="gemeente" type="text" placeholder="Gemeente"/>
+                            <select name="land"  id="land" data-theme="a">
+                                <option value="belgie">Belgi&#235;</option>
+                                <option value="nederland">Nederland</option>
+                                <option value="luxemburg">Luxemburg</option>
+                                <option value="duitsland">Duitsland</option>
+                                <option value="frankrijk">Frankrijk</option>
+                            </select>
+                            <hr/>
+                        </fieldset>
+                    </form>
+                    <div data-role="controlgroup">
+                        <a href="#" data-role="button" data-icon="check" onclick="popupCheck('#taxipostPopUp')">Save</a>
+                        <a href="#" data-role="button" data-icon="delete" onclick="popupClose('#taxipostPopUp')">Cancel</a>
+                    </div>
+                </div>
             </div>
 
             <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
@@ -595,24 +659,47 @@
             </div>
 
             <div data-role="content" data-theme='b'>
-                <form id="betaalgegevensForm1">
-                    <ul data-role="list-divider">
-                        <li data-role="fieldcontain">
-                            <fieldset data-role="controlgroup">
-                                <legend>Jouw gegevens</legend>
-                                <label for="Voornaam">Voornaam:</label>
-                                <input type="text" name="Voornaam" id="Voornaam">
-                                <label for="Naam">Naam:</label>
-                                <input type="text" name="Naam" id="Naam">
-                                <label for="email">E-mail:</label>
-                                <input type="text" name="email" id="email">
-                                <label for="telefoonnummer">Telefoonnummer:</label>
-                                <input type="text" name="telefoonnummer" id="telefoonnummer">
-                            </fieldset>
-                        </li>
-                    </ul>
+                <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme='b'>
+                    <li data-role="list-divider">
+                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
+                        <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" onclick="successCB3()" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/><strong><span class="winkelmandje"></span></strong></a>
+                    </li>
+                </ul>
+                <form id="BetaalgegevensForm1" >
+                    <div data-role="fieldcontain">
+                        <fieldset data-role="controlgroup" data-mini="true">
+                            <label for="voornaam">
+                                Voornaam
+                            </label>
+                            <input id="voornaam" name="voornaam" placeholder="" value="" type="text" />
+                        </fieldset>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <fieldset data-role="controlgroup" data-mini="true">
+                            <label for="naam">
+                                Naam
+                            </label>
+                            <input id="naam" name="naam" placeholder="" value="" type="text" />
+                        </fieldset>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <fieldset data-role="controlgroup" data-mini="true">
+                            <label for="email">
+                                E-Mail
+                            </label>
+                            <input id="email" name="email" placeholder="" value="" type="text" />
+                        </fieldset>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <fieldset data-role="controlgroup" data-mini="true">
+                            <label for="telefoon">
+                                Telefoonnummer
+                            </label>
+                            <input id="telefoon" name="telefoon" placeholder="" value="" type="text" />
+                        </fieldset>
+                    </div>
+                    <a href="#betaalgegevens2" data-role="button" data-theme="b" id="BetaalgegevensFormGo" name="BetaalgegevensFormGo" onclick="addBetaalgegevens1()">Volgende</a>
                 </form>
-                <a href="#betaalgegevens2" data-role="button">Volgende</a>
             </div>
 
             <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
@@ -637,30 +724,193 @@
             </div>
 
             <div data-role="content" data-theme='b'>
-                <form id="betaalgegevensForm2">
-                    <ul data-role="list-divider">
-                        <li data-role="fieldcontain">
-                            <fieldset data-role="controlgroup">
-                                <legend>Betalingswijze</legend>
-                                <input type="radio" name="Betalingswijze" id="Overschrijving" value="Overschrijving" checked="checked">
-                                <label for="Overschrijving">Overschrijving (we verwerken jouw bestelling na ontvangst van jouw betaling)</label>
-                                <input type="radio" name="Betalingswijze" id="Online" value="Online">
-                                <label for="Online">Online beveiligde betaling via KBC, Dexia, ING, Maestro, VISA of Mastercard</label>
-                            </fieldset>
-                        </li>
-                        <li>
-                            <fieldset data-role="controlgroup">
-                                <input type="checkbox" name="factuur" id="factuur">
-                                <label for="factuur">Ik wil een factuur ontvangen</label>
-                            </fieldset>
-                        </li>
-                        <li>
-                            <input type="checkbox" name="voorwaarden" id="voorwaarden">
-                            <label for="voorwaarden">Ik ga akkoord met de algemene voorwaarden.</label>
-                        </li>
-                    </ul>
+                <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme='b'>
+                    <li data-role="list-divider">
+                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
+                        <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" onclick="successCB3()" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/><strong><span class="winkelmandje"></span></strong></a>
+                    </li>
+                </ul> 
+                <form id="BetaalgegevensForm2" >
+                    <div data-role="fieldcontain">
+                        <fieldset data-role="controlgroup" data-mini="true">
+                            <legend>Betalingswijze</legend>
+                            <input type="radio" name="betalingswijze" id="overschrijving" value="Overschrijving" checked="checked">
+                            <label for="overschrijving">Overschrijving (we verwerken jouw bestelling na ontvangst van jouw betaling)</label>
+                            <input type="radio" name="betalingswijze" id="online" value="Online">
+                            <label for="online">Online beveiligde betaling via KBC, Dexia, ING, Maestro, VISA of Mastercard</label>
+                        </fieldset>
+                    </div>
+
+                    <div data-role="fieldcontain"> 
+                        <fieldset data-role="controlgroup">
+                            <input type="checkbox" name="factuur" id="factuur" onclick="toggleFacDiv()">
+                            <label for="factuur">Ik wil een factuur ontvangen</label>
+                        </fieldset>
+
+                        <div id="factuurDiv" style="display:none">
+                            <div data-role="fieldcontain">
+                                <fieldset data-role="controlgroup" data-mini="true">
+                                    <label for="firmaFac">
+                                        Firma:
+                                    </label>
+                                    <input id="firmaFac" name="firmaFac" placeholder="" value="" type="text" />
+                                </fieldset>
+                            </div>
+                            <div data-role="fieldcontain">
+                                <fieldset data-role="controlgroup" data-mini="true">
+                                    <label for="btwFac">
+                                        BTW-nummer:
+                                    </label>
+                                    <input id="btwFac" name="btwFac" placeholder="" value="" type="text" />
+                                </fieldset>
+                            </div>
+                            <div data-role="fieldcontain">
+                                <fieldset data-role="controlgroup" data-mini="true">
+                                    <label for="voornaamFac">
+                                        Voornaam:
+                                    </label>
+                                    <input id="voornaamFac" name="voornaamFac" placeholder="" value="" type="text" />
+                                </fieldset>
+                            </div>
+                            <div data-role="fieldcontain">
+                                <fieldset data-role="controlgroup" data-mini="true">
+                                    <label for="naamFac">
+                                        Naam:
+                                    </label>
+                                    <input id="naamFac" name="naamFac" placeholder="" value="" type="text" />
+                                </fieldset>
+                            </div>
+                            <div data-role="fieldcontain">
+                                <fieldset data-role="controlgroup" data-mini="true">
+                                    <label for="straatFac">
+                                        Straat:
+                                    </label>
+                                    <input id="straatFac" name="straatFac" placeholder="" value="" type="text" />
+                                </fieldset>
+                            </div>
+                            <div data-role="fieldcontain">
+                                <fieldset data-role="controlgroup" data-mini="true">
+                                    <label for="nrFac">
+                                        Nr:
+                                    </label>
+                                    <input id="nrFac" name="nrFac" placeholder="" value="" type="number" />
+                                </fieldset>
+                            </div>
+                            <div data-role="fieldcontain">
+                                <fieldset data-role="controlgroup" data-mini="true">
+                                    <label for="busFac">
+                                        Bus:
+                                    </label>
+                                    <input id="busFac" name="busFac" placeholder="" value="" type="text" />
+                                </fieldset>
+                            </div> 
+                            <div data-role="fieldcontain">
+                                <fieldset data-role="controlgroup" data-mini="true">
+                                    <label for="postCodeFac">
+                                        Postcode:
+                                    </label>
+                                    <input id="postCodeFac" name="postCodeFac" placeholder="" value="" type="text" />
+                                </fieldset>
+                            </div> 
+                            <div data-role="fieldcontain">
+                                <fieldset data-role="controlgroup" data-mini="true">
+                                    <label for="gemeenteFac">
+                                        Gemeente:
+                                    </label>
+                                    <input id="gemeenteFac" name="gemeenteFac" placeholder="" value="" type="text" />
+                                </fieldset>
+                            </div> 
+                            <div data-role="fieldcontain">
+                                <fieldset data-role="controlgroup" data-mini="true">
+                                    <label for="landFac">
+                                        Land:
+                                    </label>
+                                    <select name="landFac"  id="landFac" data-theme="a">
+                                        <option value="belgie">Belgi&#235;</option>
+                                        <option value="nederland">Nederland</option>
+                                        <option value="luxemburg">Luxemburg</option>
+                                        <option value="duitsland">Duitsland</option>
+                                        <option value="frankrijk">Frankrijk</option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div data-role="fieldcontain">
+                                <fieldset data-role="controlgroup" data-mini="true">
+                                    <label for="referentieFac">
+                                        Jouw referentie:
+                                    </label>
+                                    <input id="referentieFac" name="referentieFac" placeholder="" value="" type="text" />
+                                </fieldset>
+                            </div> 
+                        </div>
+
+                        <fieldset data-role="controlgroup">
+                            <input type="checkbox" name="voorwaarden" id="voorwaarden" onclick="popup('#voorwaardenPop')">
+                            <label for="voorwaarden">Ik ga akkoord met <a href="#voorwaardenPop" >de algemene voorwaarden</a>.</label>
+                        </fieldset>
+                    </div>
+                    <a href="#betaalgegevens3" data-role="button" data-icon="truck" onclick="addBetaalgegevens2()">Afrekenen</a>
                 </form>
-                <a href="#betaalgegevens3" data-role="button" data-icon="truck">Afrekenen</a>
+
+                <div data-role="popup" id="voorwaardenPop" data-theme="b">
+                    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                    <p>
+                        SwingGroup wil er zeker van zijn dat zijn relaties met zijn klanten zo vlot en zo correct mogelijk verlopen. We willen u dan ook vooraf duidelijk informeren over jouw en onze rechten en plichten. Lees deze algemene voorwaarden aandachtig: ze zijn van toepassing op alle overeenkomsten die u met SwingGroup sluit.
+
+                        ALGEMEEN
+                        Deze verkoopvoorwaarden zijn van toepassing op alle producten die door SwingGroup worden aangeboden. U moet zich er dan ook van bewust zijn dat u, door het inloggen op onze website of door het bestellen van een of meer producten, instemt met deze voorwaarden die voorrang hebben op alle eventuele andere voorwaarden. Eventuele afwijkingen op deze voorwaarden zijn slechts mogelijk als u dat voorafgaandelijk en uitdrukkelijk schriftelijk met SwingGroup overeenkomt. [Hoewel deze voorwaarden en onze websites wereldwijd kunnen worden geraadpleegd, is ons aanbod voor particulieren alleen bestemd voor onze klanten die in België of Nederland wonen].
+
+                        BESTELLINGEN
+                        Er is sprake van een geldige overeenkomst als SwingGroup via zijn website of per mail de bevestiging ontvangt van jouw bestelling (of als SwingGroup jouw geldig ingevulde en ondertekende bestelbon ontvangt) en de bestelling per kerende bevestigt. SwingGroup kan wel beslissen de overeenkomst te onderwerpen aan andere of bijkomende voorwaarden of de bestelling te weigeren. Dat zal onder meer het geval zijn bij belangrijke bestellingen waarbij bv. voorafbetaling kan worden gevraagd, bij bestellingen gedaan door minderjarigen, wanneer de bestelbon onvolledig of onjuist is of wanneer er problemen waren met eerdere bestellingen (bv. wanbetaling), enz. De bestelde goederen worden pas jouw eigendom als ze volledig zijn betaald. Behalve voor consumenten gaat het risico met betrekking tot de bestelde producten over op de klant bij verzending ervan door SwingGroup.
+
+                        VERZAKINGSRECHT
+                        Als consument hebt u het recht jouw aankoop te annuleren zonder opgave van reden, binnen de 14 dagen na ontvangst van de bestelling.
+
+                        ONZE PRODUCTEN EN PRIJZEN
+                        Alle producten die door SwingGroup worden aangeboden zijn zo volledig mogelijk en te goeder trouw beschreven. De aanbiedingen en prijzen zijn inclusief btw en geldig op de dag waarop ze op onze website worden aangeboden of voor de periode vermeld in onze online cataloog of de vermelding op de cadeaubonnen zelf. SwingGroup behoudt zich het recht voor om de aangegeven prijzen te wijzigen en eventuele fouten te verbeteren. SwingGroup kan niet aansprakelijk gesteld worden voor eventuele nadelige gevolgen van prijsaanpassingen, het niet leverbaar zijn van producten, drukfouten in prijzen, voorwaarden of beschrijvingen.
+
+                        SPECIFIEKE VOORWAARDEN
+                        Het is mogelijk dat op sommige van onze producten specifieke voorwaarden van toepassing zijn met betrekking tot onder meer het gebruik, de toepasselijke korting(en) of de geldigheidsduur ervan. In dat geval zal u hierover afzonderlijk geïnformeerd worden op de website van de leverancier die het product voorstelt of aanbiedt. Deze specifieke voorwaarden hebben in dat geval voorrang op onderhavige algemene voorwaarden.
+
+                        BETALING
+                        Als consument kan u jouw bestellingen betalen via creditcard (Visa of Mastercard), Maestro of met een manuele of online bankoverschrijving. Bestellingen van Belgische en Nederlandse bedrijven met een geldig btw-nummer worden na goedkeuring van een kredietdossier door SwingGroup onmiddellijk geleverd en gefactureerd. Deze facturen moeten binnen de 7 dagen betaald worden. Bij overschrijding van deze betalingstermijn loopt van rechtswege en zonder ingebrekestelling een nalatigheidsintrest van 10% per jaar en zal de klant aan SwingGroup een schadevergoeding verschuldigd zijn gelijk aan 10% van de nog verschuldigde sommen met een minimum van 125 euro per factuur, onverminderd het recht van SwingGroup om vergoeding te eisen van de reëel geleden schade en de invorderingskosten.
+
+                        VERZENDINGSKOSTEN EN LEVERINGSTERMIJNEN
+                        De verzending van elektronische cadeaubonnen is gratis. SwingGroup verzendt de elektronische cadeaubonnen zodra het totaalbedrag van de bonnen betaald is, of op de leveringsdatum aangeduid in de bestelprocedure. SwingGroup kan niet aansprakelijk gesteld worden voor eventuele vertragingen.
+                        Voor de verzending van de fysieke geschenkbonnen betaalt u een vergoedingper verzending per land (zie verder). Jouw bestelling wordt geleverd op de leveringsdatum aangeduid in de bestelprocedure. Als u de gekozen cadeaubonnen voor 12 u bestelt, wordt jouw pakket de volgende werkdag van bPost geleverd. Deze levertijd wordt evenwel slechts gegeven ter informatie. SwingGroup kan niet aansprakelijk gesteld worden voor eventuele vertragingen. Het is mogelijk dat jouw order door technische en/of praktische redenen in afzonderlijke verpakkingen verstuurd wordt; in dat geval brengt dat geen extra kosten mee. Uiteraard doen wij er alles aan om ervoor te zorgen dat al de aangeboden en bestelde producten onmiddellijk beschikbaar en leverbaar zouden zijn. Indien dat in uitzonderlijke gevallen toch niet mogelijk zou blijken, informeren wij u zo spoedig mogelijk en hebt u het recht om een ander product te bestellen of de bestelling zonder kosten te annuleren. U hebt echter geen recht op schadevergoeding en SwingGroup kan niet aansprakelijk gesteld worden voor de nadelige gevolgen die zouden voortvloeien uit het niet voorradig of leverbaar zijn van een product.
+
+                        Voor de levering van fysieke cadeaubonnen in een geschenkbox vragen wij volgende transportkosten:
+
+                        Land	   	Verzendkosten
+                        België	   	€ 5,95
+                        Nederland	   	€ 8,95
+                        Duitsland	   	€ 10,95
+                        Luxemburg	   	€ 9,95
+
+
+
+                        CONSUMENTENRECHTEN
+                        Als consument hebt u het recht jouw aankoop te annuleren, zonder opgave van reden, binnen de 14 dagen na ontvangst van de bestelling. In dat geval zal SwingGroup u de integrale aankoopprijs terugbetalen zodra wij het geretourneerde artikel terug ontvangen. Als u van dat recht gebruik wenst te maken, moet u SwingGroup daarvan schriftelijk op de hoogte brengen en de bestelling onmiddellijk en uiterlijk binnen de 3 dagen in dezelfde staat waarin u ze hebt ontvangen, op eigen kosten en risico, terugsturen aan SwingGroup, vergezeld van de bevestiging die u via e-mail hebt ontvangen en met vermelding van het rekeningnummer waarop de aankoopprijs (excl.verzendingskosten) kan worden overgemaakt. Ook als het product dat u ontvangt niet het product was dat u bestelde, of als het beschadigd aankomt, hebt u het recht het terug te sturen binnen de 14 dagen die volgen op de ontvangst ervan. SwingGroup zal de bestelling dan terugbetalen bij ontvangst van het geretourneerde artikel. In elk geval heeft SwingGroup het recht de terugbetaling van geretourneerde artikelen geheel of gedeeltelijk te weigeren als de producten zelf beschadigd werden. Als u het bestelde product niet ontvangt binnen een termijn van 5 dagen na de bevestiging van de verzending door SwingGroup, moet u ons hiervan onmiddellijk schriftelijk op de hoogte stellen via post of e-mail. Enkel in dat geval zal SwingGroup het verlies van het product ten laste nemen en u een nieuw product toesturen. Deze bepalingen zijn uiteraard niet van toepassing op professionele klanten die buiten het toepassingsgebied vallen van de wet van 14 juli 1991 op de handelspraktijken en de voorlichting en bescherming van de consument.
+
+                        BETALINGEN
+                        SwingGroup neemt alle voorzorgen om een veilige betaling met jouw kredietkaartgegevens te kunnen garanderen. Wij maken hiervoor gebruik van het Ogone systeem.
+
+                        PRIVACY
+                        SwingGroup respecteert jouw privacy en gaat zeer zorgvuldig om met persoonlijke gegevens. De door u verstrekte persoonlijke gegevens dienen om u een zo goed mogelijke service te bieden en worden uitsluitend gebruikt voor administratieve en promotionele doeleinden. Behoudens schriftelijk verzet zullen deze gegevens ook kunnen worden doorgegeven aan bedrijven waarmee SwingGroup commerciële relaties onderhoudt of aan derden zodat ook zij u interessante aanbiedingen kunnen toesturen. U beschikt te allen tijde over het recht om toegang te krijgen tot de door u verstrekte persoonlijke gegevens die zijn opgenomen in de bestanden van SwingGroup. Als u deze gegevens wilt raadplegen, laten aanpassen of verwijderen uit de bestanden van SwingGroup, kan u dat per post of per e-mail aan SwingGroup meedelen. De verantwoordelijke voor de verwerking van jouw persoonlijke gegevens is SwingGroup – Dampoortstraat 265 b3 – 8310 Brugge.
+
+                        INTELLECTUELE RECHTEN
+                        SwingGroup is eigenaar of licentiehouder van alle auteursrechten, gegevensbestanden, applicaties, merken en andere intellectuele rechten met betrekking tot zijn websites. SwingGroup is ook eigenaar of licentiehouder van de structuur, het concept, de lay-out en het design van zijn websites. Als u onze websites geheel of gedeeltelijk wilt gebruiken, reproduceren of op enigerlei wijze aanwenden voor uzelf of derden, hebt u daarvoor de schriftelijke goedkeuring van SwingGroup nodig.
+
+                        COOKIES
+                        Cookies zijn kleine tekstbestanden die informatie bevatten, zoals een login of landinstellingen van de internetgebruiker. Ze worden door jouw browser bijgehouden ter verbetering van het gebruiksgemak: zo hoeft u niet altijd alles opnieuw in te stellen. Als u in jouw browser het gebruik van cookies uitschakelt, kunnen wij u geen correcte werking van onze websites garanderen.
+
+                        BEPERKING VAN AANSPRAKELIJKHEID
+                        Hoewel SwingGroup er alles aan doet om zijn websites en organisatie vlekkeloos te laten werken, kan het niet waarborgen dat ze ononderbroken of foutloos zullen functioneren. SwingGroup is niet aansprakelijk voor misverstanden, vertragingen of het niet behoorlijk overkomen van bestellingen en mededelingen door het gebruik van internet, e-mail of enig ander communicatiemiddel. SwingGroup geeft dan ook geen enkele waarborg m.b.t. de gegevens die worden verkregen bij het gebruik van zijn websites of het functioneren ervan. Al evenzeer wijst SwingGroup elke aansprakelijkheid af met betrekking tot de verkoopbaarheid van zijn producten en de geschiktheid ervan voor een bepaald doel. Hoewel SwingGroup de grootste zorg besteedt aan de keuze van zijn commerciële partners, kan het niet aansprakelijk gesteld worden voor het verloop van de middels onze producten verkregen of genoten evenementen, belevenissen of voordelen, waarvoor de initieel verstrekkende c.q. aanbiedende partner van SwingGroup zelf integraal verantwoordelijk blijft. Klachten met betrekking tot de uitvoering van onze geschenkbonnen door onze partners zullen uiteraard door ons onderzocht en overgemaakt worden. Onze tussenkomst in dergelijke geschillen beperkt zich dan ook tot een louter intermediaire rol. SwingGroup kan niet aansprakelijk gesteld worden voor om het even welke schade, resulterende of onrechtstreekse, voortkomend uit het gebruik van zijn websites of de erop vermelde producten, behoudens in geval van opzet of grove schuld.
+
+                        TOEPASSELIJK RECHT – AUTONOMIE EN WIJZIGINGEN
+                        Op alle overeenkomsten met SwingGroup is het Belgische recht van toepassing en zijn uitsluitend de rechtbanken van het gerechtelijke arrondissement Gent van toepassing. Als een of meer onderdelen van onderhavige voorwaarden nietig en/of onafdwingbaar zouden worden verklaard, blijven de andere voorwaarden onverkort van kracht en zullen de onafdwingbare of nietige bepalingen worden vervangen door de afdwingbare bepaling die het nauwst aansluit met de onderliggende bedoeling van de onafdwingbare bepaling. SwingGroup kan onderhavige voorwaarden op elk ogenblik, met onmiddellijke ingang en zonder voorafgaande kennisgeving wijzigen.
+                    </p>
+                </div>
             </div>
 
             <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>

@@ -3,6 +3,24 @@ document.addEventListener("deviceready", onDeviceReady, false);
 var aantalItems = 0;
 var totalePrijs = 0;
 var filledArray = [];
+var winkelmandArray = [];
+var betalingArray = [];
+
+function setWinkelmandArray(array) {
+    winkelmandArray = array;
+}
+
+function getWinkelmandArray() {
+    return winkelmandArray;
+}
+
+function setBetaalgegevens(array) {
+    betalingArray = array;
+}
+
+function getBetaalgegevens() {
+    return betalingArray;
+}
 
 function getAantalItems() {
     var items = 0;
@@ -41,14 +59,14 @@ function getIds() {
 function getSuppliers() {
     var supplierNameArray = [];
     var supplierName = $("#search1 input:checkbox:checked").map(function() {
-            return $(this).val();
-        }).get();
+        return $(this).val();
+    }).get();
     for (var i = 0; i < supplierName.length; ++i) {
         supplierNameArray.push('\"' + supplierName[i] + '\"');
     }
-   
+
     var evoucher = document.getElementById("evoucher").checked;
-    
+
     var minPrijs = document.getElementById("minprijsID").value;
     var maxPrijs = document.getElementById("maxprijsID").value;
 
@@ -75,9 +93,61 @@ function updateWinkelmand(id, prijs, aantal) {
         array.push(prijs);
         array.push(aantal);
 
-        fillStorage(array);
+        setWinkelmandArray(array);
     }
-    changeButton();
+}
+
+function addTheme() {
+    var arrayTheme = getWinkelmandArray();
+    var theme = $('input[name=Thema]:checked', '#themaSelect').val();
+    arrayTheme.push(theme);
+    console.log(arrayTheme);
+    setWinkelmandArray(arrayTheme);
+}
+
+function addBoodschap() {
+    var arrayBoodschap = getWinkelmandArray();
+
+    var boodschapInhoud = $('#boodschapInhoud').val();
+    arrayBoodschap.push(boodschapInhoud);
+
+    var ontvangerVnaam = $('#ontvangerVnaam').val();
+    arrayBoodschap.push(ontvangerVnaam);
+
+    var ontvangerNaam = $('#ontvangerNaam').val();
+    arrayBoodschap.push(ontvangerNaam);
+
+    var afhaling = $('input[name=afhaling]:checked', '#boodschapForm').val();
+    arrayBoodschap.push(afhaling);
+    if (afhaling === "taxipost") {
+        var firma = $('#firma').val();
+        arrayBoodschap.push(firma);
+
+        var straat = $('#straat').val();
+        arrayBoodschap.push(straat);
+
+        var nr = $('#nr').val();
+        arrayBoodschap.push(nr);
+
+        var bus = $('#bus').val();
+        arrayBoodschap.push(bus);
+
+        var postcode = $('#postcode').val();
+        arrayBoodschap.push(postcode);
+
+        var gemeente = $('#gemeente').val();
+        arrayBoodschap.push(gemeente);
+
+        var land = $('#land').val();
+        arrayBoodschap.push(land);
+    }
+
+
+
+
+    console.log(arrayBoodschap);
+    setWinkelmandArray(arrayBoodschap);
+    fillStorage(arrayBoodschap);
 }
 
 function winkelmandje(id) {
@@ -169,13 +239,95 @@ function deleteItem(id) {
 function voucher() {
     var voucherCode = document.getElementById("voucherCode").value;
     console.log('voucher:' + voucherCode);
-    if(voucherCode !== ""){
-    personalisatiePaginaXML(voucherCode);
-    window.location.href = "#personalisatie";
-    $('#errorVoucher').html("");
-}
-    else  {
-	var content = "<div class='message error'><i class='icon-exclamation-sign'></i><p>Voer een (geldige) voucher code in.</p></div>";
-         $('#errorVoucher').html(content);
-}
+    if (voucherCode !== "") {
+        personalisatiePaginaXML(voucherCode);
+        window.location.href = "#personalisatie";
+        $('#errorVoucher').html("");
     }
+    else {
+        var content = "<div class='message error'><i class='icon-exclamation-sign'></i><p>Voer een (geldige) voucher code in.</p></div>";
+        $('#errorVoucher').html(content);
+    }
+}
+
+function popupClose(id) {
+    $(id).popup("close");
+    console.log(document.getElementById("taxipost").checked);
+    document.getElementById("taxipost").checked = false;
+    document.getElementById("afhalen").checked = true;
+    $("#taxipost").checkboxradio('refresh');
+    $("#afhalen").checkboxradio('refresh');
+}
+
+function popupCheck(id) {
+    $(id).popup("close");
+}
+
+function popup(id) {
+    $(id).popup("open");
+}
+
+function addBetaalgegevens1() {
+
+    var betalingArray = getBetaalgegevens();
+
+    var voornaam = $('#voornaam').val();
+    betalingArray.push(voornaam);
+
+    var naam = $('#naam').val();
+    betalingArray.push(naam);
+
+    var email = $('#email').val();
+    betalingArray.push(email);
+
+    var telefoon = $('#telefoon').val();
+    betalingArray.push(telefoon);
+}
+
+function addBetaalgegevens2() {
+    var betalingArray = getBetaalgegevens();
+
+    var betalingswijze = $('input[name=betalingswijze]:checked', '#BetaalgegevensForm2').val();
+    betalingArray.push(betalingswijze);
+
+    var factuur = $('#factuur').attr('checked');
+    betalingArray.push(factuur);
+    if (factuur === "true") {
+        var firmaFac = $('#firmaFac').val();
+        betalingArray.push(firmaFac);
+
+        var btwFac = $('#btwFac').val();
+        betalingArray.push(btwFac);
+
+        var voornaamFac = $('#voornaamFac').val();
+        betalingArray.push(voornaamFac);
+        
+        var naamFac = $('#naamFac').val();
+        betalingArray.push(naamFac);
+        
+        var straatFac = $('#straatFac').val();
+        betalingArray.push(straatFac);
+        
+        var nrFac = $('#nrFac').val();
+        betalingArray.push(nrFac);
+        
+        var busFac = $('#busFac').val();
+        betalingArray.push(busFac);
+        
+        var postCodeFac = $('#postCodeFac').val();
+        betalingArray.push(postCodeFac);
+        
+        var gemeenteFac = $('#gemeenteFac').val();
+        betalingArray.push(gemeenteFac);
+        
+        var landFac = $('#landFac').val();
+        betalingArray.push(landFac);
+        
+        var referentieFac = $('#referentieFac').val();
+        betalingArray.push(referentieFac);
+    }
+}
+
+function toggleFacDiv() {
+    $('#factuurDiv').toggle();
+}
