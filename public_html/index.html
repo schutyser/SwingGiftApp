@@ -38,9 +38,6 @@
 
         <!-- Intro screen fade -->
         <script src="js/sentMail.js"></script>
-
-
-
     </head>
     <body>
 
@@ -56,20 +53,19 @@
         <div data-role="page" data-theme='b' id="index">
 
             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
-                <h1>SwingGift<small>.com</small></h1>
-                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
-                <a href="#info" data-icon="info" data-role="button">Info</a>
+                <img src="img/header.gif"  alt="swingGiftLogo" class="autoresize"/>
+                <p class="infobutton"><a href="#info" data-icon="info" data-role="button" data-inline="true" data-mini="true">&nbsp;</a></p>
             </div>
 
-            <div data-role="content">   
+            <div data-role="content" class="content">   
                 <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b"> 
                     <li data-role="list-divider">
                         <a href="#wallet" data-icon="tag"  data-role="button" data-inline="true" data-mini="true" style="float: right; border: #c7c7c7;
                            border-style: solid;">My wallet</a>
                         Welkom bij de SwingGift App ! 
                     </li>
-                    <li>
-                        SwingGift is de grootste en meest gevarieerde collectie cadeaubonnen in de Benelux. 24/7 kun je via internet cadeaubonnen uitkiezen en bestellen voor vrienden, familie, klanten of collega&#39;s.
+                    <li>SwingGift is het grootste en meest gevarieerde aanbod aan cadeaubonnen op het net! 
+                        Zoekt u een gepast geschenk voor uw oma, papa of vriend? Of wilt u uw medewerkers, klanten of partners bedanken? Zoek niet verder, SwingGift geeft de oplossing.
                     </li>
 
                     <li>
@@ -503,7 +499,7 @@
             <div data-role="content">
                 <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme='b'>
                     <li data-role="list-divider">
-                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
+                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true">Go back</a>
                         <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" onclick="successCB3()" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/><strong><span class="winkelmandje"></span></strong></a>
                     </li>
                 </ul>
@@ -570,7 +566,7 @@
             <div data-role="content" data-theme='b'>
                 <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme='b'>
                     <li data-role="list-divider">
-                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
+                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" onclick="deleteArray(1, 'thema')">Go back</a>
                         <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" onclick="successCB3()" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/><strong><span class="winkelmandje"></span></strong></a>
                     </li>
                 </ul>
@@ -580,19 +576,29 @@
                             <label for="boodschapInhoud"><b>Een boodschap opstellen:</b></label>
                             <textarea name="boodschapInhoud" id="boodschapInhoud" placeholder="Vul hier uw boodschap in..."></textarea>
                         </li>
+                        <li>
+                            <a href="#" data-role="button" data-icon="camera" data-inline="true" data-mini="true" onclick="Neemfoto()">Voeg een foto toe:</a>
+                            <img id="cameraPic" src="" alt="" style="display:none"/>
+                        </li>
                         <li data-role="fieldcontain">
                             <label><b>Bon adresseren:</b></label><br/><hr/>
                             <label>Gegevens ontvanger:</label>
                             <div data-role="fieldcontain">
                                 <label for="ontvangerVnaam">Voornaam:</label>
-                                <input name="ontvanger" id="ontvangerVnaam" type="text" placeholder="Voornaam"/>
+                                <input name="ontvanger" id="ontvangerVnaam" type="text" placeholder="Voornaam" required/>
                             </div>
                             <div data-role="fieldcontain">
                                 <label for="ontvangerNaam">Naam:</label>
-                                <input name="ontvanger" id="ontvangerNaam" type="text" placeholder="Naam"/>
+                                <input name="ontvanger" id="ontvangerNaam" type="text" placeholder="Naam" required/>
                             </div>
                         </li>
-                        <li data-role="fieldcontain">
+                        <li data-role="fieldcontain" style="display:none" id="emailblok" >
+                            <div data-role="fieldcontain">
+                                <label for="ontvangerEmail">E-mail:</label>
+                                <input name="ontvangerEmail" id="ontvangerEmail" type="email" placeholder="Email"/>
+                            </div>
+                        </li>
+                        <li data-role="fieldcontain" style="display:none" id="afhalenblok" >
                             <fieldset data-role="controlgroup" data-mini="true">
                                 <input type="radio" name="afhaling" id="afhalen" value="afhalen" checked="checked">
                                 <label for="afhalen">Ik wens deze bon af te halen bij SwingGift</label>
@@ -603,11 +609,17 @@
                                 </p>
                                 <br/>
                                 <input type="radio" name="afhaling" id="taxipost" value="taxipost" onclick="popup('#taxipostPopUp')">
-                                <label for="taxipost">Deze bon mag opgestuurd worden via Taxipost (€5,95)</label>
+                                <label for="taxipost"><span>Deze bon mag opgestuurd worden via Taxipost (€5,95)</span></label>
                             </fieldset>
                         </li>
+                        <li>
+                            <div data-role="fieldcontain">
+                                <label for="leveringsdatum">Leveringsdatum:</label>
+                                <input name="leveringsdatum" id="leveringsdatum" type="datetime-local"/>
+                            </div>
+                        </li>
                     </ul>
-                    <a href="#shop" data-roll="button" class="fixedButton" onclick="addBoodschap()">Item toevoegen</a>
+                    <a href="#betaalgegevens1" data-roll="button" class="fixedButton" onclick="addBoodschap()">Toevoegen</a>
                 </form>
                 <div data-role="popup" id="taxipostPopUp" data-theme="b">
                     <form>
@@ -661,7 +673,7 @@
             <div data-role="content" data-theme='b'>
                 <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme='b'>
                     <li data-role="list-divider">
-                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
+                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" onclick="deleteArray(1, 'boodschap')">Go back</a>
                         <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" onclick="successCB3()" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/><strong><span class="winkelmandje"></span></strong></a>
                     </li>
                 </ul>
@@ -726,7 +738,7 @@
             <div data-role="content" data-theme='b'>
                 <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme='b'>
                     <li data-role="list-divider">
-                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
+                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" onclick="deleteArray(4, 'betaal1')">Go back</a>
                         <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true" onclick="successCB3()" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/><strong><span class="winkelmandje"></span></strong></a>
                     </li>
                 </ul> 
@@ -845,11 +857,11 @@
                         </div>
 
                         <fieldset data-role="controlgroup">
-                            <input type="checkbox" name="voorwaarden" id="voorwaarden" onclick="popup('#voorwaardenPop')">
+                            <input type="checkbox" name="voorwaarden" id="voorwaarden" onclick="popup('#voorwaardenPop')" required>
                             <label for="voorwaarden">Ik ga akkoord met <a href="#voorwaardenPop" >de algemene voorwaarden</a>.</label>
                         </fieldset>
                     </div>
-                    <a href="#betaalgegevens3" data-role="button" data-icon="truck" onclick="addBetaalgegevens2()">Afrekenen</a>
+                    <a href="#overzicht" data-role="button" data-icon="truck" onclick="addBetaalgegevens2()">Afrekenen</a>
                 </form>
 
                 <div data-role="popup" id="voorwaardenPop" data-theme="b">
@@ -919,6 +931,66 @@
                         <li><a href="#shop" data-icon="gift">Shop</a></li>
                         <li><a href="#index" data-icon="home">Home</a></li>
                         <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- overzicht page -->
+        <div data-role="page" data-theme='b' id="overzicht">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content" data-theme='b' id="overzichtContent">
+
+                <form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm" name="ogoneForm">
+                    <div id="ogone">
+                        <!-- maakOverzicht methode in database.js vult dit op -->
+                    </div>
+
+                    <ul id="overzichtList" data-role="listview" data-filter-theme='b'>
+                        <li data-role="list-divider">
+                            <a href="#shop" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true">Cancel</a>
+                        </li>
+                        <li data-role="list-divider">
+                            Overzicht personalisatie:
+                        </li>
+                        <li>
+                            <h2>Gekozen thema: <span id="themaContent"></span></h2>
+                            <p></p>
+                        </li>
+                        <li>
+                            <h2>Gekozen boodschap:</h2>
+                            <p id="boodschapContent"></p>
+                        </li>
+                        <li>
+                            <h2>Gekozen ontvanger:</h2>
+                            <p>Voornaam: <span id="voornaamContent"></span></p>
+                            <p>Naam: <span id="naamContent"></span></p>
+                        </li>
+                        <li>
+                            <h2>Gekozen transport:</h2>
+                            <p><span id="transportContent"></span><span id="leveringsdatumContent">.</span></p>
+                        </li>
+                        <li data-role="list-divider" style="text-align: right;">
+                            Totale prijs: &#8364; 15
+                        </li>
+                        <li>
+                            <input type="submit" value="Complete order" id="ogoneFormSubmit" name="ogoneFormSubmit">
+                        </li></ul>
+                </form>
+            </div>
+
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
                         <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
                     </ul>
                 </div>

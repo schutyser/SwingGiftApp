@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>SOAP JavaScript Client Test</title>
+
+        <!-- jQuery / jQueryMobile Scripts -->
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/jquery.mobile-1.3.1.min.js"></script>
+
+        <script type="text/javascript">
+            function soap() {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=GetVouchers', true);
+
+                // build SOAP request
+                var sr =
+                        '<?xml version="1.0" encoding="UTF-8"?>' +
+                        '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/">' +
+                        '<SOAP-ENV:Body>' +
+                        '<ns1:GetVouchers>' +
+                        '<ns1:logoncode>THIJS123</ns1:logoncode>' +
+                        '</ns1:GetVouchers>' +
+                        '</SOAP-ENV:Body>' +
+                        '</SOAP-ENV:Envelope>';
+
+                xmlhttp.onreadystatechange = function() {
+                    if (xmlhttp.readyState === 4) {
+                        console.log(xmlhttp.status + '--' + xmlhttp.readyState);
+                        if (xmlhttp.status === 200) {
+                            console.log(xmlhttp.responseText);
+                        }
+                    }
+                }
+                // Send the POST request
+                xmlhttp.setRequestHeader('Content-Type', "text/xml; charset=\"utf-8\"");
+                xmlhttp.setRequestHeader('SOAPAction', 'http://tempuri.org/GetVouchers');
+                xmlhttp.setRequestHeader("Accept", "application/xml", "text/xml", "\*/\*");
+
+                xmlhttp.send(sr);
+                // send request
+                // ...
+            }
+        </script>
+    </head>
+    <body>
+        <div>
+            <input type="button" value="Soap" onclick="soap();" />
+            <div id="response" >
+            </div>
+        </div>
+    </body>
+</html>

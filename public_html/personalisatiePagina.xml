@@ -10,4 +10,5 @@
             <tekstboodschapTekst>De boodschap die het bedrijf wil overbrengen.</tekstboodschapTekst>
         </tekstboodschap>
     </boodschap>
+    <credit>10</credit>
 </personalisatie>

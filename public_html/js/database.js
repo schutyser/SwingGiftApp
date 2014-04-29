@@ -51,7 +51,11 @@ function successCB() {
 function successCBAll() {
     db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(queryDBAll, errorCB);
+}
 
+function successCBEmail() {
+    db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
+    db.transaction(queryDBEmail, errorCB);
 }
 
 function successCBFilter() {
@@ -76,6 +80,11 @@ function successCB4() {
     db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(queryDB4, errorCB);
 
+}
+
+function queryDBEmail(tx) {
+    console.log("queryDBEmail");
+    tx.executeSql('SELECT giftID FROM vouchers where isEvoucher="true"', [], arrayEvouchers, errorCB);
 }
 
 function queryDB(tx) {
@@ -221,6 +230,13 @@ function detailItem(tx, results) {
     var titel = results.rows.item(0).title_NL;
     var prijs = results.rows.item(0).price_inclBTW;
     var omschrijving = results.rows.item(0).decr_NL;
+    var email = results.rows.item(0).isEvoucher;
+    var emailContent;
+
+    if (email === "true")
+        emailContent = "Deze bon wordt via mail opgestuurd!";
+    else
+        emailContent = "Deze bon kan opgestuurd worden via Taxipost of opgehaald worden op ons kantoor!";
 
     var content =
             '<ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme=\'b\'>\n\
@@ -233,8 +249,8 @@ function detailItem(tx, results) {
                         <img src="' + imageUrl + '">\n\
                         <h2>' + titel + '</h2>\n\
                         <p>Prijs: &#8364;' + prijs + '</p>\n\
-                        <p> ' + omschrijving + '\n\
-                        </p>\n\
+                        <p> ' + omschrijving + '</p>\n\
+                        <p>' + emailContent + '</p>\n\
                     </li>\n\
                 </ul>\n\
                 <div data-role=\'popup\' id=\'popupDialog' + id + '\' data-theme=\'b\'>\n\
@@ -244,10 +260,11 @@ function detailItem(tx, results) {
                             <input id="aantalLabel' + id + '" type="number" name="aantal" value="1"/>\n\
                             <input id="idInput" type="hidden" name="id" value="' + id + '" />\n\
                             <input id="prijsLabel' + id + '" type="hidden" name="prijs" value="' + prijs + '" />\n\
+                            <input id="email' + id + '" type="hidden" name="email" value="' + email + '" />\n\
                             <label  name="prijs">Totale prijs: &#8364;<span id="prijsCalcu' + id + '">' + prijs + '</span></label> \n\
                         </form>\n\
                         <div>\n\
-                        <a href="#thema" data-icon="ok" data-iconpos="left" data-role="button" data-inline="true" onclick="winkelmandje(' + id + ')">Add</a>\n\
+                        <a href="#shop" data-icon="ok" data-iconpos="left" data-role="button" data-inline="true" onclick="winkelmandje(' + id + ')">Add</a>\n\
                             <a href="#" data-rel=\'back\' data-icon="delete" data-iconpos="left" data-role="button" data-inline="true">Cancel</a>\n\
                         </div>\n\
                     </div>\n\
@@ -273,6 +290,14 @@ function detailItem(tx, results) {
 function shoppingCart(tx, results) {
     var totaleprijs = 0;
     console.log("winkemand items toevoegen");
+
+    var creditContent = "";
+    var credit = localStorage.getItem("credit");
+
+    if (+credit !== 0) {
+        creditContent = "Korting via voucher: &#8364; " + credit;
+        totaleprijs = +totaleprijs - +credit;
+    }
 
     var content1 =
             '<ul id="shoppingcartList" data-role="listview">\n\
@@ -300,10 +325,10 @@ function shoppingCart(tx, results) {
 
             var con =
                     '<li id="' + id + '">\n\
-                        <h2>' + titel + ' <a href="#" onclick="deleteItem(' + id + ')" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right" style="float:right;"></a>\n\
+                        <h2>' + titel + ' <a href="#" onclick="deleteItem(' + id + ');" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right" style="float:right;"></a>\n\
                         <span style="float: right;">\n\
-                        <input id="aantalItem' + id + '" type="number" name="aantal" min=1 value="' + aantal + '" style="width: 3rem;"/>x \n\
-                        &#8364; ' + prijs + '</span></h2>\n\
+                        <input id="aantalItem' + id + '" type="number" name="aantal" min=1 value="' + aantal + '" style="width: 3rem;"/>\n\
+                        x &#8364; ' + prijs + '</span></h2>\n\
                     </li>';
 
             content2 += con;
@@ -313,10 +338,13 @@ function shoppingCart(tx, results) {
 
 
     var content3 = '<li data-role="list-divider" style="text-align: right;">\n\
+                        ' + creditContent + '\n\
+                    </li>\n\
+                    <li data-role="list-divider" style="text-align: right;">\n\
                         Totale prijs: &#8364; ' + totaleprijs + '\n\
                     </li>\n\
                     <li>\n\
-                        <a href="#betaalgegevens1" data-role="button" data-icon="truck">Complete order</a>\n\
+                        <a href="#thema" data-role="button" data-icon="truck">Complete order</a>\n\
                     </li></ul>';
 
 
@@ -328,7 +356,7 @@ function shoppingCart(tx, results) {
         var a2 = getAantalItem(id);
         var aantalNieuw = +a - +a2;
         console.log("change aantalNieuw" + aantalNieuw);
-        updateWinkelmand(id, prijs, aantalNieuw);
+        updateWinkelmand(id, prijs, aantalNieuw, 0);
         successCB3();
     });
 }
@@ -358,20 +386,27 @@ function personalisatiePaginaXML(voucherCode) {
         success: function(xml) {
             $(xml).find('personalisatie').each(function() {
                 var pers = [];
+                var credit;
                 pers.push($(this).find("naam").text());
                 pers.push($(this).find("logo").text());
                 pers.push($(this).find("titel").text());
                 pers.push($(this).find("video").text());
                 pers.push($(this).find("tekstboodschap").find("titelTekst").text());
                 pers.push($(this).find("tekstboodschap").find("tekstboodschapTekst").text());
+                credit = $(this).find("credit").text();
 
                 console.log("Perspagina xml:" + pers);
 
+                setCredit(credit);
                 maakPersPagina(pers);
             });
         }
     });
 
+}
+
+function setCredit(c) {
+    window.localStorage.setItem("credit", c);
 }
 
 function maakPersPagina(pers) {
@@ -385,7 +420,7 @@ function maakPersPagina(pers) {
 
     if (pers[3] !== "") {
         contentList = '<div data-role="content" data-theme=\'b\'>\n\
-                <ul data-role="listview" id="listPers" data-inset="false" data-icon="false" data-divider-theme="b">\n\
+                <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">\n\
                 <li data-role="list-divider">\n\
                         ' + pers[2] + '\n\
                     </li>\n\
@@ -419,7 +454,7 @@ function maakPersPagina(pers) {
                     </li></ul>';
     }
     var footer =
-    '<div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme=\'b\'>\n\
+            '<div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme=\'b\'>\n\
                 <div data-role="navbar">\n\
                     <ul>\n\
                         <li><a href="#shop" data-icon="gift">Shop</a></li>\n\
@@ -430,4 +465,77 @@ function maakPersPagina(pers) {
             </div>';
 
     $('#personalisatie').html(header + contentList + footer).trigger("pagecreate");
+}
+
+function maakOverzicht(betalingArray) {
+    console.log("startmaak");
+
+    var winkelmandArray = getWinkelmandArray();
+
+    var thema = winkelmandArray[0];
+    var boodschap = winkelmandArray[1];
+    var voornaam = winkelmandArray[2];
+    var naam = winkelmandArray[3];
+    var leveringsdatum = winkelmandArray[4];
+    var prijs = 15;
+    
+    var voornaamBetaling = betalingArray[0];
+    var naamBetaling = betalingArray[1];
+    var email = betalingArray[2];
+    var telefoonNummer = betalingArray[3];
+    var betalingSoort = betalingArray[4];
+
+    var transport;
+    if (winkelmandArray[5] === "afhalen")
+        transport = "U heeft gekozen om uw bon op te halen bij SwingGroup";
+    else
+        transport = "U heeft gekozen om uw bon op te sturen via Taxipost op";
+
+    $('#themaContent').html(thema);
+    $('#boodschapContent').html(boodschap);
+    $('#voornaamContent').html(voornaam);
+    $('#naamContent').html(naam);
+    $('#leveringsdatumContent').html(leveringsdatum);
+    $('#naamBetalingContent').html(voornaamBetaling);
+    $('#transportContent').html(transport);
+    
+    var taal = "nl_NL";
+    var orderID = 95511852;
+    
+    var ogoneForm = 
+            '<!-- Algemene parameters -->' +
+            '<input type="hidden" name="PSPID" value="qcsrew">' +
+            '<input type="hidden" name="ORDERID" value="'+ orderID +'">' +
+            '<input type="hidden" name="AMOUNT" value="'+ prijs +'">' +
+            '<input type="hidden" name="CURRENCY" value="EUR">' +
+            '<input type="hidden" name="LANGUAGE" value="'+taal+'">' +
+            '<!--optional -->' +
+            '<input type="hidden" name="CN" value="'+naam+'">' +
+            '<input type="hidden" name="EMAIL" value="'+email+'">' +
+            '<input type="hidden" name="OWNERTELNO" value="'+telefoonNummer+'">' +
+            '<input type="hidden" name="COM" value="">' +
+            '<!-- controle voor de betaling: zie Beveiliging: Controle voor de betaling -->' +
+            '<input type="hidden" name="SHASIGN" value="">' +
+            '<!-- layout informatie: zie “Look and feel” van de betaalpagina -->' +
+            '<input type="hidden" name="TP" value="PaymentPage_1_iPhone.htm">' +
+            '<input type="hidden" name="TITLE" value="">' +
+            '<input type="hidden" name="BGCOLOR" value="">' +
+            '<input type="hidden" name="TXTCOLOR" value="#666666">' +
+            '<input type="hidden" name="TBLBGCOLOR" value="orange">' +
+            '<input type="hidden" name="TBLTXTCOLOR" value=white">' +
+            '<input type="hidden" name="HDTBLBGCOLOR" value="orange">' +
+            '<input type="hidden" name="HDTBLTXTCOLOR" value="white">' +
+            '<input type="hidden" name="HDFONTTYPE" value="">' +
+            '<input type="hidden" name="BUTTONBGCOLOR" value="orange">' +
+            '<input type="hidden" name="BUTTONTXTCOLOR" value="c">' +
+            '<input type="hidden" name="FONTTYPE" value="">' +
+            '<!-- feedback na de betaling: zie Transactie feedback naar de klant -->' +
+            '<input type="hidden" name="ACCEPTURL" value="http://localhost:8383/SwingGiftApp/index.html">' +
+            '<input type="hidden" name="DECLINEURL" value="http://localhost:8383/SwingGiftApp/index.html">' +
+            '<input type="hidden" name="EXCEPTIONURL" value="http://localhost:8383/SwingGiftApp/index.html">' +
+            '<input type="hidden" name="CANCELURL" value="http://localhost:8383/SwingGiftApp/index.html">';
+
+    if(betalingSoort === "online")
+    $('#ogone').html(ogoneForm);
+
 }

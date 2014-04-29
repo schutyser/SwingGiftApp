@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <!-- jQuery / jQueryMobile Scripts -->
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/jquery.mobile-1.3.1.min.js"></script>
+        <script type="text/javascript" src="soapclient.js"></script>
+        <script>
+            function GetSoapResponse()
+            {
+                var pl = new SOAPClientParameters();
+                SOAPClient.invoke(url, "HelloWorld", pl, true, GetSoapResponse_callBack);
+            }
+            function GetSoapResponse_callBack(r, soapResponse)
+            {
+                alert(soapResponse.xml);
+            }
+        </script>
+    </head>
+    <body>
+        <h3>
+            Calling Web Services with jQuery/AJAX
+        </h3>
+        <input id="btnCallWebService" value="Call web service" type="button" />
+        <div id="response" >
+        </div>
+    </body>
+</html>

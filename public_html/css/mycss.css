@@ -1,12 +1,19 @@
 .autoresize{
-    height: 100%;
-    width: 100%;
-    padding: 5px;
+    max-width:100%;
+    height:auto;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.center{
+    text-align: center;
+}
+.infobutton{
+    top: 3px;
+    right: -20px;
+    position: fixed;
 }
 
-.winkelmandje{
-
-}
 .swipe {
     overflow: hidden;
     visibility: hidden;

@@ -78,7 +78,7 @@ function getSuppliers() {
     successCBFilter();
 }
 
-function updateWinkelmand(id, prijs, aantal) {
+function updateWinkelmand(id, prijs, aantal, eersteKeer) {
     var array = [];
     console.log("aantal b4 dup" + aantal);
     aantal = checkDuplicate(id, aantal);
@@ -93,16 +93,27 @@ function updateWinkelmand(id, prijs, aantal) {
         array.push(prijs);
         array.push(aantal);
 
-        setWinkelmandArray(array);
+        fillStorage(array);
+
     }
 }
 
 function addTheme() {
-    var arrayTheme = getWinkelmandArray();
+    var arrayTheme = [];
+    console.log(arrayTheme);
     var theme = $('input[name=Thema]:checked', '#themaSelect').val();
     arrayTheme.push(theme);
     console.log(arrayTheme);
     setWinkelmandArray(arrayTheme);
+    if (isEmailVoucher(arrayTheme[0])) {
+        $('#emailblok').show();
+        $('#afhalenblok').hide();
+    }
+    else {
+        $('#afhalenblok').show();
+        $('#emailblok').hide();
+    }
+    console.log(filledArray);
 }
 
 function addBoodschap() {
@@ -117,44 +128,61 @@ function addBoodschap() {
     var ontvangerNaam = $('#ontvangerNaam').val();
     arrayBoodschap.push(ontvangerNaam);
 
-    var afhaling = $('input[name=afhaling]:checked', '#boodschapForm').val();
-    arrayBoodschap.push(afhaling);
-    if (afhaling === "taxipost") {
-        var firma = $('#firma').val();
-        arrayBoodschap.push(firma);
+    var leveringsdatum = $('#leveringsdatum').val();
+    arrayBoodschap.push(leveringsdatum);
 
-        var straat = $('#straat').val();
-        arrayBoodschap.push(straat);
-
-        var nr = $('#nr').val();
-        arrayBoodschap.push(nr);
-
-        var bus = $('#bus').val();
-        arrayBoodschap.push(bus);
-
-        var postcode = $('#postcode').val();
-        arrayBoodschap.push(postcode);
-
-        var gemeente = $('#gemeente').val();
-        arrayBoodschap.push(gemeente);
-
-        var land = $('#land').val();
-        arrayBoodschap.push(land);
+    if (isEmailVoucher(arrayBoodschap[0])) {
+        var ontvangerEmail = $('#ontvangerEmail').val();
+        arrayBoodschap.push(ontvangerEmail);
     }
+    else {
+        var afhaling = $('input[name=afhaling]:checked', '#boodschapForm').val();
+        arrayBoodschap.push(afhaling);
+        if (afhaling === "taxipost") {
+            var firma = $('#firma').val();
+            arrayBoodschap.push(firma);
 
+            var straat = $('#straat').val();
+            arrayBoodschap.push(straat);
 
+            var nr = $('#nr').val();
+            arrayBoodschap.push(nr);
+
+            var bus = $('#bus').val();
+            arrayBoodschap.push(bus);
+
+            var postcode = $('#postcode').val();
+            arrayBoodschap.push(postcode);
+
+            var gemeente = $('#gemeente').val();
+            arrayBoodschap.push(gemeente);
+
+            var land = $('#land').val();
+            arrayBoodschap.push(land);
+        }
+
+    }
 
 
     console.log(arrayBoodschap);
     setWinkelmandArray(arrayBoodschap);
-    fillStorage(arrayBoodschap);
+    console.log(filledArray);
 }
 
+function isEmailVoucher(id) {
+    var arrayEvoucher = window.localStorage.getArray("arrayEvoucher");
+    for (var i = 0; i < arrayEvoucher.length; i++) {
+        if (+arrayEvoucher[i] === +id)
+            return true;
+    }
+    return false;
+}
 function winkelmandje(id) {
     console.log('winkelmandje:' + id);
     var aantal = document.getElementById("addItem" + id).elements.namedItem('aantal').value;
     var prijs = document.getElementById("addItem" + id).elements.namedItem('prijs').value;
     updateWinkelmand(id, prijs, aantal);
+    successCBEmail();
 }
 
 Storage.prototype.setArray = function(key, obj) {
@@ -178,13 +206,6 @@ function readArray() {
         return array = [];
 }
 
-function test() {
-    updateWinkelmand(1, 20, 1);
-    updateWinkelmand(2, 25, 4);
-    updateWinkelmand(3, 30, 2);
-
-}
-
 function onDeviceReady() {
     filledArray = readArray();
     console.log(filledArray);
@@ -201,12 +222,14 @@ function changeButton() {
 }
 
 function clearWinkelmandje() {
-    console.log("clearing winkelmandje ...")
-    window.localStorage.clear();
+    console.log("clearing winkelmandje ...");
+    window.localStorage.removeItem("arrayKey");
     aantalItems = 0;
     totalePrijs = 0;
+    console.log(filledArray);
     filledArray = [];
     changeButton();
+    
 }
 
 function checkDuplicate(id, aantal) {
@@ -269,7 +292,7 @@ function popup(id) {
 
 function addBetaalgegevens1() {
 
-    var betalingArray = getBetaalgegevens();
+    var betalingArray = [];
 
     var voornaam = $('#voornaam').val();
     betalingArray.push(voornaam);
@@ -282,6 +305,9 @@ function addBetaalgegevens1() {
 
     var telefoon = $('#telefoon').val();
     betalingArray.push(telefoon);
+    
+    setBetaalgegevens(betalingArray);
+    console.log(filledArray);
 }
 
 function addBetaalgegevens2() {
@@ -301,33 +327,93 @@ function addBetaalgegevens2() {
 
         var voornaamFac = $('#voornaamFac').val();
         betalingArray.push(voornaamFac);
-        
+
         var naamFac = $('#naamFac').val();
         betalingArray.push(naamFac);
-        
+
         var straatFac = $('#straatFac').val();
         betalingArray.push(straatFac);
-        
+
         var nrFac = $('#nrFac').val();
         betalingArray.push(nrFac);
-        
+
         var busFac = $('#busFac').val();
         betalingArray.push(busFac);
-        
+
         var postCodeFac = $('#postCodeFac').val();
         betalingArray.push(postCodeFac);
-        
+
         var gemeenteFac = $('#gemeenteFac').val();
         betalingArray.push(gemeenteFac);
-        
+
         var landFac = $('#landFac').val();
         betalingArray.push(landFac);
-        
+
         var referentieFac = $('#referentieFac').val();
         betalingArray.push(referentieFac);
     }
+    console.log(betalingArray);
+    
+    setBetaalgegevens(betalingArray);
+    maakOverzicht(betalingArray);
 }
 
 function toggleFacDiv() {
     $('#factuurDiv').toggle();
 }
+
+function deleteArray(number, arrayName) {
+    var arrayToDelete = [];
+    var numberTotal;
+    if (arrayName === 'thema') {
+        arrayToDelete = getWinkelmandArray();
+        numberTotal = arrayToDelete.length - number;
+        arrayToDelete.splice(numberTotal, number);
+        setWinkelmandArray(arrayToDelete);
+    }
+    else {
+        if (arrayName === 'boodschap') {
+            arrayToDelete = getWinkelmandArray();
+            numberTotal = arrayToDelete.length - number;
+            arrayToDelete.splice(number, numberTotal);
+            setWinkelmandArray(arrayToDelete);
+        } else {
+            arrayToDelete = getBetaalgegevens();
+            numberTotal = arrayToDelete.length - number;
+            arrayToDelete.splice(numberTotal, number);
+            setBetaalgegevens(arrayToDelete);
+        }
+    }
+}
+
+function arrayEvouchers(tx, results) {
+    var arrayEvoucher = [];
+    for (var i = 0; i < results.rows.length; i++)
+        arrayEvoucher.push(results.rows.item(i).giftID);
+    
+    console.log(arrayEvoucher);
+    window.localStorage.setArray("arrayEvoucher", arrayEvoucher);
+}
+
+function Neemfoto() {
+    if (!navigator.camera) {
+        console.log("Camera API not supported", "Error");
+        return;
+    }
+    var options =   {   quality: 50,
+                        destinationType: Camera.DestinationType.DATA_URL,
+                        sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+                        encodingType: 0     // 0=JPG 1=PNG
+                    };
+ 
+    navigator.camera.getPicture(
+        function(imageData) {
+            $('#cameraPic').show().attr('src', "data:image/jpeg;base64," + imageData);
+        },
+        function() {
+            console.log('Error taking picture', 'Error');
+        },
+        options);
+ 
+    return false;
+};
