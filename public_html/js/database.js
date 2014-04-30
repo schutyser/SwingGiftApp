@@ -4,9 +4,13 @@ var eindeNodig;
 // PhoneGap is ready
 //
 function onDeviceReady() {
-    alert("ready");
+    navigator.notification.alert("device ready", alertCallback, 'Alert:', 'Close');
     var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(populateDB, errorCB, successCB());
+}
+
+function alertCallback(){
+    
 }
 
 function getGiftID() {
@@ -153,7 +157,7 @@ function xmlParse() {
 
         xmlhttp.send(sr);
         // send request
-        window.alert(xmlhttp.status + '--' + xmlhttp.readyState + '--' + xmlhttp.responseXML);
+        navigator.notification.alert(xmlhttp.status + '--' + xmlhttp.readyState + '--' + xmlhttp.responseXML, alertCallback, 'Alert:', 'Close');
         vouchers(xmlhttp.responseXML);
 
         function vouchers(xml) {
