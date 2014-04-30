@@ -69,7 +69,8 @@
             }
 
                 function vouchers(xml) {
-                    $(xml).find('voucher').each(function() {
+                    window.alert("start voucher array fill");
+                    $(xml).find('Vouchers').each(function() {
                         var voucher = [];
                         voucher.push($(this).find("giftID").text());
                         voucher.push($(this).find("supplierName").text());
@@ -118,7 +119,7 @@
                         Zoekt u een gepast geschenk voor uw oma, papa of vriend? Of wilt u uw medewerkers, klanten of partners bedanken? Zoek niet verder, SwingGift geeft de oplossing.
                     </li>
                     <li>
-                        <a href="soaptest.html">test</a>
+                        <a href="#shop" onclick="soap()">test</a>
                     </li>
                     <li>
                         <div class="wrap">
