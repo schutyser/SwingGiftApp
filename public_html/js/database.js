@@ -4,13 +4,8 @@ var eindeNodig;
 // PhoneGap is ready
 //
 function onDeviceReady() {
-    window.alert("ready");
     var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(populateDB, errorCB, successCB);
-}
-
-function test(){
-    window.alert("test werkt");
 }
 
 function getGiftID() {
@@ -192,6 +187,7 @@ function xmlParse() {
 
 function listItems(tx, results) {
 
+    window.alert("listItems");
 
     var len = results.rows.length;
     var content = "";

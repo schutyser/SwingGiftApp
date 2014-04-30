@@ -69,7 +69,6 @@
             }
 
             function vouchers(xml) {
-                window.alert("start voucher array fill");
                 $(xml).find('Vouchers').each(function() {
                     var voucher = [];
                     voucher.push($(this).find("giftID").text());
@@ -91,8 +90,8 @@
                     voucher.push($(this).find("detailAfb1").text());
                     voucher.push($(this).find("detailAfb2").text());
                     voucher.push($(this).find("detailAfb3").text());
-                            ); }
-
+                });
+            }
 
         </script>
     </head>
@@ -120,7 +119,7 @@
                         <a href="#shop" onclick="soap()">test</a>
                     </li>
                     <li>
-                        <a href="#voucher" onclick="test()">alert</a>
+                        <a href="#shop" onclick="test()">alert</a>
                     </li>
                     <li>
                         <div class="wrap">
@@ -982,7 +981,7 @@
                     </li>
                     <li>
                         <a href="#" onclick="document.getElementById('ogoneForm').submit()
-                                    ;">Complete order</a>
+                                        ;">Complete order</a>
                     </li></ul>
             </div>
 
