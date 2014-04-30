@@ -4,7 +4,7 @@ var eindeNodig;
 // PhoneGap is ready
 //
 function onDeviceReady() {
-    console.log("ready");
+    alert("ready");
     var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(populateDB, errorCB, successCB());
 }
@@ -153,7 +153,7 @@ function xmlParse() {
 
         xmlhttp.send(sr);
         // send request
-        alert(xmlhttp.status + '--' + xmlhttp.readyState + '--' + xmlhttp.responseXML);
+        window.alert(xmlhttp.status + '--' + xmlhttp.readyState + '--' + xmlhttp.responseXML);
         vouchers(xmlhttp.responseXML);
 
         function vouchers(xml) {
@@ -230,7 +230,7 @@ function listItems(tx, results) {
     else
         einde = "";
 
-    $('#searchShopList').html(begin1 + begin2 + content + einde).trigger('pagecreate');
+    $('#searchShopList').html(begin1 + begin2 + content + einde).trigger('create');
 
     if ($('#searchShopList').hasClass('ui-listview')) {
         $('#searchShopList').listview('refresh');
