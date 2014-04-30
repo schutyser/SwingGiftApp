@@ -430,36 +430,7 @@ function setCredit(c) {
     window.localStorage.setItem("credit", c);
 }
 
-function test() {
-    var contentList;
-    console.log("maak pers pagina");
-
-    var header = '<div data-role="header" id="headerPers"  data-position="fixed" data-tap-toggle="false" data-theme=\'b\'>\n\
-                <h1>test</h1>\n\
-                <a href="index.html"><img src="" class="autoresize" alt="swingGiftLogo"/> </a>\n\
-                <a href="#info" data-icon="info" data-role="button">Info</a></div>';
-
-    
-        contentList = '<div data-role="content" data-theme=\'b\'>\n\
-                <ul data-role="listview" id="listPers" data-inset="false" data-icon="false" data-divider-theme="b">\n\
-                        <a href="#shop" data-icon="check" data-role="button" >Let\'s start shopping!</a>\n\
-                    </li></ul>';
-    
-    var footer =
-            '<div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme=\'b\'>\n\
-                <div data-role="navbar">\n\
-                    <ul>\n\
-                        <li><a href="#shop" data-icon="gift">Shop</a></li>\n\
-                        <li><a href="#index" data-icon="home">Home</a></li>\n\
-                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> \n\
-                    </ul>\n\
-                </div>\n\
-            </div>';
-
-    $('#test').html(header + contentList + footer).trigger("pagecreate");
-}
-
-function maakPersPagina() {
+function maakPersPagina(pers) {
     var contentList;
     navigator.notification.alert("test", alertCallback, 'Alert:', 'Close');
 
