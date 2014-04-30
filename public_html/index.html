@@ -53,7 +53,7 @@
                     if (xmlhttp.readyState === 4) {
                         window.alert(xmlhttp.status + '--' + xmlhttp.readyState);
                         if (xmlhttp.status === 200) {
-                            window.alert( " xml: " + xmlhttp.responseText);
+                            window.alert(" xml: " + xmlhttp.responseText);
                             vouchers(xmlhttp.responseText);
                         }
                     }
@@ -68,34 +68,32 @@
                 // ...
             }
 
-                function vouchers(xml) {
-                    window.alert("start voucher array fill");
-                    $(xml).find('Vouchers').each(function() {
-                        var voucher = [];
-                        voucher.push($(this).find("giftID").text());
-                        voucher.push($(this).find("supplierName").text());
-                        voucher.push($(this).find("title_NL").text());
-                        voucher.push($(this).find("title_FR").text());
-                        voucher.push($(this).find("decr_NL").text());
-                        voucher.push($(this).find("decr_FR").text());
-                        voucher.push($(this).find("brands_NL").text());
-                        voucher.push($(this).find("brands_FR").text());
-                        voucher.push($(this).find("exclusion_NL").text());
-                        voucher.push($(this).find("exclusion_FR").text());
-                        voucher.push($(this).find("price_inclBTW").text());
-                        voucher.push($(this).find("serviceFee").text());
-                        voucher.push($(this).find("isEvoucher").text());
-                        voucher.push($(this).find("isFixValidDate").text());
-                        voucher.push($(this).find("Validtxt").text());
-                        voucher.push($(this).find("mainAfb").text());
-                        voucher.push($(this).find("detailAfb1").text());
-                        voucher.push($(this).find("detailAfb2").text());
-                        voucher.push($(this).find("detailAfb3").text());
-                        window.alert("array:" + voucher);
-                    }
-                    );}
-                
-            
+            function vouchers(xml) {
+                window.alert("start voucher array fill");
+                $(xml).find('Vouchers').each(function() {
+                    var voucher = [];
+                    voucher.push($(this).find("giftID").text());
+                    voucher.push($(this).find("supplierName").text());
+                    voucher.push($(this).find("title_NL").text());
+                    voucher.push($(this).find("title_FR").text());
+                    voucher.push($(this).find("decr_NL").text());
+                    voucher.push($(this).find("decr_FR").text());
+                    voucher.push($(this).find("brands_NL").text());
+                    voucher.push($(this).find("brands_FR").text());
+                    voucher.push($(this).find("exclusion_NL").text());
+                    voucher.push($(this).find("exclusion_FR").text());
+                    voucher.push($(this).find("price_inclBTW").text());
+                    voucher.push($(this).find("serviceFee").text());
+                    voucher.push($(this).find("isEvoucher").text());
+                    voucher.push($(this).find("isFixValidDate").text());
+                    voucher.push($(this).find("Validtxt").text());
+                    voucher.push($(this).find("mainAfb").text());
+                    voucher.push($(this).find("detailAfb1").text());
+                    voucher.push($(this).find("detailAfb2").text());
+                    voucher.push($(this).find("detailAfb3").text());
+                            ); }
+
+
         </script>
     </head>
     <body>
@@ -120,6 +118,9 @@
                     </li>
                     <li>
                         <a href="#shop" onclick="soap()">test</a>
+                    </li>
+                    <li>
+                        <a href="#voucher" onclick="test()">alert</a>
                     </li>
                     <li>
                         <div class="wrap">
@@ -980,7 +981,8 @@
                         Totale prijs: &#8364; 15
                     </li>
                     <li>
-                        <a href="#" onclick="document.getElementById('ogoneForm').submit();">Complete order</a>
+                        <a href="#" onclick="document.getElementById('ogoneForm').submit()
+                                    ;">Complete order</a>
                     </li></ul>
             </div>
 

@@ -4,12 +4,13 @@ var eindeNodig;
 // PhoneGap is ready
 //
 function onDeviceReady() {
+    window.alert("ready");
     var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
-    db.transaction(populateDB, errorCB, successCB());
+    db.transaction(populateDB, errorCB, successCB);
 }
 
-function alertCallback(){
-    
+function test(){
+    window.alert("test werkt");
 }
 
 function getGiftID() {
@@ -26,6 +27,7 @@ function setGiftID(id) {
 
 function geteindeNodig() {
     return eindeNodig;
+    
 }
 
 function seteindeNodig(boolean) {
@@ -159,7 +161,7 @@ function xmlParse() {
         vouchers(xmlhttp.responseXML);
 
         function vouchers(xml) {
-            $(xml).find('voucher').each(function() {
+            $(xml).find('Vouchers').each(function() {
                 var voucher = [];
                 voucher.push($(this).find("giftID").text());
                 voucher.push($(this).find("supplierName").text());
