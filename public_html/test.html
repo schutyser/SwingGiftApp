@@ -31,7 +31,6 @@
                         processData: false,
                         beforeSend: function(XMLHttpRequest) {
                             XMLHttpRequest.setRequestHeader("Accept", "text/xml, application/xml, */*");
-                            XMLHttpRequest.setRequestHeader("Content-Type", "text/xml; charset=\"utf-8\"");
                             XMLHttpRequest.setRequestHeader("SOAPAction", "http://tempuri.org/GetVouchers");
                         },
                         success: processSuccess,

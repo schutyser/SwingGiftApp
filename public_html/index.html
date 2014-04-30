@@ -173,7 +173,7 @@
                     <li >
                         <div data-role='collapsible' data-content-theme='b'>
                             <h4>Contact</h4>
-                            <div>Heeft u een vraag? <a href="#contact">Contacteer ons!</a></div>
+                            <div>Heeft u een vraag? <a href="mailto:info@swinggift.com">Contacteer ons!</a></div>
                         </div>
                     </li>
                 </ul>
@@ -185,59 +185,6 @@
                         <li><a href="#shop" data-icon="gift">Shop</a></li>
                         <li><a href="#index" data-icon="home">Home</a></li>
                         <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
-                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Contact page -->
-        <div data-role="page" data-theme='b' id="contact">
-
-            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
-                <h1>SwingGift<small>.com</small></h1>
-                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
-                <a href="#info" data-icon="info" data-role="button">Info</a>
-            </div>
-
-            <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >Go back</a>
-
-            <form id="contactForm" >
-                <div data-role="fieldcontain">
-                    <fieldset data-role="controlgroup" data-mini="true">
-                        <label for="fullnameid">
-                            Name
-                        </label>
-                        <input id="fullnameid" name="fullname" placeholder="" value="" type="text" />
-                    </fieldset>
-                </div>
-                <div data-role="fieldcontain">
-                    <fieldset data-role="controlgroup" data-mini="true">
-                        <label for="emailid">
-                            E-Mail
-                        </label>
-                        <input id="emailid" name="email" placeholder="" value="" type="text" />
-                    </fieldset>
-                </div>
-                <div data-role="fieldcontain">
-                    <fieldset data-role="controlgroup">
-                        <label for="commentid">
-                            Message
-                        </label>
-                        <textarea id="commentid" name="comment" placeholder="" data-mini="true"></textarea>
-                    </fieldset>
-                </div>
-                <h3 id="return"></h3>
-                <button data-theme="b" id="submitid"  data-iconpos="left" name="submit" onclick="sentMail()">Submit</button>
-
-            </form>
-
-            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
-                <div data-role="navbar">
-                    <ul>
-                        <li><a href="#shop" data-icon="gift">Shop</a></li>
-                        <li><a href="#index" data-icon="home">Home</a></li>
-                        <!--  of data-icon="cogs" voor voucher -->
                         <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
                     </ul>
                 </div>
@@ -948,41 +895,66 @@
 
             <div data-role="content" data-theme='b' id="overzichtContent">
 
-                <form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm" name="ogoneForm">
-                    <div id="ogone">
-                        <!-- maakOverzicht methode in database.js vult dit op -->
+                <div id="ogone">
+                        <!-- maakOverzicht() methode in database.js vult dit op -->
                     </div>
+                
+                <ul id="overzichtList" data-role="listview" data-filter-theme='b'>
+                    <li data-role="list-divider">
+                        <a href="#shop" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true">Cancel</a>
+                    </li>
+                    <li data-role="list-divider">
+                        Overzicht personalisatie:
+                    </li>
+                    <li>
+                        <h2>Gekozen thema: <span id="themaContent"></span></h2>
+                        <p></p>
+                    </li>
+                    <li>
+                        <h2>Gekozen boodschap:</h2>
+                        <p id="boodschapContent"></p>
+                    </li>
+                    <li>
+                        <h2>Gekozen ontvanger:</h2>
+                        <p>Voornaam: <span id="voornaamContent"></span></p>
+                        <p>Naam: <span id="naamContent"></span></p>
+                    </li>
+                    <li>
+                        <h2>Gekozen transport:</h2>
+                        <p><span id="transportContent"></span><span id="leveringsdatumContent">.</span></p>
+                    </li>
+                    <li data-role="list-divider" style="text-align: right;">
+                        Totale prijs: &#8364; 15
+                    </li>
+                    <li>
+                        <a href="#" onclick="document.getElementById('ogoneForm').submit();">Complete order</a>
+                    </li></ul>
+            </div>
 
-                    <ul id="overzichtList" data-role="listview" data-filter-theme='b'>
-                        <li data-role="list-divider">
-                            <a href="#shop" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true">Cancel</a>
-                        </li>
-                        <li data-role="list-divider">
-                            Overzicht personalisatie:
-                        </li>
-                        <li>
-                            <h2>Gekozen thema: <span id="themaContent"></span></h2>
-                            <p></p>
-                        </li>
-                        <li>
-                            <h2>Gekozen boodschap:</h2>
-                            <p id="boodschapContent"></p>
-                        </li>
-                        <li>
-                            <h2>Gekozen ontvanger:</h2>
-                            <p>Voornaam: <span id="voornaamContent"></span></p>
-                            <p>Naam: <span id="naamContent"></span></p>
-                        </li>
-                        <li>
-                            <h2>Gekozen transport:</h2>
-                            <p><span id="transportContent"></span><span id="leveringsdatumContent">.</span></p>
-                        </li>
-                        <li data-role="list-divider" style="text-align: right;">
-                            Totale prijs: &#8364; 15
-                        </li>
-                        <li>
-                            <input type="submit" value="Complete order" id="ogoneFormSubmit" name="ogoneFormSubmit">
-                        </li></ul>
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#shop" data-icon="gift">Shop</a></li>
+                        <li><a href="#index" data-icon="home">Home</a></li>
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ogone page -->
+        <div data-role="page" data-theme='b' id="ogonePage">
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+                <h1>SwingGift<small>.com</small></h1>
+                <a href="index.html"><img src="img/SwingGift_logo_nl.png" class="autoresize" alt="swingGiftLogo"/> </a>
+                <a href="#info" data-icon="info" data-role="button">Info</a>
+            </div>
+
+            <div data-role="content" data-theme='b' id="ogoneContent">
+
+                <form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm1" name="ogoneForm">
+                    
                 </form>
             </div>
 

@@ -477,13 +477,14 @@ function maakOverzicht(betalingArray) {
     var voornaam = winkelmandArray[2];
     var naam = winkelmandArray[3];
     var leveringsdatum = winkelmandArray[4];
-    var prijs = 15;
+    var prijs = 1500;
     
     var voornaamBetaling = betalingArray[0];
     var naamBetaling = betalingArray[1];
     var email = betalingArray[2];
     var telefoonNummer = betalingArray[3];
     var betalingSoort = betalingArray[4];
+    console.log(betalingSoort);
 
     var transport;
     if (winkelmandArray[5] === "afhalen")
@@ -500,9 +501,10 @@ function maakOverzicht(betalingArray) {
     $('#transportContent').html(transport);
     
     var taal = "nl_NL";
-    var orderID = 95511852;
+    var orderID = "STDREF321";
     
     var ogoneForm = 
+            '<form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm" name="ogoneForm">'+
             '<!-- Algemene parameters -->' +
             '<input type="hidden" name="PSPID" value="qcsrew">' +
             '<input type="hidden" name="ORDERID" value="'+ orderID +'">' +
@@ -510,7 +512,7 @@ function maakOverzicht(betalingArray) {
             '<input type="hidden" name="CURRENCY" value="EUR">' +
             '<input type="hidden" name="LANGUAGE" value="'+taal+'">' +
             '<!--optional -->' +
-            '<input type="hidden" name="CN" value="'+naam+'">' +
+            '<input type="hidden" name="CN" value="'+naamBetaling+'">' +
             '<input type="hidden" name="EMAIL" value="'+email+'">' +
             '<input type="hidden" name="OWNERTELNO" value="'+telefoonNummer+'">' +
             '<input type="hidden" name="COM" value="">' +
@@ -518,24 +520,26 @@ function maakOverzicht(betalingArray) {
             '<input type="hidden" name="SHASIGN" value="">' +
             '<!-- layout informatie: zie “Look and feel” van de betaalpagina -->' +
             '<input type="hidden" name="TP" value="PaymentPage_1_iPhone.htm">' +
-            '<input type="hidden" name="TITLE" value="">' +
-            '<input type="hidden" name="BGCOLOR" value="">' +
+            '<input type="hidden" name="TITLE" value="SwingGift payment">' +
+            '<input type="hidden" name="BGCOLOR" value="#FFFFFF">' +
             '<input type="hidden" name="TXTCOLOR" value="#666666">' +
             '<input type="hidden" name="TBLBGCOLOR" value="orange">' +
-            '<input type="hidden" name="TBLTXTCOLOR" value=white">' +
+            '<input type="hidden" name="TBLTXTCOLOR" value="#FFFFFF">' +
             '<input type="hidden" name="HDTBLBGCOLOR" value="orange">' +
-            '<input type="hidden" name="HDTBLTXTCOLOR" value="white">' +
+            '<input type="hidden" name="HDTBLTXTCOLOR" value="#FFFFFF">' +
             '<input type="hidden" name="HDFONTTYPE" value="">' +
             '<input type="hidden" name="BUTTONBGCOLOR" value="orange">' +
-            '<input type="hidden" name="BUTTONTXTCOLOR" value="c">' +
+            '<input type="hidden" name="BUTTONTXTCOLOR" value="#FFFFFF">' +
             '<input type="hidden" name="FONTTYPE" value="">' +
             '<!-- feedback na de betaling: zie Transactie feedback naar de klant -->' +
             '<input type="hidden" name="ACCEPTURL" value="http://localhost:8383/SwingGiftApp/index.html">' +
             '<input type="hidden" name="DECLINEURL" value="http://localhost:8383/SwingGiftApp/index.html">' +
             '<input type="hidden" name="EXCEPTIONURL" value="http://localhost:8383/SwingGiftApp/index.html">' +
-            '<input type="hidden" name="CANCELURL" value="http://localhost:8383/SwingGiftApp/index.html">';
+            '<input type="hidden" name="CANCELURL" value="http://localhost:8383/SwingGiftApp/index.html">' +
+            '</form>';
 
-    if(betalingSoort === "online")
-    $('#ogone').html(ogoneForm);
+    if(betalingSoort === "Online"){
+        console.log("ja?");
+    $('#ogone').html(ogoneForm).trigger("create");}
 
 }
