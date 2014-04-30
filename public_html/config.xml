@@ -41,8 +41,6 @@
 
     <!-- Core plugins -->
     <gap:plugin name="org.apache.cordova.camera" />
-    <plugin name="Notification" value="org.apache.cordova.Notification"/>
-    
     <!-- 
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.media-capture" />
