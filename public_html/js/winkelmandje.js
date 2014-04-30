@@ -207,6 +207,7 @@ function readArray() {
 }
 
 function onDeviceReady() {
+    document.location.href='#shop';
     filledArray = readArray();
     console.log(filledArray);
     changeButton();
