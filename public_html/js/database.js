@@ -230,7 +230,7 @@ function listItems(tx, results) {
     else
         einde = "";
 
-    $('#searchShopList').html(begin1 + begin2 + content + einde).trigger('create');
+    $('#searchShopList').html(begin1 + begin2 + content + einde).trigger('pagecreate');
 
     if ($('#searchShopList').hasClass('ui-listview')) {
         $('#searchShopList').listview('refresh');
