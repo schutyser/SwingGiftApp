@@ -132,11 +132,39 @@ function queryDB4(tx) {
 }
 
 function xmlParse() {
-    $.ajax({
-        type: "GET",
-        url: "testVoucher.xml",
-        dataType: "xml",
-        success: function(xml) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=GetVouchers', true);
+
+        // build SOAP request
+        var sr =
+                '<?xml version="1.0" encoding="UTF-8"?>' +
+                '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/">' +
+                '<SOAP-ENV:Body>' +
+                '<ns1:GetVouchers>' +
+                '<ns1:logoncode>THIJS123</ns1:logoncode>' +
+                '</ns1:GetVouchers>' +
+                '</SOAP-ENV:Body>' +
+                '</SOAP-ENV:Envelope>';
+
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState === 4) {
+                console.log(xmlhttp.status + '--' + xmlhttp.readyState + '--' + xmlhttp.responseXML);
+                if (xmlhttp.status === 200) {
+                    vouchers(xmlhttp.responseXML);
+                }
+            }
+        };
+        
+        // Send the POST request
+        xmlhttp.setRequestHeader('Content-Type', "text/xml; charset=\"utf-8\"");
+        xmlhttp.setRequestHeader('SOAPAction', 'http://tempuri.org/GetVouchers');
+        xmlhttp.setRequestHeader("Accept", "application/xml", "text/xml", "\*/\*");
+
+        xmlhttp.send(sr);
+        // send request
+        // ...
+
+        function vouchers(xml) {
             $(xml).find('voucher').each(function() {
                 var voucher = [];
                 voucher.push($(this).find("giftID").text());
@@ -164,9 +192,6 @@ function xmlParse() {
                 });
             });
         }
-
-    }
-    );
 }
 
 function listItems(tx, results) {
@@ -478,7 +503,7 @@ function maakOverzicht(betalingArray) {
     var naam = winkelmandArray[3];
     var leveringsdatum = winkelmandArray[4];
     var prijs = 1500;
-    
+
     var voornaamBetaling = betalingArray[0];
     var naamBetaling = betalingArray[1];
     var email = betalingArray[2];
@@ -499,22 +524,22 @@ function maakOverzicht(betalingArray) {
     $('#leveringsdatumContent').html(leveringsdatum);
     $('#naamBetalingContent').html(voornaamBetaling);
     $('#transportContent').html(transport);
-    
+
     var taal = "nl_NL";
     var orderID = "STDREF321";
-    
-    var ogoneForm = 
-            '<form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm" name="ogoneForm">'+
+
+    var ogoneForm =
+            '<form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm" name="ogoneForm">' +
             '<!-- Algemene parameters -->' +
             '<input type="hidden" name="PSPID" value="qcsrew">' +
-            '<input type="hidden" name="ORDERID" value="'+ orderID +'">' +
-            '<input type="hidden" name="AMOUNT" value="'+ prijs +'">' +
+            '<input type="hidden" name="ORDERID" value="' + orderID + '">' +
+            '<input type="hidden" name="AMOUNT" value="' + prijs + '">' +
             '<input type="hidden" name="CURRENCY" value="EUR">' +
-            '<input type="hidden" name="LANGUAGE" value="'+taal+'">' +
+            '<input type="hidden" name="LANGUAGE" value="' + taal + '">' +
             '<!--optional -->' +
-            '<input type="hidden" name="CN" value="'+naamBetaling+'">' +
-            '<input type="hidden" name="EMAIL" value="'+email+'">' +
-            '<input type="hidden" name="OWNERTELNO" value="'+telefoonNummer+'">' +
+            '<input type="hidden" name="CN" value="' + naamBetaling + '">' +
+            '<input type="hidden" name="EMAIL" value="' + email + '">' +
+            '<input type="hidden" name="OWNERTELNO" value="' + telefoonNummer + '">' +
             '<input type="hidden" name="COM" value="">' +
             '<!-- controle voor de betaling: zie Beveiliging: Controle voor de betaling -->' +
             '<input type="hidden" name="SHASIGN" value="">' +
@@ -538,8 +563,9 @@ function maakOverzicht(betalingArray) {
             '<input type="hidden" name="CANCELURL" value="http://localhost:8383/SwingGiftApp/index.html">' +
             '</form>';
 
-    if(betalingSoort === "Online"){
+    if (betalingSoort === "Online") {
         console.log("ja?");
-    $('#ogone').html(ogoneForm).trigger("create");}
+        $('#ogone').html(ogoneForm).trigger("create");
+    }
 
 }
