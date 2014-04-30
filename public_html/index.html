@@ -51,9 +51,9 @@
 
                 xmlhttp.onreadystatechange = function() {
                     if (xmlhttp.readyState === 4) {
-                        console.log(xmlhttp.status + '--' + xmlhttp.readyState);
+                        window.alert(xmlhttp.status + '--' + xmlhttp.readyState);
                         if (xmlhttp.status === 200) {
-                            console.log(xmlhttp.responseText);
+                            window.alert("text: " + xmlhttp.responseText + " xml: " + xmlhttp.responseText);
                         }
                     }
                 }
