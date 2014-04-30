@@ -148,7 +148,7 @@ function xmlParse() {
 
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState === 4) {
-                console.log(xmlhttp.status + '--' + xmlhttp.readyState + '--' + xmlhttp.responseXML);
+                alert(xmlhttp.status + '--' + xmlhttp.readyState + '--' + xmlhttp.responseXML);
                 if (xmlhttp.status === 200) {
                     vouchers(xmlhttp.responseXML);
                 }
