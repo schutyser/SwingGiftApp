@@ -459,7 +459,7 @@ function test() {
     $('#test').html(header + contentList + footer).trigger("pagecreate");
 }
 
-function test(pers) {
+function maakPersPagina() {
     var contentList;
     navigator.notification.alert("test", alertCallback, 'Alert:', 'Close');
 
