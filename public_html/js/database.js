@@ -432,7 +432,6 @@ function setCredit(c) {
 
 function maakPersPagina(pers) {
     var contentList;
-    navigator.notification.alert("test", alertCallback, 'Alert:', 'Close');
 
     var header = '<div data-role="header" id="headerPers"  data-position="fixed" data-tap-toggle="false" data-theme=\'b\'>\n\
                 <h1>' + pers[0] + '</h1>\n\
