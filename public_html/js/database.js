@@ -146,15 +146,6 @@ function xmlParse() {
                 '</SOAP-ENV:Body>' +
                 '</SOAP-ENV:Envelope>';
 
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState === 4) {
-                alert(xmlhttp.status + '--' + xmlhttp.readyState + '--' + xmlhttp.responseXML);
-                if (xmlhttp.status === 200) {
-                    vouchers(xmlhttp.responseXML);
-                }
-            }
-        };
-        
         // Send the POST request
         xmlhttp.setRequestHeader('Content-Type', "text/xml; charset=\"utf-8\"");
         xmlhttp.setRequestHeader('SOAPAction', 'http://tempuri.org/GetVouchers');
@@ -162,7 +153,8 @@ function xmlParse() {
 
         xmlhttp.send(sr);
         // send request
-        // ...
+        alert(xmlhttp.status + '--' + xmlhttp.readyState + '--' + xmlhttp.responseXML);
+        vouchers(xmlhttp.responseXML);
 
         function vouchers(xml) {
             $(xml).find('voucher').each(function() {
