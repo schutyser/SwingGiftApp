@@ -53,8 +53,8 @@
                     if (xmlhttp.readyState === 4) {
                         window.alert(xmlhttp.status + '--' + xmlhttp.readyState);
                         if (xmlhttp.status === 200) {
-                            window.alert( " xml: " + xmlhttp.responseXML.toString());
-                            vouchers(xmlhttp.responseXML);
+                            window.alert( " xml: " + xmlhttp.responseText);
+                            vouchers(xmlhttp.responseText);
                         }
                     }
                 };
