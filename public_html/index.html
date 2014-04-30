@@ -65,7 +65,7 @@
                 xmlhttp.send(sr);
                 // send request
                 // ...
-                ALERT(xmlhttp.responseXML);
+                window.alert("xml:" + xmlhttp.responseXML);
                 vouchers(xmlhttp.responseXML);
             }
 
@@ -91,9 +91,10 @@
                         voucher.push($(this).find("detailAfb1").text());
                         voucher.push($(this).find("detailAfb2").text());
                         voucher.push($(this).find("detailAfb3").text());
-                        ALERT(voucher);
-                    };
-                }
+                        window.alert("array:" + voucher);
+                    }
+                    );}
+                
             
         </script>
     </head>
