@@ -350,7 +350,7 @@ function shoppingCart(tx, results) {
                     <li>\n\
                         <a href="#thema" data-role="button" data-icon="truck">Complete order</a>\n\
                     </li></ul>\n\
-                     <small>*Eventuele verzendingskosten niet inbegrepen.</small>';
+                     <p>*Eventuele verzendingskosten niet inbegrepen.</p>';
 
 
     $('#shoppingContent').html(content1 + content2 + content3).trigger("create");
