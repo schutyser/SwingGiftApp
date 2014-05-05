@@ -3,7 +3,7 @@ var eindeNodig;
 // PhoneGap is ready
 //
 function onDeviceReady() {
-    $.mobile.loading( 'show' );
+    $.mobile.loading('show');
     var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(populateDB, errorCB, xmlParse);
 }
@@ -22,7 +22,7 @@ function setGiftID(id) {
 
 function geteindeNodig() {
     return eindeNodig;
-    
+
 }
 
 function seteindeNodig(boolean) {
@@ -121,79 +121,78 @@ function queryDB4(tx) {
 }
 
 function xmlParse() {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=GetVouchers', true);
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=GetVouchers', true);
 
-        // build SOAP request
-        var sr =
-                '<?xml version="1.0" encoding="UTF-8"?>' +
-                '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/">' +
-                '<SOAP-ENV:Body>' +
-                '<ns1:GetVouchers>' +
-                '<ns1:logoncode>THIJS123</ns1:logoncode>' +
-                '</ns1:GetVouchers>' +
-                '</SOAP-ENV:Body>' +
-                '</SOAP-ENV:Envelope>';
+    // build SOAP request
+    var sr =
+            '<?xml version="1.0" encoding="UTF-8"?>' +
+            '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/">' +
+            '<SOAP-ENV:Body>' +
+            '<ns1:GetVouchers>' +
+            '<ns1:logoncode>THIJS123</ns1:logoncode>' +
+            '</ns1:GetVouchers>' +
+            '</SOAP-ENV:Body>' +
+            '</SOAP-ENV:Envelope>';
 
-        // Send the POST request
-        xmlhttp.setRequestHeader('Content-Type', "text/xml; charset=\"utf-8\"");
-        xmlhttp.setRequestHeader('SOAPAction', 'http://tempuri.org/GetVouchers');
-        xmlhttp.setRequestHeader("Accept", "application/xml", "text/xml", "\*/\*");
+    // Send the POST request
+    xmlhttp.setRequestHeader('Content-Type', "text/xml; charset=\"utf-8\"");
+    xmlhttp.setRequestHeader('SOAPAction', 'http://tempuri.org/GetVouchers');
+    xmlhttp.setRequestHeader("Accept", "application/xml", "text/xml", "\*/\*");
 
-        xmlhttp.send(sr);
-        // send request
-        xmlhttp.onreadystatechange = function() {
-                    if (xmlhttp.readyState === 4) {
-                        if (xmlhttp.status === 200) {
-                            vouchers(xmlhttp.responseText);
-                        }
-                    }
-                };
-
-        function vouchers(xml) {
-            var teller = 0;
-            var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
-            
-            $(xml).find('Vouchers').each(function() {
-                var voucher = [];
-                teller += 1;
-                voucher.push($(this).find("giftID").text());
-                voucher.push($(this).find("supplierName").text());
-                voucher.push($(this).find("title_NL").text());
-                voucher.push($(this).find("title_FR").text());
-                voucher.push($(this).find("descr_NL").text());
-                voucher.push($(this).find("descr_FR").text());
-                voucher.push($(this).find("brands_NL").text());
-                voucher.push($(this).find("brands_FR").text());
-                voucher.push($(this).find("exclusion_NL").text());
-                voucher.push($(this).find("exclusion_FR").text());
-                voucher.push($(this).find("price_inclBTW").text());
-                voucher.push($(this).find("serviceFee").text());
-                voucher.push($(this).find("isEvoucher").text());
-                voucher.push($(this).find("isFixValidDate").text());
-                voucher.push($(this).find("Validtxt").text());
-                voucher.push($(this).find("mainAfb").text());
-                voucher.push($(this).find("detailAfb1").text());
-                voucher.push($(this).find("detailAfb2").text());
-                voucher.push($(this).find("detailAfb3").text());
-                
-                db.transaction(function(tx) {
-                    tx.executeSql('INSERT INTO vouchers (giftID, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', voucher);
-                });
-            });
-            do{
-            successCB();}
-            while(teller===3);
+    xmlhttp.send(sr);
+    // send request
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState === 4) {
+            if (xmlhttp.status === 200) {
+                vouchers(xmlhttp.responseText);
+            }
         }
+    };
+
+    function vouchers(xml) {
+        var teller = 0;
+        var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
+
+        $(xml).find('Vouchers').each(function() {
+            var voucher = [];
+            teller += 1;
+            voucher.push($(this).find("giftID").text());
+            voucher.push($(this).find("supplierName").text());
+            voucher.push($(this).find("title_NL").text());
+            voucher.push($(this).find("title_FR").text());
+            voucher.push($(this).find("descr_NL").text());
+            voucher.push($(this).find("descr_FR").text());
+            voucher.push($(this).find("brands_NL").text());
+            voucher.push($(this).find("brands_FR").text());
+            voucher.push($(this).find("exclusion_NL").text());
+            voucher.push($(this).find("exclusion_FR").text());
+            voucher.push($(this).find("price_inclBTW").text());
+            voucher.push($(this).find("serviceFee").text());
+            voucher.push($(this).find("isEvoucher").text());
+            voucher.push($(this).find("isFixValidDate").text());
+            voucher.push($(this).find("Validtxt").text());
+            voucher.push($(this).find("mainAfb").text());
+            voucher.push($(this).find("detailAfb1").text());
+            voucher.push($(this).find("detailAfb2").text());
+            voucher.push($(this).find("detailAfb3").text());
+
+            db.transaction(function(tx) {
+                tx.executeSql('INSERT INTO vouchers (giftID, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', voucher);
+            });
+        });
+        do {
+            successCB();
+        }
+        while (teller === 3);
+    }
 }
 
 function listItems(tx, results) {
-    $.mobile.loading( 'show' );
-    
+    $.mobile.loading('show');
+
     var len = results.rows.length;
     var content = "";
-
-window.alert("listItems:" + len);
 
     var begin1;
 
@@ -214,7 +213,6 @@ window.alert("listItems:" + len);
         var imageUrl = results.rows.item(i).mainAfb;
         var titel = results.rows.item(i).title_NL;
         var prijs = results.rows.item(i).price_inclBTW;
-        console.log(id + titel + prijs);
 
         var con =
                 '<li><a href = #item onclick="successCB2(' + id + ')">\n\
@@ -234,15 +232,15 @@ window.alert("listItems:" + len);
         einde = "";
 
     $('#searchShopList').html(begin1 + begin2 + content + einde).trigger('create');
-    
-        if ($('#searchShopList').hasClass('ui-listview')) {
+
+    if ($('#searchShopList').hasClass('ui-listview')) {
         $('#searchShopList').listview('refresh');
     }
     else {
         $('#searchShopList').trigger('submit');
     }
 
-    $.mobile.loading( 'hide' );
+    $.mobile.loading('hide');
 }
 
 function detailItem(tx, results) {
