@@ -156,14 +156,14 @@ function xmlParse() {
                     if (xmlhttp.readyState === 4) {
                         window.alert(xmlhttp.status + '--' + xmlhttp.readyState);
                         if (xmlhttp.status === 200) {
-                            window.alert(" xml: " + xmlhttp.responseText);
+                            window.alert(" xml: 200");
                             vouchers(xmlhttp.responseText);
                         }
                     }
                 };
 
         function vouchers(xml) {
-            
+            window.alert("xml: " + xml);
             var teller = 0;
             $(xml).find('Vouchers').each(function() {
                 var voucher = [];
@@ -187,6 +187,7 @@ function xmlParse() {
                 voucher.push($(this).find("detailAfb1").text());
                 voucher.push($(this).find("detailAfb2").text());
                 voucher.push($(this).find("detailAfb3").text());
+                
                 db.transaction(function(tx) {
                     tx.executeSql('INSERT INTO vouchers (giftID, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', voucher);
                 });

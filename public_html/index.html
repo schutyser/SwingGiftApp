@@ -31,69 +31,8 @@
         <script src="js/database.js"></script>
 
         <!-- Database create -->
-        <script src="js/winkelmandje.js"></script>      
-
-        <script type="text/javascript">
-            function soap() {
-                var xmlhttp = new XMLHttpRequest();
-                xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=GetVouchers', true);
-
-                // build SOAP request
-                var sr =
-                        '<?xml version="1.0" encoding="UTF-8"?>' +
-                        '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/">' +
-                        '<SOAP-ENV:Body>' +
-                        '<ns1:GetVouchers>' +
-                        '<ns1:logoncode>THIJS123</ns1:logoncode>' +
-                        '</ns1:GetVouchers>' +
-                        '</SOAP-ENV:Body>' +
-                        '</SOAP-ENV:Envelope>';
-
-                xmlhttp.onreadystatechange = function() {
-                    if (xmlhttp.readyState === 4) {
-                        window.alert(xmlhttp.status + '--' + xmlhttp.readyState);
-                        if (xmlhttp.status === 200) {
-                            window.alert(" xml: " + xmlhttp.responseText);
-                            vouchers(xmlhttp.responseText);
-                        }
-                    }
-                };
-                // Send the POST request
-                xmlhttp.setRequestHeader('Content-Type', "text/xml; charset=\"utf-8\"");
-                xmlhttp.setRequestHeader('SOAPAction', 'http://tempuri.org/GetVouchers');
-                xmlhttp.setRequestHeader("Accept", "application/xml", "text/xml", "\*/\*");
-
-                xmlhttp.send(sr);
-                // send request
-                // ...
-            }
-
-            function vouchers(xml) {
-                $(xml).find('Vouchers').each(function() {
-                    var voucher = [];
-                    voucher.push($(this).find("giftID").text());
-                    voucher.push($(this).find("supplierName").text());
-                    voucher.push($(this).find("title_NL").text());
-                    voucher.push($(this).find("title_FR").text());
-                    voucher.push($(this).find("decr_NL").text());
-                    voucher.push($(this).find("decr_FR").text());
-                    voucher.push($(this).find("brands_NL").text());
-                    voucher.push($(this).find("brands_FR").text());
-                    voucher.push($(this).find("exclusion_NL").text());
-                    voucher.push($(this).find("exclusion_FR").text());
-                    voucher.push($(this).find("price_inclBTW").text());
-                    voucher.push($(this).find("serviceFee").text());
-                    voucher.push($(this).find("isEvoucher").text());
-                    voucher.push($(this).find("isFixValidDate").text());
-                    voucher.push($(this).find("Validtxt").text());
-                    voucher.push($(this).find("mainAfb").text());
-                    voucher.push($(this).find("detailAfb1").text());
-                    voucher.push($(this).find("detailAfb2").text());
-                    voucher.push($(this).find("detailAfb3").text());
-                });
-            }
-
-        </script>
+        <script src="js/winkelmandje.js"></script>   
+        
     </head>
     <body onload="onDeviceReady(); onDeviceReady1();">
         <!-- Index page -->
@@ -116,7 +55,7 @@
                         Zoekt u een gepast geschenk voor uw oma, papa of vriend? Of wilt u uw medewerkers, klanten of partners bedanken? Zoek niet verder, SwingGift geeft de oplossing.
                     </li>
                     <li>
-                        <a href="#shop" onclick="soap()">test</a>
+                        <a href="#shop" onclick="successCB()">successCB</a>
                     </li>
                     <li>
                         <a href="#shop" onclick="xmlParse()">testXMLparse</a>
