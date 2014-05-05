@@ -3,7 +3,6 @@ var eindeNodig;
 // PhoneGap is ready
 //
 function onDeviceReady() {
-    $.mobile.loading('show');
     var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(populateDB, errorCB, xmlParse);
 }
@@ -180,16 +179,13 @@ function xmlParse() {
             db.transaction(function(tx) {
                 tx.executeSql('INSERT INTO vouchers (giftID, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', voucher);
             });
+            if(teller === 3)
+                successCB();
         });
-        do {
-            successCB();
-        }
-        while (teller === 3);
     }
 }
 
 function listItems(tx, results) {
-    $.mobile.loading('show');
 
     var len = results.rows.length;
     var content = "";
@@ -235,12 +231,11 @@ function listItems(tx, results) {
 
     if ($('#searchShopList').hasClass('ui-listview')) {
         $('#searchShopList').listview('refresh');
+        window.alert("refresh");
     }
     else {
         $('#searchShopList').trigger('submit');
     }
-
-    $.mobile.loading('hide');
 }
 
 function detailItem(tx, results) {
