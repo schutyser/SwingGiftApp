@@ -300,6 +300,7 @@ function detailItem(tx, results) {
 }
 
 function shoppingCart(tx, results) {
+    window.alert("wut" + results.rows.lenght);
     var totaleprijs = 0;
 
     var creditContent = "";

@@ -401,9 +401,7 @@ function Neemfoto() {
             window.alert('Error taking picture', 'Error');
         },
         options);
- 
-    return false;
-};
+}
 
 //fix header image size
 $(window).on('load', function () {
