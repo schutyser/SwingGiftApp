@@ -133,8 +133,8 @@
 
 @media screen and (orientation: landscape) {
     .box {
-        width: 12.5%;
-        padding-bottom: 12.5%;
+        width: 50%;
+        padding-bottom: 50%;
     }
 }
 @media only screen and (max-width : 650px) and (min-width : 481px) {

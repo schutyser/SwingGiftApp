@@ -150,12 +150,10 @@ function xmlParse() {
     };
 
     function vouchers(xml) {
-        var teller = 0;
         var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
 
         $(xml).find('Vouchers').each(function() {
             var voucher = [];
-            teller += 1;
             voucher.push($(this).find("giftID").text());
             voucher.push($(this).find("supplierName").text());
             voucher.push($(this).find("title_NL").text());
@@ -179,12 +177,8 @@ function xmlParse() {
             db.transaction(function(tx) {
                 tx.executeSql('INSERT INTO vouchers (giftID, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', voucher);
             });
+            successCB();
         });
-        setTimeout(function() {
-            myfunction($this)
-        }, teller);
-        
-        successCB();
     }
 }
 
@@ -231,10 +225,6 @@ function listItems(tx, results) {
         einde = "";
 
     $('#searchShopList').html(begin1 + begin2 + content + einde).trigger('create');
-
-    if ($('#searchShopList').hasClass('ui-listview')) {
-        $('#searchShopList').listview('refresh');
-    }
 }
 
 function detailItem(tx, results) {
@@ -355,11 +345,12 @@ function shoppingCart(tx, results) {
                         ' + creditContent + '\n\
                     </li>\n\
                     <li data-role="list-divider" style="text-align: right;">\n\
-                        Totale prijs: &#8364; ' + totaleprijs + '\n\
+                        Totale prijs: &#8364; ' + totaleprijs + '*\n\
                     </li>\n\
                     <li>\n\
                         <a href="#thema" data-role="button" data-icon="truck">Complete order</a>\n\
-                    </li></ul>';
+                    </li></ul>\n\
+                     <small>*Eventuele verzendingskosten niet inbegrepen.</small>';
 
 
     $('#shoppingContent').html(content1 + content2 + content3).trigger("create");
