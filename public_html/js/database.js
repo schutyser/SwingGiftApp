@@ -4,6 +4,7 @@ var eindeNodig;
 //
 function onDeviceReady() {
     window.alert("deviceeready");
+    $.mobile.loading( 'show' );
     var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(populateDB, errorCB, xmlParse);
 }
@@ -173,8 +174,8 @@ function xmlParse() {
                 voucher.push($(this).find("supplierName").text());
                 voucher.push($(this).find("title_NL").text());
                 voucher.push($(this).find("title_FR").text());
-                voucher.push($(this).find("decr_NL").text());
-                voucher.push($(this).find("decr_FR").text());
+                voucher.push($(this).find("descr_NL").text());
+                voucher.push($(this).find("descr_FR").text());
                 voucher.push($(this).find("brands_NL").text());
                 voucher.push($(this).find("brands_FR").text());
                 voucher.push($(this).find("exclusion_NL").text());
@@ -199,7 +200,8 @@ function xmlParse() {
 }
 
 function listItems(tx, results) {
-
+    $.mobile.loading( 'show' );
+    
     var len = results.rows.length;
     var content = "";
 
@@ -244,13 +246,8 @@ window.alert("listItems:" + len);
         einde = "";
 
     $('#searchShopList').html(begin1 + begin2 + content + einde).trigger('create');
-
-    if ($('#searchShopList').hasClass('ui-listview')) {
-        $('#searchShopList').listview('refresh');
-    }
-    else {
-        $('#searchShopList').trigger('submit');
-    }
+    
+    $.mobile.loading( 'hide' );
 }
 
 function detailItem(tx, results) {
