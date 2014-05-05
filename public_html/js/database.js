@@ -225,6 +225,14 @@ function listItems(tx, results) {
         einde = "";
 
     $('#searchShopList').html(begin1 + begin2 + content + einde).trigger('create');
+
+    if ($('#searchShopList').hasClass('ui-listview')) {
+        $('#searchShopList').listview('refresh');
+    }
+    else {
+        $('#searchShopList').trigger('submit');
+    }
+
 }
 
 function detailItem(tx, results) {
@@ -293,7 +301,6 @@ function detailItem(tx, results) {
 
 function shoppingCart(tx, results) {
     var totaleprijs = 0;
-    console.log("winkemand items toevoegen");
 
     var creditContent = "";
     var credit = localStorage.getItem("credit");
@@ -349,18 +356,15 @@ function shoppingCart(tx, results) {
                     </li>\n\
                     <li>\n\
                         <a href="#thema" data-role="button" data-icon="truck">Complete order</a>\n\
-                    </li></ul>\n\
-                     <p>*Eventuele verzendingskosten niet inbegrepen.</p>';
+                    </li></ul>';
 
 
     $('#shoppingContent').html(content1 + content2 + content3).trigger("create");
 
     $(document).on('change', "#aantalItem" + id, function() {
-        console.log("change aantalitem" + $('#aantalItem' + id + '').val());
         var a = $('#aantalItem' + id + '').val();
         var a2 = getAantalItem(id);
         var aantalNieuw = +a - +a2;
-        console.log("change aantalNieuw" + aantalNieuw);
         updateWinkelmand(id, prijs, aantalNieuw, 0);
         successCB3();
     });

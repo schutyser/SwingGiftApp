@@ -34,7 +34,7 @@ function getAantalItem(id) {
         if (+filledArray[i][0] === +id)
             return filledArray[i][2];
     }
-    return "error";
+    return "error: Unknow problem. Please restart or contact SwingGift";
 }
 
 function getTotalePrijs() {
@@ -207,12 +207,8 @@ function readArray() {
 
 function onDeviceReady1() {
     filledArray = readArray();
-    console.log(filledArray);
     changeButton();
-    console.log("local array: " + readArray());
-    console.log("ready: localstorage test");
-    for (i = 0; i < filledArray.length; ++i)
-        console.log("Local storage winkelmandje item: " + i + ": " + filledArray[i]);
+
 }
 
 function changeButton() {
@@ -220,7 +216,6 @@ function changeButton() {
 }
 
 function clearWinkelmandje() {
-    console.log("clearing winkelmandje ...");
     window.localStorage.removeItem("arrayKey");
     aantalItems = 0;
     totalePrijs = 0;
@@ -233,12 +228,9 @@ function clearWinkelmandje() {
 function checkDuplicate(id, aantal) {
     for (var i = 0; i < filledArray.length; ++i) {
         if (+filledArray[i][0] === +id) {
-            console.log("duplicate:" + id);
             var num = filledArray[i][2];
             var aantal1 = +num + +aantal;
-            console.log("array b4 splice: " + filledArray);
             filledArray.splice(i, 1);
-            console.log("array after splice: " + filledArray);
             return aantal1;
         }
     }
@@ -273,7 +265,6 @@ function voucher() {
 
 function popupClose(id) {
     $(id).popup("close");
-    console.log(document.getElementById("taxipost").checked);
     document.getElementById("taxipost").checked = false;
     document.getElementById("afhalen").checked = true;
     $("#taxipost").checkboxradio('refresh');
@@ -305,7 +296,6 @@ function addBetaalgegevens1() {
     betalingArray.push(telefoon);
     
     setBetaalgegevens(betalingArray);
-    console.log(filledArray);
 }
 
 function addBetaalgegevens2() {
@@ -350,7 +340,6 @@ function addBetaalgegevens2() {
         var referentieFac = $('#referentieFac').val();
         betalingArray.push(referentieFac);
     }
-    console.log(betalingArray);
     
     setBetaalgegevens(betalingArray);
     maakOverzicht(betalingArray);
@@ -395,7 +384,7 @@ function arrayEvouchers(tx, results) {
 
 function Neemfoto() {
     if (!navigator.camera) {
-        console.log("Camera API not supported", "Error");
+        window.alert("Camera API not supported", "Error");
         return;
     }
     var options =   {   quality: 50,
@@ -409,7 +398,7 @@ function Neemfoto() {
             $('#cameraPic').show().attr('src', "data:image/jpeg;base64," + imageData);
         },
         function() {
-            console.log('Error taking picture', 'Error');
+            window.alert('Error taking picture', 'Error');
         },
         options);
  
