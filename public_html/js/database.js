@@ -91,8 +91,6 @@ function queryDBEmail(tx) {
 function queryDB(tx) {
     window.alert("qyeryDB");
     seteindeNodig("true");
-    var minPrijs = window.localStorage.getItem("minPrijs");
-    var maxPrijs = window.localStorage.getItem("maxPrijs");
     tx.executeSql('SELECT * FROM vouchers limit 2', [], listItems, errorCB);
 }
 
@@ -158,8 +156,8 @@ function xmlParse() {
         vouchers(xmlhttp.responseXML);
 
         function vouchers(xml) {
+            var voucher = [];
             $(xml).find('Vouchers').each(function() {
-                var voucher = [];
                 voucher.push($(this).find("giftID").text());
                 voucher.push($(this).find("supplierName").text());
                 voucher.push($(this).find("title_NL").text());
@@ -184,15 +182,17 @@ function xmlParse() {
                     tx.executeSql('INSERT INTO vouchers (giftID, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', voucher);
                 });
             });
+            window.alert(voucher);
         }
 }
 
 function listItems(tx, results) {
 
-    window.alert("listItems");
-
+    
     var len = results.rows.length;
     var content = "";
+
+window.alert("listItems:" + len);
 
     var begin1;
 
