@@ -42,70 +42,64 @@ function errorCB(err) {
 // Transaction success callback
 //
 function successCB() {
-    db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
+    var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(queryDB, errorCB);
 }
 
 function successCBAll() {
-    db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
+    var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(queryDBAll, errorCB);
 }
 
 function successCBEmail() {
-    db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
+    var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(queryDBEmail, errorCB);
 }
 
 function successCBFilter() {
-    db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
+    var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(queryDBFilter, errorCB);
 }
 
 function successCB2(i) {
-    db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
+    var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     setGiftID(i);
     db.transaction(queryDB2, errorCB);
 
 }
 
 function successCB3() {
-    db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
+    var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(queryDB3, errorCB);
 
 }
 
 function successCB4() {
-    db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
+    var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(queryDB4, errorCB);
 
 }
 
 function queryDBEmail(tx) {
-    console.log("queryDBEmail");
     tx.executeSql('SELECT giftID FROM vouchers where isEvoucher="true"', [], arrayEvouchers, errorCB);
 }
 
 function queryDB(tx) {
-    window.alert("qyeryDB");
     seteindeNodig("true");
-    tx.executeSql('SELECT * FROM vouchers limit 2', [], listItems, errorCB);
+    tx.executeSql('SELECT * FROM vouchers limit 3', [], listItems, errorCB);
 }
 
 function queryDBAll(tx) {
-    console.log("qyeryDB");
     seteindeNodig("false");
     tx.executeSql('SELECT * FROM vouchers', [], listItems, errorCB);
 }
 
 function queryDBFilter(tx) {
-    console.log("qyeryDBFilter");
     seteindeNodig("true");
     var evoucher = window.localStorage.getItem("evoucher");
     var supplierNames = window.localStorage.getArray("supplierName");
     var minPrijs = window.localStorage.getItem("minPrijs");
     var maxPrijs = window.localStorage.getItem("maxPrijs");
-
-    console.log(minPrijs + maxPrijs + evoucher);
 
     if (evoucher !== "false")
         tx.executeSql('SELECT * FROM vouchers where (price_inclBTW between ' + +minPrijs + ' AND ' + +maxPrijs + ') AND isEvoucher="false" AND supplierName IN (' + supplierNames + ')', [], listItems, errorCB);
@@ -114,7 +108,6 @@ function queryDBFilter(tx) {
 }
 
 function queryDB2(tx) {
-    console.log("qyeryDB2");
     var id = Number(getGiftID());
     tx.executeSql('SELECT * FROM vouchers where giftID="' + id + '"', [], detailItem, errorCB);
 }
@@ -159,7 +152,8 @@ function xmlParse() {
 
         function vouchers(xml) {
             var teller = 0;
-            db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
+            var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
+            
             $(xml).find('Vouchers').each(function() {
                 var voucher = [];
                 teller += 1;
@@ -187,9 +181,10 @@ function xmlParse() {
                     tx.executeSql('INSERT INTO vouchers (giftID, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', voucher);
                 });
             });
-            window.alert("vouchers gevonden: " + teller);           
+            do{
+            successCB();}
+            while(teller===3);
         }
-        successCB();
 }
 
 function listItems(tx, results) {
@@ -240,6 +235,13 @@ window.alert("listItems:" + len);
 
     $('#searchShopList').html(begin1 + begin2 + content + einde).trigger('create');
     
+        if ($('#searchShopList').hasClass('ui-listview')) {
+        $('#searchShopList').listview('refresh');
+    }
+    else {
+        $('#searchShopList').trigger('submit');
+    }
+
     $.mobile.loading( 'hide' );
 }
 
