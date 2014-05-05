@@ -415,3 +415,8 @@ function Neemfoto() {
  
     return false;
 };
+
+//fix header image size
+$(window).on('load', function () {
+    $(this).trigger('resize');
+});
