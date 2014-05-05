@@ -187,9 +187,9 @@ function xmlParse() {
                     tx.executeSql('INSERT INTO vouchers (giftID, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', voucher);
                 });
             });
-            window.alert("vouchers gevonden: " + teller);
-            successCB();
+            window.alert("vouchers gevonden: " + teller);           
         }
+        successCB();
 }
 
 function listItems(tx, results) {
