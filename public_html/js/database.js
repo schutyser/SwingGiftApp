@@ -153,8 +153,15 @@ function xmlParse() {
 
         xmlhttp.send(sr);
         // send request
-        window.alert(xmlhttp.responseXML);
-        vouchers(xmlhttp.responseText);
+        xmlhttp.onreadystatechange = function() {
+                    if (xmlhttp.readyState === 4) {
+                        window.alert(xmlhttp.status + '--' + xmlhttp.readyState);
+                        if (xmlhttp.status === 200) {
+                            window.alert(" xml: " + xmlhttp.responseText);
+                            vouchers(xmlhttp.responseText);
+                        }
+                    }
+                };
 
         function vouchers(xml) {
             
