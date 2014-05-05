@@ -178,7 +178,7 @@
         </div>
 
         <!-- Shop page -->
-        <div data-role="page" data-theme='b' id="shop" onload="successCB3()">
+        <div data-role="page" data-theme='b' id="shop">
 
             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
                 <h1>SwingGift<small>.com</small></h1>
@@ -187,7 +187,7 @@
             </div>
 
             <div data-role="content" id="panelContent" >
-                <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true"  style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/><strong><span class="winkelmandje"></span></strong></a>
+                <a href="#shoppingcart" data-role="button" data-inline="true" data-mini="true"  onclick ="successCB3()" style="float: right;" ><img src="img/icon_shoppingcard.png" alt="winkelmand"/><strong><span class="winkelmandje"></span></strong></a>
                 <ul id='searchShopList' data-role='listview'>
 
                 </ul>                  
@@ -202,15 +202,14 @@
                     <ul data-role="listview" data-inset="true" >
                         <li data-role = "fieldcontain" >
                             <fieldset data-role = "controlgroup" data-mini = "true" id="search1">
-                                   Loading ...
+                                <strong> Loading ...</strong>
                             </fieldset>
                         </li>
 
                         <li data-role = "fieldcontain" >
                             <fieldset data-role = "controlgroup"   data-mini = "true" id="search2">
                                 <fieldset data-role = "controlgroup" >
-                                    <legend>Enkel E-vouchers?</legend>
-                                    <label for = "evoucher" ><br/></label>
+                                    <label for = "evoucher" >Enkel E-vouchers?</label>
                                     <input type = "checkbox" name = "evoucherName" id ="evoucher" checked = "">
                                 </fieldset>
                             </fieldset>

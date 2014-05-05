@@ -374,7 +374,7 @@ function shoppingCart(tx, results) {
 function advancedSearch1(tx, results) {
 
     var len = results.rows.length;
-    var content = '<fieldset data-role = "controlgroup" ><legend>Leverancier</legend>';
+    var content = '<fieldset data-role = "controlgroup" ><legend>Leverancier</legend></br>';
     for (var i = 0; i < len; i++) {
         var leverancier = results.rows.item(i).supplierName;
         var con =
