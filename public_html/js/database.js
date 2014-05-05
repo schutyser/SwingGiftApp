@@ -1,7 +1,3 @@
-$(function() {
-document.addEventListener("deviceready", onDeviceReady, false);
-});
-
 var giftID;
 var eindeNodig;
 // PhoneGap is ready
@@ -9,7 +5,7 @@ var eindeNodig;
 function onDeviceReady() {
     window.alert("deviceeready");
     var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
-    db.transaction(populateDB, errorCB, successCB);
+    db.transaction(populateDB, errorCB, xmlParse);
 }
 
 function getGiftID() {
@@ -37,7 +33,6 @@ function populateDB(tx) {
     window.alert("populateDB");
     tx.executeSql('DROP TABLE IF EXISTS vouchers');
     tx.executeSql('CREATE TABLE IF NOT EXISTS vouchers (giftID unique, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW INT, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3)');
-    xmlParse();
 
 }
 
@@ -197,6 +192,7 @@ function xmlParse() {
                 });
             });
             window.alert("vouchers gevonden: " + teller);
+            successCB();
         }
 }
 

@@ -1,7 +1,3 @@
-$(function() {
-document.addEventListener("deviceready", onDeviceReady1, false);
-});
-
 var aantalItems = 0;
 var totalePrijs = 0;
 var filledArray = [];
