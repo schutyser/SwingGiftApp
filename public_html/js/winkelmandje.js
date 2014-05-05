@@ -1,4 +1,4 @@
-document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("deviceready", onDeviceReady1, false);
 
 var aantalItems = 0;
 var totalePrijs = 0;
@@ -206,8 +206,8 @@ function readArray() {
         return array = [];
 }
 
-function onDeviceReady() {
-    document.location.href='#shop';
+
+function onDeviceReady1() {
     filledArray = readArray();
     console.log(filledArray);
     changeButton();

@@ -132,6 +132,7 @@ function queryDB4(tx) {
 }
 
 function xmlParse() {
+    window.alert("xmlparse");
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=GetVouchers', true);
 
