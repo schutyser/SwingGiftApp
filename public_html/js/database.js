@@ -352,7 +352,7 @@ function shoppingCart(tx, results) {
                         ' + creditContent + '\n\
                     </li>\n\
                     <li data-role="list-divider" style="text-align: right;">\n\
-                        Totale prijs: &#8364; ' + totaleprijs + '*\n\
+                        Totale prijs: &#8364; ' + totaleprijs + '\n\
                     </li>\n\
                     <li>\n\
                         <a href="#thema" data-role="button" data-icon="truck">Complete order</a>\n\
