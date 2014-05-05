@@ -30,7 +30,7 @@ function seteindeNodig(boolean) {
 }
 
 function populateDB(tx) {
-    console.log("populateDB");
+    window.alert("populateDB");
     tx.executeSql('DROP TABLE IF EXISTS vouchers');
     tx.executeSql('CREATE TABLE IF NOT EXISTS vouchers (giftID unique, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW INT, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3)');
     xmlParse();
@@ -38,12 +38,13 @@ function populateDB(tx) {
 }
 
 function errorCB(err) {
-    console.log("Error processing SQL: " + err.code + " message: " + err.message);
+    window.alert("Error processing SQL: " + err.code + " message: " + err.message);
 }
 
 // Transaction success callback
 //
 function successCB() {
+    window.alert("successCB");
     db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(queryDB, errorCB);
 }
@@ -88,7 +89,7 @@ function queryDBEmail(tx) {
 }
 
 function queryDB(tx) {
-    console.log("qyeryDB");
+    window.alert("qyeryDB");
     seteindeNodig("true");
     var minPrijs = window.localStorage.getItem("minPrijs");
     var maxPrijs = window.localStorage.getItem("maxPrijs");
