@@ -1,4 +1,6 @@
+$(function() {
 document.addEventListener("deviceready", onDeviceReady1, false);
+});
 
 var aantalItems = 0;
 var totalePrijs = 0;
@@ -213,7 +215,7 @@ function onDeviceReady1() {
     changeButton();
     console.log("local array: " + readArray());
     console.log("ready: localstorage test");
-    console.log(filledArray.toString());
+    window.alert(filledArray.toString());
     for (i = 0; i < filledArray.length; ++i)
         console.log("Local storage winkelmandje item: " + i + ": " + filledArray[i]);
 }

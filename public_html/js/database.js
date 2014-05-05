@@ -1,4 +1,7 @@
+$(function() {
 document.addEventListener("deviceready", onDeviceReady, false);
+});
+
 var giftID;
 var eindeNodig;
 // PhoneGap is ready
@@ -188,7 +191,6 @@ function xmlParse() {
                 voucher.push($(this).find("detailAfb1").text());
                 voucher.push($(this).find("detailAfb2").text());
                 voucher.push($(this).find("detailAfb3").text());
-                window.alert(voucher);
                 db.transaction(function(tx) {
                     tx.executeSql('INSERT INTO vouchers (giftID, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', voucher);
                 });
@@ -199,7 +201,6 @@ function xmlParse() {
 
 function listItems(tx, results) {
 
-    
     var len = results.rows.length;
     var content = "";
 
