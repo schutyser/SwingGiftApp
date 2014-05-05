@@ -7,6 +7,7 @@ var eindeNodig;
 // PhoneGap is ready
 //
 function onDeviceReady() {
+    window.alert("deviceeready");
     var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(populateDB, errorCB, successCB);
 }
