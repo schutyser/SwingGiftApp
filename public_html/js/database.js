@@ -153,7 +153,8 @@ function xmlParse() {
 
         xmlhttp.send(sr);
         // send request
-        vouchers(xmlhttp.responseXML);
+        window.alert(xmlhttp.responseXML);
+        vouchers(xmlhttp.responseText);
 
         function vouchers(xml) {
             
