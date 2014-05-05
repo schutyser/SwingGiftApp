@@ -183,7 +183,6 @@ function xmlParse() {
 }
 
 function listItems(tx, results) {
-
     var len = results.rows.length;
     var content = "";
 
@@ -199,7 +198,7 @@ function listItems(tx, results) {
             <a href = "#panel" data-role ="button" data-inline = "true" data-mini = "true" onclick="successCB4()" style = "margin-top: -10px;"> Advanced search...\n\
                         </a><br/>\n\
                     </li>\n\
-                    <li data-role = "list-divider" >AAANGEBODEN CADEAUBONNEN </li>';
+                    <li data-role = "list-divider" >AANGEBODEN CADEAUBONNEN </li>';
 
     for (var i = 0; i < len; i++) {
         var id = results.rows.item(i).giftID;
@@ -236,7 +235,6 @@ function listItems(tx, results) {
 }
 
 function detailItem(tx, results) {
-
     var id = results.rows.item(0).giftID;
     var imageUrl = results.rows.item(0).mainAfb;
     var titel = results.rows.item(0).title_NL;
@@ -300,7 +298,6 @@ function detailItem(tx, results) {
 }
 
 function shoppingCart(tx, results) {
-    window.alert("wut" + results.rows.lenght);
     var totaleprijs = 0;
 
     var creditContent = "";
