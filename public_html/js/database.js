@@ -156,8 +156,11 @@ function xmlParse() {
         vouchers(xmlhttp.responseXML);
 
         function vouchers(xml) {
-            var voucher = [];
+            
+            var teller = 0;
             $(xml).find('Vouchers').each(function() {
+                var voucher = [];
+                teller += 1;
                 voucher.push($(this).find("giftID").text());
                 voucher.push($(this).find("supplierName").text());
                 voucher.push($(this).find("title_NL").text());
@@ -177,12 +180,12 @@ function xmlParse() {
                 voucher.push($(this).find("detailAfb1").text());
                 voucher.push($(this).find("detailAfb2").text());
                 voucher.push($(this).find("detailAfb3").text());
-                console.log(voucher);
+                window.alert(voucher);
                 db.transaction(function(tx) {
                     tx.executeSql('INSERT INTO vouchers (giftID, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', voucher);
                 });
             });
-            window.alert(voucher);
+            window.alert("vouchers gevonden: " + teller);
         }
 }
 
