@@ -449,8 +449,9 @@ function personalisatiePaginaXML(voucherCode) {
             setCredit(credit);
             maakPersPagina(pers);
         }
+        return errorCode;
     }
-    return errorCode;
+    
 }
 
 function setCredit(c) {
