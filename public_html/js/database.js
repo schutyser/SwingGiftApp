@@ -435,9 +435,13 @@ function personalisatiePaginaXML(voucherCode) {
                     if (checkDuplicate(error)) {
                         window.alert("errorCode in winkelmand voucher: " + error + "credit: " + credit + "pers: " + pers);
                         setCredit(credit);
-                        maakPersPagina(pers);
-                        window.location.href = "#personalisatie";
-                        $('#errorVoucher').html("");
+                        if (pers[3] !== "" && pers[5] !== "") {
+                            maakPersPagina(pers);
+                            window.location.href = "#personalisatie";
+                            $('#errorVoucher').html("");
+                        }
+                        else
+                            $('#errorVoucher').html("<div class='message success'><i class='icon-ok'></i><p>De vouchercode is succesvol toegevoegd en zal bij de betaling verrekend worden.</p></div>");
                     }
                     else
                         $('#errorVoucher').html("<div class='message error'><i class='icon-exclamation-sign'></i><p>Deze voucher code is al geregistreerd op uw device.</p></div>");
