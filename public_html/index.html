@@ -509,11 +509,11 @@
                             <label>Gegevens ontvanger:</label>
                             <div data-role="fieldcontain">
                                 <label for="ontvangerVnaam">Voornaam:</label>
-                                <input name="ontvanger" id="ontvangerVnaam" type="text" placeholder="Voornaam" required/>
+                                <input name="ontvanger" id="ontvangerVnaam" type="text" placeholder="Voornaam"/>
                             </div>
                             <div data-role="fieldcontain">
                                 <label for="ontvangerNaam">Naam:</label>
-                                <input name="ontvanger" id="ontvangerNaam" type="text" placeholder="Naam" required/>
+                                <input name="ontvanger" id="ontvangerNaam" type="text" placeholder="Naam"/>
                             </div>
                         </li>
                         <li data-role="fieldcontain" style="display:none" id="emailblok" >
@@ -551,7 +551,7 @@
                                 <label for="gemeente">Gemeente:</label>
                                 <input name="gemeente" id="gemeente" type="text" placeholder="Gemeente"/>
                                 <label for="land">Land:</label>
-                                <select name="land"  id="land" data-theme="a">
+                                <select name="land"  id="land" data-theme="b">
                                     <option value="belgie">Belgi&#235; (+ € 5,95)</option>
                                     <option value="nederland">Nederland (+ € 8,95)</option>
                                     <option value="duitsland">Duitsland (+ € 10,95)</option>
@@ -568,7 +568,8 @@
                             </div>
                         </li>
                     </ul>
-                    <a href="#" data-roll="button" onclick="addBoodschap()">Toevoegen</a>
+                    <a href="#" data-roll="button" data-theme="b" onclick="addBoodschap()">Toevoegen</a>
+                    <div id="errorBoodschap"></div>
                 </form>
             </div>
 
@@ -577,7 +578,6 @@
                     <ul>
                         <li><a href="#shop" data-icon="gift">Shop</a></li>
                         <li><a href="#index" data-icon="home">Home</a></li>
-                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
                         <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
                     </ul>
                 </div>
@@ -641,7 +641,6 @@
                     <ul>
                         <li><a href="#shop" data-icon="gift">Shop</a></li>
                         <li><a href="#index" data-icon="home">Home</a></li>
-                        <!--  of data-icon="cogs" voor voucher of "gift" en het dan 'Voucher' als beschrijving -->
                         <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
                     </ul>
                 </div>

@@ -176,12 +176,14 @@ function addBoodschap() {
         }
     }
     if (fout === "Sommige verplichte velden zijn niet ingevuld: ") {
+        window.alert("geenfout: " + arrayBoodschap);
         setWinkelmandArray(arrayBoodschap);
         window.location.href = "#betaalgegevens1";
     }
     else {
+        window.alert("fout:" + fout);
         deleteArray(1, 'boodschap');
-        $('#errorBoodschap').html("<li><div class='message error'><i class='icon-exclamation-sign'></i><p>" + fout + "</p></div></li>");
+        $('#errorBoodschap').html("<div class='message error'><i class='icon-exclamation-sign'></i><p>" + fout + "</p></div>");
     }
 
 }
