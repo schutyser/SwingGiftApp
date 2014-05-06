@@ -432,7 +432,7 @@ function personalisatiePaginaXML(voucherCode) {
                 var einde = "</p></div>";
 
                 if (error === "OK") {
-                    if (checkDuplicate(error)) {
+                    if (checkDuplicate(voucherCode)) {
                         window.alert("errorCode in winkelmand voucher: " + error + "credit: " + credit + "pers: " + pers);
                         setCredit(credit);
                         if (pers[3] !== "" && pers[5] !== "") {
@@ -466,22 +466,24 @@ function personalisatiePaginaXML(voucherCode) {
         return errorCode;
     }
 
-    function checkDuplicate(error) {
-        window.alert("checkDuplicate: " + error);
-        var voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
-        if (voucherCodeArray !== undefined) {
+    function checkDuplicate(voucherCode) {
+        var voucherCodeArray = []; 
+        window.alert("checkDuplicate: " + voucherCode);
+        window.alert("voucherCodeArray: " + window.localStorage.getArray("voucherCodeArray"));
+        if (window.localStorage.getArray("voucherCodeArray") !== undefined) {
+            voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
             for (var i = 0; i < voucherCodeArray.length; ++i) {
-                if (voucherCodeArray[i] === error) {
+                if (voucherCodeArray[i] === voucherCode) {
                     window.alert("duplicate code");
                     return false;
                 }
             }
         }
         else
-            var voucherCodeArray = [];
-
-
-        voucherCodeArray.push(error);
+            voucherCodeArray = [];
+        
+        voucherCodeArray.push(voucherCode);
+        window.alert("voucherCodeArray: " + voucherCodeArray);
         window.localStorage.setArray("voucherCodeArray", voucherCodeArray);
         return true;
     }
