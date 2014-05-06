@@ -425,7 +425,7 @@ function personalisatiePaginaXML(voucherCode) {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
                 window.alert(xmlhttp.responseText);
-                return errorCode = personalisatie(xmlhttp.responseText);
+                return personalisatie(xmlhttp.responseText);
             }
         }
     };
