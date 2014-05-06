@@ -432,7 +432,9 @@ function personalisatiePaginaXML(voucherCode) {
                 var einde = "</p></div>";
 
                 if (error === "OK") {
-                    if (checkDuplicate(error) === "OK") {
+                    var test = checkDuplicate(error);
+                    window.alert(test);
+                    if ( test === "OK") {
                         window.alert("errorCode in winkelmand voucher: " + error + "credit: " + credit + "pers: " + pers);
                         setCredit(credit);
                         if (pers[3] !== "" && pers[5] !== "") {
@@ -464,25 +466,29 @@ function personalisatiePaginaXML(voucherCode) {
         credit = $(xml).find("value").text();
         return errorCode;
     }
+
+    function checkDuplicate(error) {
+        window.alert("checkDuplicate: " + error);
+        var voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
+        if (voucherCodeArray !== undefined) {
+            for (var i = 0; i < voucherCodeArray.length; ++i) {
+                if (voucherCodeArray[i] === error) {
+                    window.alert("duplicate code");
+                    return "duplicate";
+                }
+            }
+        }
+        else
+            var voucherCodeArray = [];
+
+
+        voucherCodeArray.push(error);
+        window.localStorage.setArray("voucherCodeArray", voucherCodeArray);
+        return "OK";
+    }
 }
 
-function checkDuplicate(error) {
-    window.alert("checkDuplicate: " + error);
-    var voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
-    if (voucherCodeArray !== undefined) {
-        for (var i = 0; i < voucherCodeArray.length; ++i) {
-            if (voucherCodeArray[i] === error) {
-                window.alert("duplicate code");
-                return false;
-            }}}
-            else
-                var voucherCodeArray = [];
-        
-    
-    voucherCodeArray.push(error);
-    window.localStorage.setArray("voucherCodeArray", voucherCodeArray);
-    return "OK";
-}
+
 
 function setCredit(c) {
     window.localStorage.setItem("credit", c);
