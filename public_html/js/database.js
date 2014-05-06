@@ -400,7 +400,7 @@ function personalisatiePaginaXML(voucherCode) {
     var errorCode = "";
     var pers = [];
     var credit;
-    var voucherCodeArray = []; 
+    
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=ChecksCode', true);
@@ -468,6 +468,7 @@ function personalisatiePaginaXML(voucherCode) {
     }
 
     function checkDuplicate(voucherCode) {
+        var voucherCodeArray = [];
         window.alert("checkDuplicate: " + voucherCode);
         window.alert("voucherCodeArray: " + window.localStorage.getArray("voucherCodeArray"));
         if (window.localStorage.getArray("voucherCodeArray") !== null) {
