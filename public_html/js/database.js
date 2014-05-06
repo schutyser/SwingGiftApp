@@ -369,7 +369,7 @@ function shoppingCart(tx, results) {
     $(document).on('change', "#aantalItem" + id, function() {
         var a = $('#aantalItem' + id + '').val();
         var a2 = getAantalItem(id);
-        if(+a <= 0)
+        if (+a <= 0)
             a = 1;
         if (a !== a2) {
             var aantalNieuw = +a - +a2;
@@ -425,7 +425,24 @@ function personalisatiePaginaXML(voucherCode) {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
                 window.alert(xmlhttp.responseText);
-                return personalisatie(xmlhttp.responseText);
+                var error = personalisatie(xmlhttp.responseText);
+                var content = "<div class='message error'><i class='icon-exclamation-sign'></i><p>Voer een (geldige) voucher code in : ";
+                var einde = "</p></div>";
+                
+                if (error === "OK") {
+                    setCredit(credit);
+                    maakPersPagina(pers);
+                    window.location.href = "#personalisatie";
+                    $('#errorVoucher').html("");
+                }
+                else {
+                    window.alert("errorCode in winkelmand voucher: " + error);
+                    if (error === 'OK') {
+
+                    }
+                    else
+                        $('#errorVoucher').html(content + error + einde);
+                }
             }
         }
     };
@@ -439,16 +456,9 @@ function personalisatiePaginaXML(voucherCode) {
         pers.push($(xml).find("VideoNL").text());
         pers.push($(xml).find("TitelNL").text());
         pers.push($(xml).find("Perso").text());
-        credit = $(xml).find("credit").text();
-
-
+        credit = $(xml).find("value").text();
         window.alert("personalisatie functie errorCode: " + errorCode + " ==> credit: " + credit);
         window.alert("Perspagina array:" + pers);
-
-        if (errorCode === "OK") {
-            setCredit(credit);
-            maakPersPagina(pers);
-        }
         return errorCode;
     }
 }
