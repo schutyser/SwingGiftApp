@@ -432,6 +432,7 @@ function personalisatiePaginaXML(voucherCode) {
                 var einde = "</p></div>";
 
                 if (error === "OK") {
+                    window.alert("errorCode in winkelmand voucher: " + error + "credit: " + credit +"pers: " + pers);
                     setCredit(credit);
                     maakPersPagina(pers);
                     window.location.href = "#personalisatie";
@@ -439,11 +440,7 @@ function personalisatiePaginaXML(voucherCode) {
                 }
                 else {
                     window.alert("errorCode in winkelmand voucher: " + error);
-                    if (error === 'OK') {
-
-                    }
-                    else
-                        $('#errorVoucher').html(content + error + einde);
+                    $('#errorVoucher').html(content + error + einde);
                 }
             }
         }
@@ -457,8 +454,6 @@ function personalisatiePaginaXML(voucherCode) {
         pers.push($(xml).find("TitelNL").text());
         pers.push($(xml).find("Perso").text());
         credit = $(xml).find("value").text();
-        window.alert("personalisatie functie errorCode: " + errorCode + " ==> credit: " + credit);
-        window.alert("Perspagina array:" + pers);
         return errorCode;
     }
 }
@@ -468,6 +463,7 @@ function setCredit(c) {
 }
 
 function maakPersPagina(pers) {
+    window.alert("Pers pagain");
     var contentList;
 
     var header = '<div data-role="header" id="headerPers"  data-position="fixed" data-tap-toggle="false" data-theme=\'b\'>\n\
