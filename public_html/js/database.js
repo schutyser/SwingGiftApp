@@ -474,11 +474,11 @@ function checkDuplicate(error) {
             if (voucherCodeArray[i] === error) {
                 window.alert("duplicate code");
                 return false;
-            }
+            }}}
             else
                 voucherCodeArray = [];
-        }
-    }
+        
+    
     voucherCodeArray.push(error);
     window.localStorage.setArray("voucherCodeArray", voucherCodeArray);
     return true;
