@@ -400,6 +400,7 @@ function personalisatiePaginaXML(voucherCode) {
     var errorCode = "";
     var pers = [];
     var credit;
+    var voucherCodeArray = []; 
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=ChecksCode', true);
@@ -467,10 +468,9 @@ function personalisatiePaginaXML(voucherCode) {
     }
 
     function checkDuplicate(voucherCode) {
-        var voucherCodeArray = []; 
         window.alert("checkDuplicate: " + voucherCode);
         window.alert("voucherCodeArray: " + window.localStorage.getArray("voucherCodeArray"));
-        if (window.localStorage.getArray("voucherCodeArray") !== undefined) {
+        if (window.localStorage.getArray("voucherCodeArray") !== null) {
             voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
             for (var i = 0; i < voucherCodeArray.length; ++i) {
                 if (voucherCodeArray[i] === voucherCode) {
@@ -479,9 +479,6 @@ function personalisatiePaginaXML(voucherCode) {
                 }
             }
         }
-        else
-            voucherCodeArray = [];
-        
         voucherCodeArray.push(voucherCode);
         window.alert("voucherCodeArray: " + voucherCodeArray);
         window.localStorage.setArray("voucherCodeArray", voucherCodeArray);
