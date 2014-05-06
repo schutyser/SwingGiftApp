@@ -365,7 +365,13 @@ function shoppingCart(tx, results) {
 
     $('#shoppingContent').html(content1 + content2 + content3).trigger("create");
 
-   
+    $('#shoppingContent').on('change', "#aantalItem" + id, function() {
+        var a = $('#aantalItem' + id + '').val();
+        var a2 = getAantalItem(id);
+        var aantalNieuw = +a - +a2;
+        updateWinkelmand(id, prijs, aantalNieuw, 0);
+        successCB3();
+    });
 }
 
 function advancedSearch1(tx, results) {
@@ -421,8 +427,7 @@ function personalisatiePaginaXML(voucherCode) {
     function personalisatie(xml) {
             var pers = [];
             var credit;
-            errorCode = $(xml).find("errorCode").text();
-            errorCode =+ " : " + $(xml).find("errorMessage").text();
+            errorCode = $(xml).find("errorMessage").text();
             pers.push($(xml).find("levering_contactnaam").text());
             pers.push($(xml).find("logo").text());
             pers.push($(xml).find("TitelNL").text());

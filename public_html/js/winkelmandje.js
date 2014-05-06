@@ -256,7 +256,7 @@ function voucher() {
 
     if (voucherCode !== "") {
         errorCode = personalisatiePaginaXML(voucherCode);
-        if (errorCode === '200 : OK') {
+        if (errorCode === 'OK') {
             window.location.href = "#personalisatie";
             $('#errorVoucher').html("");
         }
