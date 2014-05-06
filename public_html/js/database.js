@@ -285,6 +285,8 @@ function detailItem(tx, results) {
     $(document).on('change', '#change', function() {
         var aantal = $('#aantalLabel' + id + '').val();
         var prijs = $('#prijsLabel' + id + '').val();
+        if (+aantal <= 0)
+            aantal = 1;
         calcPrijs(aantal, prijs);
     });
 
@@ -367,10 +369,13 @@ function shoppingCart(tx, results) {
     $(document).on('change', "#aantalItem" + id, function() {
         var a = $('#aantalItem' + id + '').val();
         var a2 = getAantalItem(id);
-        if(a !==a2){
-        var aantalNieuw = +a - +a2;
-        updateWinkelmand(id, prijs, aantalNieuw, 0);
-        successCB3();}
+        if(+a <= 0)
+            a = 1;
+        if (a !== a2) {
+            var aantalNieuw = +a - +a2;
+            updateWinkelmand(id, prijs, aantalNieuw, 0);
+            successCB3();
+        }
     });
 }
 
@@ -425,24 +430,25 @@ function personalisatiePaginaXML(voucherCode) {
         }
     };
     function personalisatie(xml) {
-            var pers = [];
-            var credit;
-            errorCode = $(xml).find("ErrorMessage").find("errorMessage").text();
-            pers.push($(xml).find("levering_contactnaam").text());
-            pers.push($(xml).find("logo").text());
-            pers.push($(xml).find("TitelNL").text());
-            pers.push($(xml).find("VideoNL").text());
-            pers.push($(xml).find("TitelNL").text());
-            pers.push($(xml).find("Perso").text());
-            credit = $(xml).find("credit").text();
+        var pers = [];
+        var credit;
+        errorCode = $(xml).find("ErrorMessage").find("errorMessage").text();
+        pers.push($(xml).find("levering_contactnaam").text());
+        pers.push($(xml).find("logo").text());
+        pers.push($(xml).find("TitelNL").text());
+        pers.push($(xml).find("VideoNL").text());
+        pers.push($(xml).find("TitelNL").text());
+        pers.push($(xml).find("Perso").text());
+        credit = $(xml).find("credit").text();
 
-            
-            window.alert("personalisatie functie errorCode: " + errorCode + " ==> credit: " + credit);
-            window.alert("Perspagina array:" + pers);
-            
-            if(errorCode === "200 : OK"){
+
+        window.alert("personalisatie functie errorCode: " + errorCode + " ==> credit: " + credit);
+        window.alert("Perspagina array:" + pers);
+
+        if (errorCode === "OK") {
             setCredit(credit);
-            maakPersPagina(pers);}
+            maakPersPagina(pers);
+        }
     }
     return errorCode;
 }

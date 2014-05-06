@@ -252,10 +252,11 @@ function deleteItem(id) {
 function voucher() {
     var voucherCode = document.getElementById("voucherCode").value;
     var content = "<div class='message error'><i class='icon-exclamation-sign'></i><p>Voer een (geldige) voucher code in : error </p></div>";
-    var errorCode;
+    var errorCode = "No Content";
 
     if (voucherCode !== "") {
         errorCode = personalisatiePaginaXML(voucherCode);
+        window.alert("errorCode in winkelmand voucher: " + errorCode);
         if (errorCode === 'OK') {
             window.location.href = "#personalisatie";
             $('#errorVoucher').html("");
