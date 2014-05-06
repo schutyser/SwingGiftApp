@@ -431,8 +431,8 @@ function personalisatiePaginaXML(voucherCode) {
                 var content = "<div class='message error'><i class='icon-exclamation-sign'></i><p>Voer een (geldige) voucher code in : ";
                 var einde = "</p></div>";
 
-                if (error === "OK") {
-                    window.alert("errorCode in winkelmand voucher: " + error + "credit: " + credit +"pers: " + pers);
+                if (error === "OK" && checkDuplicate(error)) {
+                    window.alert("errorCode in winkelmand voucher: " + error + "credit: " + credit + "pers: " + pers);
                     setCredit(credit);
                     maakPersPagina(pers);
                     window.location.href = "#personalisatie";
@@ -458,6 +458,24 @@ function personalisatiePaginaXML(voucherCode) {
     }
 }
 
+function checkDuplicate(error) {
+    window.alert("checkDuplicate: " + error);
+    var voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
+    if (voucherCodeArray !== undefined) {
+        for (var i = 0; i < voucherCodeArray.length; ++i) {
+            if (voucherCodeArray[i] === error) {
+                window.alert("duplicate code");
+                return false;
+            }
+            else
+                voucherCodeArray = [];
+        }
+    }
+    voucherCodeArray.push(error);
+    window.localStorage.setArray("voucherCodeArray", voucherCodeArray);
+    return true;
+}
+
 function setCredit(c) {
     window.localStorage.setItem("credit", c);
 }
@@ -465,12 +483,10 @@ function setCredit(c) {
 function maakPersPagina(pers) {
     window.alert("Pers pagain");
     var contentList;
-
     var header = '<div data-role="header" id="headerPers"  data-position="fixed" data-tap-toggle="false" data-theme=\'b\'>\n\
                 <h1>' + pers[0] + '</h1>\n\
                 <a href="index.html"><img src="' + pers[1] + '" class="autoresize" alt="swingGiftLogo"/> </a>\n\
                 <a href="#info" data-icon="info" data-role="button">Info</a></div>';
-
     if (pers[3] !== "") {
         contentList = '<div data-role="content" data-theme=\'b\'>\n\
                 <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">\n\
@@ -516,35 +532,29 @@ function maakPersPagina(pers) {
                     </ul>\n\
                 </div>\n\
             </div>';
-
     $('#personalisatie').html(header + contentList + footer).trigger("pagecreate");
 }
 
 function maakOverzicht(betalingArray) {
     console.log("startmaak");
-
     var winkelmandArray = getWinkelmandArray();
-
     var thema = winkelmandArray[0];
     var boodschap = winkelmandArray[1];
     var voornaam = winkelmandArray[2];
     var naam = winkelmandArray[3];
     var leveringsdatum = winkelmandArray[4];
     var prijs = 1500;
-
     var voornaamBetaling = betalingArray[0];
     var naamBetaling = betalingArray[1];
     var email = betalingArray[2];
     var telefoonNummer = betalingArray[3];
     var betalingSoort = betalingArray[4];
     console.log(betalingSoort);
-
     var transport;
     if (winkelmandArray[5] === "afhalen")
         transport = "U heeft gekozen om uw bon op te halen bij SwingGroup";
     else
         transport = "U heeft gekozen om uw bon op te sturen via Taxipost op";
-
     $('#themaContent').html(thema);
     $('#boodschapContent').html(boodschap);
     $('#voornaamContent').html(voornaam);
@@ -552,10 +562,8 @@ function maakOverzicht(betalingArray) {
     $('#leveringsdatumContent').html(leveringsdatum);
     $('#naamBetalingContent').html(voornaamBetaling);
     $('#transportContent').html(transport);
-
     var taal = "nl_NL";
     var orderID = "STDREF321";
-
     var ogoneForm =
             '<form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm" name="ogoneForm">' +
             '<!-- Algemene parameters -->' +
@@ -590,7 +598,6 @@ function maakOverzicht(betalingArray) {
             '<input type="hidden" name="EXCEPTIONURL" value="http://localhost:8383/SwingGiftApp/index.html">' +
             '<input type="hidden" name="CANCELURL" value="http://localhost:8383/SwingGiftApp/index.html">' +
             '</form>';
-
     if (betalingSoort === "Online") {
         console.log("ja?");
         $('#ogone').html(ogoneForm).trigger("create");
