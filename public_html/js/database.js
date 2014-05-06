@@ -425,7 +425,7 @@ function personalisatiePaginaXML(voucherCode) {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
                 window.alert(xmlhttp.responseText);
-                personalisatie(xmlhttp.responseText);
+                return errorCode = personalisatie(xmlhttp.responseText);
             }
         }
     };
@@ -451,7 +451,6 @@ function personalisatiePaginaXML(voucherCode) {
         }
         return errorCode;
     }
-    
 }
 
 function setCredit(c) {
