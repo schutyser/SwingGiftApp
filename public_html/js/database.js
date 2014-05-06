@@ -398,6 +398,8 @@ function advancedSearch1(tx, results) {
 
 function personalisatiePaginaXML(voucherCode) {
     var errorCode = "";
+    var pers = [];
+    var credit;
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=ChecksCode', true);
@@ -428,7 +430,7 @@ function personalisatiePaginaXML(voucherCode) {
                 var error = personalisatie(xmlhttp.responseText);
                 var content = "<div class='message error'><i class='icon-exclamation-sign'></i><p>Voer een (geldige) voucher code in : ";
                 var einde = "</p></div>";
-                
+
                 if (error === "OK") {
                     setCredit(credit);
                     maakPersPagina(pers);
@@ -447,8 +449,6 @@ function personalisatiePaginaXML(voucherCode) {
         }
     };
     function personalisatie(xml) {
-        var pers = [];
-        var credit;
         errorCode = $(xml).find("ErrorMessage").find("errorMessage").text();
         pers.push($(xml).find("levering_contactnaam").text());
         pers.push($(xml).find("logo").text());
