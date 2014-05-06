@@ -283,7 +283,6 @@ function detailItem(tx, results) {
     $('#itemContent').html(content).trigger("create");
 
     $(document).on('change', '#change', function() {
-        console.log("change fuctie");
         var aantal = $('#aantalLabel' + id + '').val();
         var prijs = $('#prijsLabel' + id + '').val();
         calcPrijs(aantal, prijs);
@@ -365,12 +364,13 @@ function shoppingCart(tx, results) {
 
     $('#shoppingContent').html(content1 + content2 + content3).trigger("create");
 
-    $('#shoppingContent').on('change', "#aantalItem" + id, function() {
+    $(document).on('change', "#aantalItem" + id, function() {
         var a = $('#aantalItem' + id + '').val();
         var a2 = getAantalItem(id);
+        if(a !==a2){
         var aantalNieuw = +a - +a2;
         updateWinkelmand(id, prijs, aantalNieuw, 0);
-        successCB3();
+        successCB3();}
     });
 }
 
@@ -427,7 +427,7 @@ function personalisatiePaginaXML(voucherCode) {
     function personalisatie(xml) {
             var pers = [];
             var credit;
-            errorCode = $(xml).find("errorMessage").text();
+            errorCode = $(xml).find("ErrorMessage").find("errorMessage").text();
             pers.push($(xml).find("levering_contactnaam").text());
             pers.push($(xml).find("logo").text());
             pers.push($(xml).find("TitelNL").text());
@@ -437,7 +437,7 @@ function personalisatiePaginaXML(voucherCode) {
             credit = $(xml).find("credit").text();
 
             
-            window.alert("personalisatie functie errorCode: " + errorCode + " ; credit: " + credit);
+            window.alert("personalisatie functie errorCode: " + errorCode + " ==> credit: " + credit);
             window.alert("Perspagina array:" + pers);
             
             if(errorCode === "200 : OK"){
