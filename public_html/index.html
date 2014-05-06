@@ -32,9 +32,10 @@
 
         <!-- Database create -->
         <script src="js/winkelmandje.js"></script>   
-        
+
     </head>
-    <body onload="onDeviceReady(); onDeviceReady1();">
+    <body onload="onDeviceReady();
+            onDeviceReady1();">
         <!-- Index page -->
         <div data-role="page" data-theme='b' id="index">
 
@@ -118,7 +119,7 @@
         <!-- Info page -->
         <div data-role="page" data-theme='b' id="info">
 
-             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
                 <img src="img/header.gif"  alt="swingGiftLogo" class="autoresize"/>
                 <p class="infobutton"><a href="#info" data-icon="info" data-role="button" data-inline="true" data-mini="true">&nbsp;</a></p>
             </div>
@@ -179,7 +180,7 @@
         <!-- Shop page -->
         <div data-role="page" data-theme='b' id="shop">
 
-             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
                 <img src="img/header.gif"  alt="swingGiftLogo" class="autoresize"/>
                 <p class="infobutton"><a href="#info" data-icon="info" data-role="button" data-inline="true" data-mini="true">&nbsp;</a></p>
             </div>
@@ -240,7 +241,7 @@
         <!-- voucher page -->
         <div data-role="page" data-theme='b' id="voucher">
 
-             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
                 <img src="img/header.gif"  alt="swingGiftLogo" class="autoresize"/>
                 <p class="infobutton"><a href="#info" data-icon="info" data-role="button" data-inline="true" data-mini="true">&nbsp;</a></p>
             </div>
@@ -285,7 +286,7 @@
         <!-- Wallet page -->
         <div data-role="page" data-theme='b' id="wallet">
 
-             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
                 <img src="img/header.gif"  alt="swingGiftLogo" class="autoresize"/>
                 <p class="infobutton"><a href="#info" data-icon="info" data-role="button" data-inline="true" data-mini="true">&nbsp;</a></p>
             </div>
@@ -331,7 +332,7 @@
         <!-- Item page -->
         <div data-role="page" data-theme='b' id="item">
 
-             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
                 <img src="img/header.gif"  alt="swingGiftLogo" class="autoresize"/>
                 <p class="infobutton"><a href="#info" data-icon="info" data-role="button" data-inline="true" data-mini="true">&nbsp;</a></p>
             </div>
@@ -354,15 +355,15 @@
         <!-- Shoppingcart page -->
         <div data-role="page" data-theme='b' id="shoppingcart">
 
-             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
                 <img src="img/header.gif"  alt="swingGiftLogo" class="autoresize"/>
                 <p class="infobutton"><a href="#info" data-icon="info" data-role="button" data-inline="true" data-mini="true">&nbsp;</a></p>
             </div>
 
             <div data-role="content" data-theme='b' id="shoppingContent">
-                    <strong> Loading ...</strong>
+                <strong> Loading ...</strong>
             </div>
-            
+
 
             <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
                 <div data-role="navbar">
@@ -378,7 +379,7 @@
         <!-- FAQVraag page -->
         <div data-role="page" data-theme='b' id="faq">
 
-             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
                 <img src="img/header.gif"  alt="swingGiftLogo" class="autoresize"/>
                 <p class="infobutton"><a href="#info" data-icon="info" data-role="button" data-inline="true" data-mini="true">&nbsp;</a></p>
             </div>
@@ -415,7 +416,7 @@
         <!-- Thema page -->
         <div data-role="page" data-theme='b' id="thema">
 
-             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
                 <img src="img/header.gif"  alt="swingGiftLogo" class="autoresize"/>
                 <p class="infobutton"><a href="#info" data-icon="info" data-role="button" data-inline="true" data-mini="true">&nbsp;</a></p>
             </div>
@@ -481,7 +482,7 @@
         <!-- Boodschap page -->
         <div data-role="page" data-theme='b' id="boodschap">
 
-             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
                 <img src="img/header.gif"  alt="swingGiftLogo" class="autoresize"/>
                 <p class="infobutton"><a href="#info" data-icon="info" data-role="button" data-inline="true" data-mini="true">&nbsp;</a></p>
             </div>
@@ -531,8 +532,33 @@
                                     8310 Brugge
                                 </p>
                                 <br/>
-                                <input type="radio" name="afhaling" id="taxipost" value="taxipost" onclick="popup('#taxipostPopUp')">
-                                <label for="taxipost"><span>Deze bon mag opgestuurd worden via Taxipost (€5,95)</span></label>
+                                <input type="radio" name="afhaling" id="taxipost" value="taxipost">
+                                <label for="taxipost"><span>Deze bon mag opgestuurd worden via Taxipost (+ €5,95-10,95)</span></label>
+                            </fieldset>
+                            <fieldset data-role="controlgroup" data-mini="true">
+                                <legend>Voeg het adres van de ontvanger in:</legend>
+                                <hr/>
+                                <label for="firma">Firma:</label>
+                                <input name="firma" id="firma" type="text" placeholder="Firma"/>
+                                <label for="straat">Straat:</label>
+                                <input name="straat" id="straat" type="text" placeholder="Straat"/>
+                                <label for="nr">Nr:</label>
+                                <input name="nr" id="nr" type="number" placeholder="Nr"/>
+                                <label for="bus">Bus:</label>
+                                <input name="bus" id="bus" type="text" placeholder="Bus"/>
+                                <label for="postcode">Postcode:</label>
+                                <input name="postcode" id="postcode" type="text" placeholder="Postcode"/>
+                                <label for="gemeente">Gemeente:</label>
+                                <input name="gemeente" id="gemeente" type="text" placeholder="Gemeente"/>
+                                <label for="land">Land:</label>
+                                <select name="land"  id="land" data-theme="a">
+                                    <option value="belgie">Belgi&#235; (+ € 5,95)</option>
+                                    <option value="nederland">Nederland (+ € 8,95)</option>
+                                    <option value="duitsland">Duitsland (+ € 10,95)</option>
+                                    <option value="frankrijk">Frankrijk (+ € 10,95)</option>
+                                    <option value="luxemburg">Luxemburg (+ € 9,95)</option>
+                                </select>
+                                <hr/>
                             </fieldset>
                         </li>
                         <li>
@@ -542,34 +568,8 @@
                             </div>
                         </li>
                     </ul>
-                    <a href="#betaalgegevens1" data-roll="button" class="fixedButton" onclick="addBoodschap()">Toevoegen</a>
+                    <a href="#" data-roll="button" onclick="addBoodschap()">Toevoegen</a>
                 </form>
-                <div data-role="popup" id="taxipostPopUp" data-theme="b">
-                    <form>
-                        <fieldset data-role="controlgroup" data-mini="true">
-                            <legend>Voeg het adres van de ontvanger in:</legend>
-                            <hr/>
-                            <input name="firma" id="firma" type="text" placeholder="Firma"/>
-                            <input name="straat" id="straat" type="text" placeholder="Straat"/>
-                            <input name="nr" id="nr" type="number" placeholder="Nr"/>
-                            <input name="bus" id="bus" type="text" placeholder="Bus"/>
-                            <input name="postcode" id="postcode" type="text" placeholder="Postcode"/>
-                            <input name="gemeente" id="gemeente" type="text" placeholder="Gemeente"/>
-                            <select name="land"  id="land" data-theme="a">
-                                <option value="belgie">Belgi&#235;</option>
-                                <option value="nederland">Nederland</option>
-                                <option value="luxemburg">Luxemburg</option>
-                                <option value="duitsland">Duitsland</option>
-                                <option value="frankrijk">Frankrijk</option>
-                            </select>
-                            <hr/>
-                        </fieldset>
-                    </form>
-                    <div data-role="controlgroup">
-                        <a href="#" data-role="button" data-icon="check" onclick="popupCheck('#taxipostPopUp')">Save</a>
-                        <a href="#" data-role="button" data-icon="delete" onclick="popupClose('#taxipostPopUp')">Cancel</a>
-                    </div>
-                </div>
             </div>
 
             <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
@@ -587,7 +587,7 @@
         <!-- Betaalgegevens1 page -->
         <div data-role="page" data-theme='b' id="betaalgegevens1">
 
-             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
                 <img src="img/header.gif"  alt="swingGiftLogo" class="autoresize"/>
                 <p class="infobutton"><a href="#info" data-icon="info" data-role="button" data-inline="true" data-mini="true">&nbsp;</a></p>
             </div>
@@ -861,7 +861,7 @@
         <!-- overzicht page -->
         <div data-role="page" data-theme='b' id="overzicht">
 
-             <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
                 <img src="img/header.gif"  alt="swingGiftLogo" class="autoresize"/>
                 <p class="infobutton"><a href="#info" data-icon="info" data-role="button" data-inline="true" data-mini="true">&nbsp;</a></p>
             </div>

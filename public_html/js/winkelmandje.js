@@ -116,14 +116,20 @@ function addTheme() {
 
 function addBoodschap() {
     var arrayBoodschap = getWinkelmandArray();
+    var fout = "Sommige verplichte velden zijn niet ingevuld: ";
 
     var boodschapInhoud = $('#boodschapInhoud').val();
     arrayBoodschap.push(boodschapInhoud);
 
     var ontvangerVnaam = $('#ontvangerVnaam').val();
+    if (ontvangerVnaam === "")
+        fout += "voornaam, ";
     arrayBoodschap.push(ontvangerVnaam);
 
+
     var ontvangerNaam = $('#ontvangerNaam').val();
+    if (ontvangerNaam === "")
+        fout += "naam, ";
     arrayBoodschap.push(ontvangerNaam);
 
     var leveringsdatum = $('#leveringsdatum').val();
@@ -131,6 +137,8 @@ function addBoodschap() {
 
     if (isEmailVoucher(arrayBoodschap[0])) {
         var ontvangerEmail = $('#ontvangerEmail').val();
+        if (ontvangerEmail === "")
+            fout += "e-mail, ";
         arrayBoodschap.push(ontvangerEmail);
     }
     else {
@@ -141,30 +149,41 @@ function addBoodschap() {
             arrayBoodschap.push(firma);
 
             var straat = $('#straat').val();
+            if (straat === "")
+                fout += "straat, ";
             arrayBoodschap.push(straat);
 
             var nr = $('#nr').val();
+            if (nr === "")
+                fout += "nr, ";
             arrayBoodschap.push(nr);
 
             var bus = $('#bus').val();
             arrayBoodschap.push(bus);
 
             var postcode = $('#postcode').val();
+            if (postcode === "")
+                fout += "postcode, ";
             arrayBoodschap.push(postcode);
 
             var gemeente = $('#gemeente').val();
+            if (gemeente === "")
+                fout += "gemeente.";
             arrayBoodschap.push(gemeente);
 
             var land = $('#land').val();
             arrayBoodschap.push(land);
         }
-
+    }
+    if (fout === "Sommige verplichte velden zijn niet ingevuld: ") {
+        setWinkelmandArray(arrayBoodschap);
+        window.location.href = "#betaalgegevens1";
+    }
+    else {
+        deleteArray(1, 'boodschap');
+        $('#errorBoodschap').html("<li><div class='message error'><i class='icon-exclamation-sign'></i><p>" + fout + "</p></div></li>");
     }
 
-
-    console.log(arrayBoodschap);
-    setWinkelmandArray(arrayBoodschap);
-    console.log(filledArray);
 }
 
 function isEmailVoucher(id) {
@@ -262,14 +281,6 @@ function voucher() {
 }
 
 function popupClose(id) {
-    $(id).popup("close");
-    document.getElementById("taxipost").checked = false;
-    document.getElementById("afhalen").checked = true;
-    $("#taxipost").checkboxradio('refresh');
-    $("#afhalen").checkboxradio('refresh');
-}
-
-function popupCheck(id) {
     $(id).popup("close");
 }
 

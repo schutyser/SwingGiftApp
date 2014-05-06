@@ -400,7 +400,7 @@ function personalisatiePaginaXML(voucherCode) {
     var errorCode = "";
     var pers = [];
     var credit;
-    
+
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=ChecksCode', true);
@@ -427,14 +427,12 @@ function personalisatiePaginaXML(voucherCode) {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
-                window.alert(xmlhttp.responseText);
                 var error = personalisatie(xmlhttp.responseText);
                 var content = "<div class='message error'><i class='icon-exclamation-sign'></i><p>Voer een (geldige) voucher code in : ";
                 var einde = "</p></div>";
 
                 if (error === "OK") {
                     if (checkDuplicate(voucherCode)) {
-                        window.alert("errorCode in winkelmand voucher: " + error + "credit: " + credit + "pers: " + pers);
                         setCredit(credit);
                         if (pers[3] !== "" && pers[5] !== "") {
                             maakPersPagina(pers);
@@ -448,7 +446,6 @@ function personalisatiePaginaXML(voucherCode) {
                         $('#errorVoucher').html("<div class='message error'><i class='icon-exclamation-sign'></i><p>Deze voucher code is al geregistreerd op uw device.</p></div>");
                 }
                 else {
-                    window.alert("errorCode in winkelmand voucher: " + error);
                     $('#errorVoucher').html(content + error + einde);
                 }
             }
@@ -469,32 +466,30 @@ function personalisatiePaginaXML(voucherCode) {
 
     function checkDuplicate(voucherCode) {
         var voucherCodeArray = [];
-        window.alert("checkDuplicate: " + voucherCode);
-        window.alert("voucherCodeArray: " + window.localStorage.getArray("voucherCodeArray"));
         if (window.localStorage.getArray("voucherCodeArray") !== null) {
             voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
             for (var i = 0; i < voucherCodeArray.length; ++i) {
                 if (voucherCodeArray[i] === voucherCode) {
-                    window.alert("duplicate code");
                     return false;
                 }
             }
         }
         voucherCodeArray.push(voucherCode);
-        window.alert("voucherCodeArray: " + voucherCodeArray);
         window.localStorage.setArray("voucherCodeArray", voucherCodeArray);
         return true;
     }
 }
 
 
-
 function setCredit(c) {
+    if (window.localStorage.getItem("credit", c) !== null) {
+        var cc = window.localStorage.getItem("credit", c);
+        c += +cc;
+    }
     window.localStorage.setItem("credit", c);
 }
 
 function maakPersPagina(pers) {
-    window.alert("Pers pagain");
     var contentList;
     var header = '<div data-role="header" id="headerPers"  data-position="fixed" data-tap-toggle="false" data-theme=\'b\'>\n\
                 <h1>' + pers[0] + '</h1>\n\
