@@ -251,19 +251,20 @@ function deleteItem(id) {
 
 function voucher() {
     var voucherCode = document.getElementById("voucherCode").value;
-    var content = "<div class='message error'><i class='icon-exclamation-sign'></i><p>Voer een (geldige) voucher code in.</p></div>";
+    var content = "<div class='message error'><i class='icon-exclamation-sign'></i><p>Voer een (geldige) voucher code in : error </p></div>";
+    var errorCode;
 
     if (voucherCode !== "") {
-        var errorCode = personalisatiePaginaXML(voucherCode);
-        if (errorCode === 'OK') {
+        errorCode = personalisatiePaginaXML(voucherCode);
+        if (errorCode === '200 : OK') {
             window.location.href = "#personalisatie";
             $('#errorVoucher').html("");
         }
         else
-            $('#errorVoucher').html(content);
+            $('#errorVoucher').html(content + errorCode);
     }
     else {
-        $('#errorVoucher').html(content);
+        $('#errorVoucher').html(content + errorCode);
     }
 }
 

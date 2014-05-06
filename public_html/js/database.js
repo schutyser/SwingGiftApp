@@ -365,13 +365,7 @@ function shoppingCart(tx, results) {
 
     $('#shoppingContent').html(content1 + content2 + content3).trigger("create");
 
-    $(document).on('change', "#aantalItem" + id, function() {
-        var a = $('#aantalItem' + id + '').val();
-        var a2 = getAantalItem(id);
-        var aantalNieuw = +a - +a2;
-        updateWinkelmand(id, prijs, aantalNieuw, 0);
-        successCB3();
-    });
+   
 }
 
 function advancedSearch1(tx, results) {
@@ -425,24 +419,25 @@ function personalisatiePaginaXML(voucherCode) {
         }
     };
     function personalisatie(xml) {
-        return window.alert("personalisatie functie");
-
-        $(xml).find('personalisatie').each(function() {
             var pers = [];
             var credit;
-            pers.push($(this).find("naam").text());
-            pers.push($(this).find("logo").text());
-            pers.push($(this).find("titel").text());
-            pers.push($(this).find("video").text());
-            pers.push($(this).find("tekstboodschap").find("titelTekst").text());
-            pers.push($(this).find("tekstboodschap").find("tekstboodschapTekst").text());
-            credit = $(this).find("credit").text();
+            errorCode = $(xml).find("errorCode").text();
+            errorCode =+ " : " + $(xml).find("errorMessage").text();
+            pers.push($(xml).find("levering_contactnaam").text());
+            pers.push($(xml).find("logo").text());
+            pers.push($(xml).find("TitelNL").text());
+            pers.push($(xml).find("VideoNL").text());
+            pers.push($(xml).find("TitelNL").text());
+            pers.push($(xml).find("Perso").text());
+            credit = $(xml).find("credit").text();
 
-            window.alert("Perspagina xml:" + pers);
-
+            
+            window.alert("personalisatie functie errorCode: " + errorCode + " ; credit: " + credit);
+            window.alert("Perspagina array:" + pers);
+            
+            if(errorCode === "200 : OK"){
             setCredit(credit);
-            maakPersPagina(pers);
-        });
+            maakPersPagina(pers);}
     }
     return errorCode;
 }
