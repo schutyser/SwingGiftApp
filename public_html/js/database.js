@@ -345,8 +345,14 @@ function shoppingCart(tx, results) {
         }
     }
 
-
-    var content3 = '<li data-role="list-divider" style="text-align: right;">\n\
+    var content3 = "";
+    if (len === 0) {
+        content3 = '<li>\n\
+                        <a href="#shop" data-role="button" data-icon="gift">Go shopping now!</a>\n\
+                    </li></ul>';
+    }
+    else {
+        content3 = '<li data-role="list-divider" style="text-align: right;">\n\
                         ' + creditContent + '\n\
                     </li>\n\
                     <li data-role="list-divider" style="text-align: right;">\n\
@@ -354,8 +360,8 @@ function shoppingCart(tx, results) {
                     </li>\n\
                     <li>\n\
                         <a href="#thema" data-role="button" data-icon="truck">Complete order</a>\n\
-                    </li></ul>';
-
+                    </li></ul> <p>*Eventuele verzendingskosten niet inbegrepen.</p>';
+    }
 
     $('#shoppingContent').html(content1 + content2 + content3).trigger("create");
 
@@ -386,30 +392,59 @@ function advancedSearch1(tx, results) {
 }
 
 function personalisatiePaginaXML(voucherCode) {
-    $.ajax({
-        type: "GET",
-        url: "personalisatiePagina.xml",
-        dataType: "xml",
-        success: function(xml) {
-            $(xml).find('personalisatie').each(function() {
-                var pers = [];
-                var credit;
-                pers.push($(this).find("naam").text());
-                pers.push($(this).find("logo").text());
-                pers.push($(this).find("titel").text());
-                pers.push($(this).find("video").text());
-                pers.push($(this).find("tekstboodschap").find("titelTekst").text());
-                pers.push($(this).find("tekstboodschap").find("tekstboodschapTekst").text());
-                credit = $(this).find("credit").text();
+    var errorCode = "";
 
-                console.log("Perspagina xml:" + pers);
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=ChecksCode', true);
 
-                setCredit(credit);
-                maakPersPagina(pers);
-            });
+    // build SOAP request
+    var sr =
+            '<?xml version="1.0" encoding="UTF-8"?>' +
+            '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/">' +
+            '<SOAP-ENV:Body>' +
+            '<ChecksCode xmlns="http://tempuri.org/">' +
+            '<ns1:logoncode>THIJS123</ns1:logoncode>' +
+            '<SGVouchercode>' + voucherCode + '</SGVouchercode>' +
+            '</ChecksCode>' +
+            '</SOAP-ENV:Body>' +
+            '</SOAP-ENV:Envelope>';
+
+    // Send the POST request
+    xmlhttp.setRequestHeader('Content-Type', "text/xml; charset=\"utf-8\"");
+    xmlhttp.setRequestHeader('SOAPAction', 'http://tempuri.org/ChecksCode');
+    xmlhttp.setRequestHeader("Accept", "application/xml", "text/xml", "\*/\*");
+
+    xmlhttp.send(sr);
+    // send request
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState === 4) {
+            if (xmlhttp.status === 200) {
+                window.alert(xmlhttp.responseText);
+                personalisatie(xmlhttp.responseText);
+            }
         }
-    });
+    };
+    function personalisatie(xml) {
+        return window.alert("personalisatie functie");
 
+        $(xml).find('personalisatie').each(function() {
+            var pers = [];
+            var credit;
+            pers.push($(this).find("naam").text());
+            pers.push($(this).find("logo").text());
+            pers.push($(this).find("titel").text());
+            pers.push($(this).find("video").text());
+            pers.push($(this).find("tekstboodschap").find("titelTekst").text());
+            pers.push($(this).find("tekstboodschap").find("tekstboodschapTekst").text());
+            credit = $(this).find("credit").text();
+
+            window.alert("Perspagina xml:" + pers);
+
+            setCredit(credit);
+            maakPersPagina(pers);
+        });
+    }
+    return errorCode;
 }
 
 function setCredit(c) {

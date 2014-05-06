@@ -222,7 +222,7 @@ function clearWinkelmandje() {
     console.log(filledArray);
     filledArray = [];
     changeButton();
-    
+
 }
 
 function checkDuplicate(id, aantal) {
@@ -251,14 +251,18 @@ function deleteItem(id) {
 
 function voucher() {
     var voucherCode = document.getElementById("voucherCode").value;
-    console.log('voucher:' + voucherCode);
+    var content = "<div class='message error'><i class='icon-exclamation-sign'></i><p>Voer een (geldige) voucher code in.</p></div>";
+
     if (voucherCode !== "") {
-        personalisatiePaginaXML(voucherCode);
-        window.location.href = "#personalisatie";
-        $('#errorVoucher').html("");
+        var errorCode = personalisatiePaginaXML(voucherCode);
+        if (errorCode === 'OK') {
+            window.location.href = "#personalisatie";
+            $('#errorVoucher').html("");
+        }
+        else
+            $('#errorVoucher').html(content);
     }
     else {
-        var content = "<div class='message error'><i class='icon-exclamation-sign'></i><p>Voer een (geldige) voucher code in.</p></div>";
         $('#errorVoucher').html(content);
     }
 }
@@ -294,7 +298,7 @@ function addBetaalgegevens1() {
 
     var telefoon = $('#telefoon').val();
     betalingArray.push(telefoon);
-    
+
     setBetaalgegevens(betalingArray);
 }
 
@@ -340,7 +344,7 @@ function addBetaalgegevens2() {
         var referentieFac = $('#referentieFac').val();
         betalingArray.push(referentieFac);
     }
-    
+
     setBetaalgegevens(betalingArray);
     maakOverzicht(betalingArray);
 }
@@ -377,7 +381,7 @@ function arrayEvouchers(tx, results) {
     var arrayEvoucher = [];
     for (var i = 0; i < results.rows.length; i++)
         arrayEvoucher.push(results.rows.item(i).giftID);
-    
+
     console.log(arrayEvoucher);
     window.localStorage.setArray("arrayEvoucher", arrayEvoucher);
 }
@@ -387,23 +391,23 @@ function Neemfoto() {
         window.alert("Camera API not supported", "Error");
         return;
     }
-    var options =   {   quality: 50,
-                        destinationType: Camera.DestinationType.DATA_URL,
-                        sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
-                        encodingType: 0     // 0=JPG 1=PNG
-                    };
- 
+    var options = {quality: 50,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: 1, // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+        encodingType: 0     // 0=JPG 1=PNG
+    };
+
     navigator.camera.getPicture(
-        function(imageData) {
-            $('#cameraPic').show().attr('src', "data:image/jpeg;base64," + imageData);
-        },
-        function() {
-            window.alert('Error taking picture', 'Error');
-        },
-        options);
+            function(imageData) {
+                $('#cameraPic').show().attr('src', "data:image/jpeg;base64," + imageData);
+            },
+            function() {
+                window.alert('Error taking picture', 'Error');
+            },
+            options);
 }
 
 //fix header image size
-$(window).on('load', function () {
+$(window).on('load', function() {
     $(this).trigger('resize');
 });
