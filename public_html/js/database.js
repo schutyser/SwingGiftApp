@@ -432,9 +432,7 @@ function personalisatiePaginaXML(voucherCode) {
                 var einde = "</p></div>";
 
                 if (error === "OK") {
-                    var test = checkDuplicate(error);
-                    window.alert(test);
-                    if ( test === "OK") {
+                    if (checkDuplicate(error)) {
                         window.alert("errorCode in winkelmand voucher: " + error + "credit: " + credit + "pers: " + pers);
                         setCredit(credit);
                         if (pers[3] !== "" && pers[5] !== "") {
@@ -454,7 +452,8 @@ function personalisatiePaginaXML(voucherCode) {
                 }
             }
         }
-    };
+    }
+    ;
     function personalisatie(xml) {
         errorCode = $(xml).find("ErrorMessage").find("errorMessage").text();
         pers.push($(xml).find("levering_contactnaam").text());
@@ -474,7 +473,7 @@ function personalisatiePaginaXML(voucherCode) {
             for (var i = 0; i < voucherCodeArray.length; ++i) {
                 if (voucherCodeArray[i] === error) {
                     window.alert("duplicate code");
-                    return "duplicate";
+                    return false;
                 }
             }
         }
@@ -484,7 +483,7 @@ function personalisatiePaginaXML(voucherCode) {
 
         voucherCodeArray.push(error);
         window.localStorage.setArray("voucherCodeArray", voucherCodeArray);
-        return "OK";
+        return true;
     }
 }
 
