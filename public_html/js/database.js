@@ -432,7 +432,7 @@ function personalisatiePaginaXML(voucherCode) {
                 var einde = "</p></div>";
 
                 if (error === "OK") {
-                    if (checkDuplicate(error)) {
+                    if (checkDuplicate(error) === "OK") {
                         window.alert("errorCode in winkelmand voucher: " + error + "credit: " + credit + "pers: " + pers);
                         setCredit(credit);
                         if (pers[3] !== "" && pers[5] !== "") {
@@ -476,12 +476,12 @@ function checkDuplicate(error) {
                 return false;
             }}}
             else
-                voucherCodeArray = [];
+                var voucherCodeArray = [];
         
     
     voucherCodeArray.push(error);
     window.localStorage.setArray("voucherCodeArray", voucherCodeArray);
-    return true;
+    return "OK";
 }
 
 function setCredit(c) {
