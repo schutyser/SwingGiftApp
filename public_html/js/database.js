@@ -431,12 +431,16 @@ function personalisatiePaginaXML(voucherCode) {
                 var content = "<div class='message error'><i class='icon-exclamation-sign'></i><p>Voer een (geldige) voucher code in : ";
                 var einde = "</p></div>";
 
-                if (error === "OK" && checkDuplicate(error)) {
-                    window.alert("errorCode in winkelmand voucher: " + error + "credit: " + credit + "pers: " + pers);
-                    setCredit(credit);
-                    maakPersPagina(pers);
-                    window.location.href = "#personalisatie";
-                    $('#errorVoucher').html("");
+                if (error === "OK") {
+                    if (checkDuplicate(error)) {
+                        window.alert("errorCode in winkelmand voucher: " + error + "credit: " + credit + "pers: " + pers);
+                        setCredit(credit);
+                        maakPersPagina(pers);
+                        window.location.href = "#personalisatie";
+                        $('#errorVoucher').html("");
+                    }
+                    else
+                        $('#errorVoucher').html("<div class='message error'><i class='icon-exclamation-sign'></i><p>Deze voucher code is al geregistreerd op uw device.</p></div>");
                 }
                 else {
                     window.alert("errorCode in winkelmand voucher: " + error);
