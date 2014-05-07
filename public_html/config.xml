@@ -15,10 +15,7 @@
     <author href="" email="thijs.schutyser@gmail.com">
         Thijs Schutyser
     </author>
-    
-    <feature name="App">
-        <param name="android-package" value="org.apache.cordova.App" />
-    </feature>
+   
     <!--
         If you do not want any permissions to be added to your app, add the
         following tag to your config.xml; you will still have the INTERNET
