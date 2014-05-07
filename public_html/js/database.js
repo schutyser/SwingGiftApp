@@ -547,7 +547,7 @@ function maakPersPagina(pers) {
 }
 
 function maakOverzicht(betalingArray) {
-    
+    window.alert("maak overzicht: " + betalingArray.toString());
     var winkelmandArray = getWinkelmandArray();
     var thema = winkelmandArray[0];
     var boodschap = winkelmandArray[1];
