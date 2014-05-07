@@ -588,11 +588,10 @@ function maakOverzicht(betalingArray) {
             '<!-- controle voor de betaling: zie Beveiliging: Controle voor de betaling -->' +
             '<input type="hidden" name="SHASIGN" value="">' +
             '<!-- layout informatie: zie “Look and feel” van de betaalpagina -->' +
-            '<input type="hidden" name="TP" value="PaymentPage_1_iPhone.htm">' +
-            '<input type="hidden" name="TITLE" value="SwingGift Mobile Payment">' +
+            '<input type="hidden" name="TITLE" value="SwingGift payment">' +
             '<input type="hidden" name="BGCOLOR" value="#FFFFFF">' +
-            '<input type="hidden" name="TXTCOLOR" value="orange">' +
-            '<input type="hidden" name="TBLBGCOLOR" value="#FFFFFF">' +
+            '<input type="hidden" name="TXTCOLOR" value="#666666">' +
+            '<input type="hidden" name="TBLBGCOLOR" value="orange">' +
             '<input type="hidden" name="TBLTXTCOLOR" value="#FFFFFF">' +
             '<input type="hidden" name="HDTBLBGCOLOR" value="orange">' +
             '<input type="hidden" name="HDTBLTXTCOLOR" value="#FFFFFF">' +
@@ -601,10 +600,10 @@ function maakOverzicht(betalingArray) {
             '<input type="hidden" name="BUTTONTXTCOLOR" value="#FFFFFF">' +
             '<input type="hidden" name="FONTTYPE" value="">' +
             '<!-- feedback na de betaling: zie Transactie feedback naar de klant -->' +
-            '<input type="hidden" name="ACCEPTURL" value="SwingGiftApp/index.html">' +
-            '<input type="hidden" name="DECLINEURL" value="SwingGiftApp/index.html">' +
-            '<input type="hidden" name="EXCEPTIONURL" value="SwingGiftApp/index.html">' +
-            '<input type="hidden" name="CANCELURL" value="SwingGiftApp/index.html">' +
+            '<input type="hidden" name="ACCEPTURL" value="SwingGiftApp://index.html">' +
+            '<input type="hidden" name="DECLINEURL" value="">' +
+            '<input type="hidden" name="EXCEPTIONURL" value="">' +
+            '<input type="hidden" name="CANCELURL" value="SwingGiftApp://index.html">' +
             '</form>';
     if (betalingSoort === "Online") {
         $('#ogone').html(ogoneForm).trigger("create");
