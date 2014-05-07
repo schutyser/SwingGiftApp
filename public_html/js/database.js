@@ -557,7 +557,7 @@ function maakOverzicht(betalingArray) {
     var email = betalingArray[2];
     var telefoonNummer = betalingArray[3];
     var betalingSoort = betalingArray[4];
-    console.log(betalingSoort);
+    
     var transport;
     if (winkelmandArray[5] === "afhalen")
         transport = "U heeft gekozen om uw bon op te halen bij SwingGroup";
