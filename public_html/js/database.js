@@ -590,7 +590,7 @@ function maakOverzicht(betalingArray) {
             '<!-- layout informatie: zie “Look and feel” van de betaalpagina -->' +
             '<input type="hidden" name="TP" value="PaymentPage_1_iPhone.htm">' +
             '<input type="hidden" name="TITLE" value="SwingGift payment">' +
-            '<input type="hidden" name="BGCOLOR" value="#FFFFFF">' +
+            '<input type="hidden" name="BGCOLOR" value="white">' +
             '<input type="hidden" name="TXTCOLOR" value="#666666">' +
             '<input type="hidden" name="TBLBGCOLOR" value="orange">' +
             '<input type="hidden" name="TBLTXTCOLOR" value="#FFFFFF">' +
@@ -607,7 +607,6 @@ function maakOverzicht(betalingArray) {
             '<input type="hidden" name="CANCELURL" value="http://localhost:8383/SwingGiftApp/index.html">' +
             '</form>';
     if (betalingSoort === "Online") {
-        console.log("ja?");
         $('#ogone').html(ogoneForm).trigger("create");
     }
 

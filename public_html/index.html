@@ -567,8 +567,10 @@
                                 <input name="leveringsdatum" id="leveringsdatum" type="datetime-local"/>
                             </div>
                         </li>
+                        <li>
+                            <a href="#" data-roll="button" data-theme="b" onclick="addBoodschap()">Toevoegen</a>
+                        </li>
                     </ul>
-                    <a href="#" data-roll="button" data-theme="b" onclick="addBoodschap()">Toevoegen</a>
                     <div id="errorBoodschap"></div>
                 </form>
             </div>
@@ -778,7 +780,7 @@
 
                         <fieldset data-role="controlgroup">
                             <input type="checkbox" name="voorwaarden" id="voorwaarden" onclick="popup('#voorwaardenPop')" required>
-                            <label for="voorwaarden">Ik ga akkoord met <a href="#voorwaardenPop" >de algemene voorwaarden</a>.</label>
+                            <label for="voorwaarden">Ik ga akkoord met de algemene voorwaarden.</label>
                         </fieldset>
                     </div>
                     <a href="#overzicht" data-role="button" data-icon="truck" onclick="addBetaalgegevens2()">Afrekenen</a>
@@ -899,35 +901,8 @@
                         Totale prijs: &#8364; 15
                     </li>
                     <li>
-                        <a href="#" onclick="document.getElementById('ogoneForm').submit()
-                                        ;">Complete order</a>
+                        <a href="#" onclick="document.getElementById('ogoneForm').submit();">Complete order</a>
                     </li></ul>
-            </div>
-
-            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
-                <div data-role="navbar">
-                    <ul>
-                        <li><a href="#shop" data-icon="gift">Shop</a></li>
-                        <li><a href="#index" data-icon="home">Home</a></li>
-                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> 
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- ogone page -->
-        <div data-role="page" data-theme='b' id="ogonePage">
-
-            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
-                <img src="img/header.gif"  alt="swingGiftLogo" class="autoresize"/>
-                <p class="infobutton"><a href="#info" data-icon="info" data-role="button" data-inline="true" data-mini="true">&nbsp;</a></p>
-            </div>
-
-            <div data-role="content" data-theme='b' id="ogoneContent">
-
-                <form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm1" name="ogoneForm">
-
-                </form>
             </div>
 
             <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>

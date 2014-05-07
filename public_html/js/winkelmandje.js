@@ -184,6 +184,7 @@ function addBoodschap() {
         window.alert("fout:" + fout);
         deleteArray(1, 'boodschap');
         $('#errorBoodschap').html("<div class='message error'><i class='icon-exclamation-sign'></i><p>" + fout + "</p></div>");
+        window.location.href = "#errorBoodschap";
     }
 
 }
