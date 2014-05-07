@@ -231,42 +231,47 @@ function onDeviceReady1() {
     filledArray = readArray();
     changeButton();
 
-    document.addEventListener("backbutton", function(e) {
-        if ($.mobile.activePage.is('#index')) {
-            window.alert("default back override index");
-            e.preventDefault();
-            navigator.app.exitApp();
-        }
-        else {
-            if ($.mobile.activePage.is('#boodschap')) {
-                window.alert("default back override boodschap");
-                deleteArray(1, 'thema');
-                navigator.app.backHistory();
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function onDeviceReady() {
+        window.alert("onDeviceReady");
+        document.addEventListener("backbutton", function(e) {
+            if ($.mobile.activePage.is('#index')) {
+                window.alert("default back override index");
+                e.preventDefault();
+                navigator.app.exitApp();
             }
             else {
-                if ($.mobile.activePage.is('#betaalgegevens1')) {
-                    window.alert("default back override betaalgegevens1");
-                    deleteArray(1, 'boodschap');
+                if ($.mobile.activePage.is('#boodschap')) {
+                    window.alert("default back override boodschap");
+                    deleteArray(1, 'thema');
                     navigator.app.backHistory();
                 }
                 else {
-                    if ($.mobile.activePage.is('#betaalgegevens2')) {
-                        window.alert("default back override betaalgegevens2");
-                        deleteArray(4, 'betaal1');
+                    if ($.mobile.activePage.is('#betaalgegevens1')) {
+                        window.alert("default back override betaalgegevens1");
+                        deleteArray(1, 'boodschap');
                         navigator.app.backHistory();
                     }
                     else {
-                        if ($.mobile.activePage.is('#overzicht')) {
-                            window.alert("default back override van overzicht");
-                            $.mobile.changePage('#shoppingcart');
-                        }
-                        else
+                        if ($.mobile.activePage.is('#betaalgegevens2')) {
+                            window.alert("default back override betaalgegevens2");
+                            deleteArray(4, 'betaal1');
                             navigator.app.backHistory();
+                        }
+                        else {
+                            if ($.mobile.activePage.is('#overzicht')) {
+                                window.alert("default back override van overzicht");
+                                $.mobile.changePage('#shoppingcart');
+                            }
+                            else
+                                navigator.app.backHistory();
+                        }
                     }
                 }
             }
-        }
-    }, false);
+        }, false);
+    }
 }
 
 function changeButton() {
