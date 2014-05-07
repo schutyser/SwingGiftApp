@@ -579,19 +579,18 @@ function maakOverzicht(betalingArray) {
     var sha = 'AMOUNT='+ prijs + sha1 +'CURRENCY=EUR'+ sha1 +
             'LANGUAGE='+ taal + sha1 +'ORDERID='+ orderID + sha1 +
             'PSPID=QCSREW'+ sha1;
-    window.alert(SHA1(sha));
 
     var ogoneForm =
             '<form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm" name="ogoneForm">' +
             '<!-- Algemene parameters -->' +
             '<input type="hidden" name="PSPID" value="QCSREW">' +
-            '<input type="hidden" name="ORDERID" value="' + orderID.toUpperCase() + '">' +
+            '<input type="hidden" name="ORDERID" value="' + orderID + '">' +
             '<input type="hidden" name="AMOUNT" value="' + prijs + '">' +
             '<input type="hidden" name="CURRENCY" value="EUR">' +
             '<input type="hidden" name="LANGUAGE" value="' + taal + '">' +
             '<!--optional -->' +
-            '<input type="hidden" name="CN" value="' + naamBetaling.toUpperCase() + '">' +
-            '<input type="hidden" name="EMAIL" value="' + email.toUpperCase() + '">' +
+            '<input type="hidden" name="CN" value="' + naamBetaling + '">' +
+            '<input type="hidden" name="EMAIL" value="' + email + '">' +
             '<input type="hidden" name="OWNERTELNO" value="' + telefoonNummer + '">' +
             '<input type="hidden" name="COM" value="">' +
             '<!-- controle voor de betaling: zie Beveiliging: Controle voor de betaling -->' +

@@ -226,13 +226,15 @@ function readArray() {
 
 
 function onDeviceReady1() {
+    $.mobile.loading('show');
     //fix header image size
-        $(window).on('load', function() {
-            $(this).trigger('resize');
-        });
+    $(window).on('load', function() {
+        $(this).trigger('resize');
+    });
     document.addEventListener("deviceready", onDeviceReady, false);
 
     function onDeviceReady() {
+        $.mobile.loading('hide');
         filledArray = readArray();
         changeButton();
 
