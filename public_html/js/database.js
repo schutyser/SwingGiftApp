@@ -586,7 +586,7 @@ function maakOverzicht(betalingArray) {
             '<input type="hidden" name="OWNERTELNO" value="' + telefoonNummer + '">' +
             '<input type="hidden" name="COM" value="">' +
             '<!-- controle voor de betaling: zie Beveiliging: Controle voor de betaling -->' +
-            '<input type="hidden" name="SHASIGN" value="Test123Test123Test123">' +
+            '<input type="hidden" name="SHASIGN" value="C33D5DB351D4EDF24045C719524000E8C0CAB278">' +
             '<!-- layout informatie: zie “Look and feel” van de betaalpagina -->' +
             '<input type="hidden" name="TP" value="PaymentPage_1_iPhone.htm">' +
             '<input type="hidden" name="TITLE" value="SwingGift payment">' +
