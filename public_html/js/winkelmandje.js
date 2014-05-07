@@ -231,6 +231,11 @@ function onDeviceReady1() {
     document.addEventListener("deviceready", onDeviceReady, false);
 
     function onDeviceReady() {
+        //fix header image size
+        $(window).on('load', function() {
+            $(this).trigger('resize');
+        });
+
         filledArray = readArray();
         changeButton();
 
@@ -450,7 +455,3 @@ function Neemfoto() {
             options);
 }
 
-//fix header image size
-$(window).on('load', function() {
-    $(this).trigger('resize');
-});

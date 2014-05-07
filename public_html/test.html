@@ -1,71 +1,32 @@
 <html>
     <head>
         <title>Calling Web Service from jQuery</title>
-        
+
         <!-- jQuery / jQueryMobile Scripts -->
         <script src="js/jquery-1.9.1.min.js"></script>
         <script src="js/jquery.mobile-1.3.1.min.js"></script>
-        
+
+        <script src="js/sha.js"></script>
         <script type="text/javascript">
-            function klik() {
+            function test() {
+                var taal = "nl_NL";
+                var orderID = "STDREF321";
+                var prijs = 1500;
+                var sha1 = "Test123Test123Test123";
                 
-                    var wsUrl = "http://ws.swinggift.com/SGServices.asmx?op=GetVouchers";
-
-                    var soapRequest =
-                            '<?xml version="1.0" encoding="utf-8"?>' +
-                            '<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">' +
-                            '<soap:Body>' +
-                            '<GetVouchers xmlns="http://tempuri.org/">' +
-                            '<logoncode>THIJS123</logoncode>' +
-                            '</GetVouchers>' +
-                            '</soap:Body>' +
-                            '</soap:Envelope>';
-
-                    $.ajax({
-                        type: "POST",
-                        url: wsUrl,
-                        contentType: "text/xml; charset=utf-8",
-                        dataType: "xml",
-                        crossDomain: true,
-                        data: soapRequest,
-                        processData: false,
-                        beforeSend: function(XMLHttpRequest) {
-                            XMLHttpRequest.setRequestHeader("Accept", "text/xml, application/xml, */*");
-                            XMLHttpRequest.setRequestHeader("SOAPAction", "http://tempuri.org/GetVouchers");
-                        },
-                        success: processSuccess,
-                        error: processError
-                    });
-                }
-       
-
-            function processSuccess(data, status, req) {
-                console.log("processSuccess");
-                if (status === "success")
-                $("#response").text($(data.responseXML));
-            console.log(req);
+                var sha = 
+                        'AMOUNT=' + prijs + sha1 + 'CURRENCY=EUR' + sha1 +
+                        'LANGUAGE=' + taal + sha1 + 'ORDERID=' + orderID + sha1 +
+                        'PSPID=QCSREW' + sha1;
+                window.alert(SHA1(sha));
             }
-
-            function processError(data, status, req) {
-                console.log("processError:");
-                alert("text:" + data.responseText + " status:" + status + ": "+ req);
-                console.log("text:" + data.responseText + " status:" + status + ": "+ req);
-                $("#response").text($(data.responseText));
-                $("#response2").text($(status));
-            }
-
         </script>
+
     </head>
     <body>
         <h3>
-            Calling Web Services with jQuery/AJAX
+            Sha
         </h3>
-        <form>
-            <button id="btnCallWebService" onclick="klik()" >Call web service</button>
-        <div id="response" >
-        </div>
-        <div id="response2" >
-        </div>
-        </form>
+        <BUTTON onclick="test()">SHABABY</BUTTON>
     </body>
 </html>

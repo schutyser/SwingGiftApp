@@ -548,6 +548,8 @@ function maakPersPagina(pers) {
 
 function maakOverzicht(betalingArray) {
     window.alert("maak overzicht: " + betalingArray.toString());
+
+    var sha1 = "Test123Test123Test123";
     var winkelmandArray = getWinkelmandArray();
     var thema = winkelmandArray[0];
     var boodschap = winkelmandArray[1];
@@ -575,10 +577,15 @@ function maakOverzicht(betalingArray) {
     $('#transportContent').html(transport);
     var taal = "nl_NL";
     var orderID = "STDREF321";
+    var sha = ('AMOUNT='+ prijs + sha1 +'CURRENCY=EUR'+ sha1 +
+            'LANGUAGE='+ taal + sha1 +'ORDERID='+ orderID + sha1 +
+            'PSPID=QCSREW'+ sha1, true).hash();
+    window.alert(SHA1(sha));
+
     var ogoneForm =
             '<form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm" name="ogoneForm">' +
             '<!-- Algemene parameters -->' +
-            '<input type="hidden" name="PSPID" value="qcsrew">' +
+            '<input type="hidden" name="PSPID" value="QCSREW">' +
             '<input type="hidden" name="ORDERID" value="' + orderID.toUpperCase() + '">' +
             '<input type="hidden" name="AMOUNT" value="' + prijs + '">' +
             '<input type="hidden" name="CURRENCY" value="EUR">' +
@@ -589,7 +596,7 @@ function maakOverzicht(betalingArray) {
             '<input type="hidden" name="OWNERTELNO" value="' + telefoonNummer + '">' +
             '<input type="hidden" name="COM" value="">' +
             '<!-- controle voor de betaling: zie Beveiliging: Controle voor de betaling -->' +
-            '<input type="hidden" name="SHASIGN" value="C33D5DB351D4EDF24045C719524000E8C0CAB278">' +
+            '<input type="hidden" name="SHASIGN" value="' + SHA1(sha) + '">' +
             '<!-- layout informatie: zie “Look and feel” van de betaalpagina -->' +
             '<input type="hidden" name="TP" value="PaymentPage_1_iPhone.htm">' +
             '<input type="hidden" name="TITLE" value="SwingGift payment">' +
@@ -612,9 +619,4 @@ function maakOverzicht(betalingArray) {
     if (betalingSoort === "Online") {
         $('#ogone').html(ogoneForm).trigger("create");
     }
-
-function maakOverzicht(){
-    window.alert("Fout in het opstellen van uw gegevens, gelieve de stappen opnieuw te overlopen.");
-    $.mobile.changePage('#shoppingcart');
-}
 }
