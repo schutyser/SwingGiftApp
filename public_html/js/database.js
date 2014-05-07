@@ -3,8 +3,12 @@ var eindeNodig;
 // PhoneGap is ready
 //
 function onDeviceReady() {
-    var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
-    db.transaction(populateDB, errorCB, xmlParse);
+    document.addEventListener("deviceready", onDeviceReadyData, false);
+
+    function onDeviceReadyData() {
+        var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
+        db.transaction(populateDB, errorCB, xmlParse);
+    }
 }
 
 function getGiftID() {
@@ -21,7 +25,6 @@ function setGiftID(id) {
 
 function geteindeNodig() {
     return eindeNodig;
-
 }
 
 function seteindeNodig(boolean) {
@@ -544,7 +547,7 @@ function maakPersPagina(pers) {
 }
 
 function maakOverzicht(betalingArray) {
-    console.log("startmaak");
+    
     var winkelmandArray = getWinkelmandArray();
     var thema = winkelmandArray[0];
     var boodschap = winkelmandArray[1];
@@ -557,7 +560,7 @@ function maakOverzicht(betalingArray) {
     var email = betalingArray[2];
     var telefoonNummer = betalingArray[3];
     var betalingSoort = betalingArray[4];
-    
+
     var transport;
     if (winkelmandArray[5] === "afhalen")
         transport = "U heeft gekozen om uw bon op te halen bij SwingGroup";
@@ -610,4 +613,8 @@ function maakOverzicht(betalingArray) {
         $('#ogone').html(ogoneForm).trigger("create");
     }
 
+function maakOverzicht(){
+    window.alert("Fout in het opstellen van uw gegevens, gelieve de stappen opnieuw te overlopen.");
+    $.mobile.changePage('#shoppingcart');
+}
 }
