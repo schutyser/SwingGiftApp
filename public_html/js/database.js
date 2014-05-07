@@ -547,7 +547,6 @@ function maakPersPagina(pers) {
 }
 
 function maakOverzicht(betalingArray) {
-    window.alert("maak overzicht: " + betalingArray.toString());
 
     var sha1 = "Test123Test123Test123";
     var winkelmandArray = getWinkelmandArray();
@@ -577,9 +576,9 @@ function maakOverzicht(betalingArray) {
     $('#transportContent').html(transport);
     var taal = "nl_NL";
     var orderID = "STDREF321";
-    var sha = ('AMOUNT='+ prijs + sha1 +'CURRENCY=EUR'+ sha1 +
+    var sha = 'AMOUNT='+ prijs + sha1 +'CURRENCY=EUR'+ sha1 +
             'LANGUAGE='+ taal + sha1 +'ORDERID='+ orderID + sha1 +
-            'PSPID=QCSREW'+ sha1, true).hash();
+            'PSPID=QCSREW'+ sha1;
     window.alert(SHA1(sha));
 
     var ogoneForm =
