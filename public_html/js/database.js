@@ -588,7 +588,7 @@ function maakOverzicht(betalingArray) {
             '<!-- controle voor de betaling: zie Beveiliging: Controle voor de betaling -->' +
             '<input type="hidden" name="SHASIGN" value="">' +
             '<!-- layout informatie: zie “Look and feel” van de betaalpagina -->' +
-            '<input type="hidden" name="TITLE" value="SwingGift payment">' +
+            '<input type="hidden" name="TITLE" value="SwingGift Mobile payment">' +
             '<input type="hidden" name="BGCOLOR" value="#FFFFFF">' +
             '<input type="hidden" name="TXTCOLOR" value="#666666">' +
             '<input type="hidden" name="TBLBGCOLOR" value="orange">' +
