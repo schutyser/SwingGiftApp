@@ -293,12 +293,9 @@ function detailItem(tx, results) {
         calcPrijs(aantal, prijs);
     });
 
-
     function calcPrijs(aantal, prijs) {
-        console.log(aantal + prijs);
-        $('#prijsCalcu' + id + '').text(aantal * prijs);
+        $('#prijsCalcu' + id + '').text((aantal * prijs).toFixed(2));
     }
-    ;
 }
 
 function shoppingCart(tx, results) {
@@ -308,7 +305,7 @@ function shoppingCart(tx, results) {
     var credit = localStorage.getItem("credit");
 
     if (+credit !== 0) {
-        creditContent = "Korting via voucher: &#8364; " + credit;
+        creditContent = "Korting via voucher: &#8364; " + credit.toFixed(2);
         totaleprijs = +totaleprijs - +credit;
     }
 
@@ -360,7 +357,7 @@ function shoppingCart(tx, results) {
                         ' + creditContent + '\n\
                     </li>\n\
                     <li data-role="list-divider" style="text-align: right;">\n\
-                        Totale prijs: &#8364; ' + totaleprijs + '\n\
+                        Totale prijs: &#8364; ' + totaleprijs.toFixed(2) + '\n\
                     </li>\n\
                     <li>\n\
                         <a href="#thema" data-role="button" data-icon="truck">Complete order</a>\n\
@@ -487,7 +484,7 @@ function personalisatiePaginaXML(voucherCode) {
 function setCredit(c) {
     if (window.localStorage.getItem("credit", c) !== null) {
         var cc = window.localStorage.getItem("credit", c);
-        c += +cc;
+        c = +c.toFixed(2) + +cc.toFixed(2);
     }
     window.localStorage.setItem("credit", c);
 }
@@ -576,9 +573,9 @@ function maakOverzicht(betalingArray) {
     $('#transportContent').html(transport);
     var taal = "nl_NL";
     var orderID = "STDREF321";
-    var sha = 'AMOUNT='+ prijs + sha1 +'CURRENCY=EUR'+ sha1 +
-            'LANGUAGE='+ taal + sha1 +'ORDERID='+ orderID + sha1 +
-            'PSPID=QCSREW'+ sha1;
+    var sha = 'AMOUNT=' + prijs + sha1 + 'CURRENCY=EUR' + sha1 +
+            'LANGUAGE=' + taal + sha1 + 'ORDERID=' + orderID + sha1 +
+            'PSPID=QCSREW' + sha1;
 
     var ogoneForm =
             '<form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm" name="ogoneForm">' +
