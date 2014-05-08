@@ -232,7 +232,7 @@ function readArray() {
 
 //functie die wordt uitgevoerd bij het opstarten van de applicatie
 function onDeviceReady1() {
-    $.mobile.loading('show');
+    $.mobile.showPageLoadingMsg();
     //fix header image size
     $(window).on('load', function() {
         $(this).trigger('resize');
@@ -240,7 +240,7 @@ function onDeviceReady1() {
     document.addEventListener("deviceready", onDeviceReady, false);
 
     function onDeviceReady() {
-        $.mobile.loading('hide');
+        $.mobile.hidePageLoadingMsg();
         filledArray = readArray();
         changeButton();
 
@@ -364,6 +364,8 @@ function addBetaalgegevens1() {
     betalingArray.push(email);
 
     var telefoon = $('#telefoon').val();
+    if (telefoon === "")
+        fout += "telefoon. ";
     betalingArray.push(telefoon);
 
     if (fout === "Sommige verplichte velden zijn niet ingevuld: ") {

@@ -554,20 +554,19 @@ function maakPersPagina(pers) {
 
 //Overzicht opmaken van de aankoop
 function maakOverzicht(betalingArray) {
-
-    var sha1 = "Test123Test123Test123";
     var winkelmandArray = getWinkelmandArray();
     var thema = winkelmandArray[0];
     var boodschap = winkelmandArray[1];
     var voornaam = winkelmandArray[2];
     var naam = winkelmandArray[3];
     var leveringsdatum = winkelmandArray[4];
-    var prijs = 1500;
     var voornaamBetaling = betalingArray[0];
     var naamBetaling = betalingArray[1];
     var email = betalingArray[2];
     var telefoonNummer = betalingArray[3];
     var betalingSoort = betalingArray[4];
+
+    window.alert(betalingArray + "==<=>==" + winkelmandArray);
 
     var transport;
     if (winkelmandArray[5] === "afhalen")
@@ -581,6 +580,63 @@ function maakOverzicht(betalingArray) {
     $('#leveringsdatumContent').html(leveringsdatum);
     $('#naamBetalingContent').html(voornaamBetaling);
     $('#transportContent').html(transport);
+
+    $('#plaatsOrder').click(orderPlaatsen(winkelmandArray + betalingArray));
+}
+
+//Order plaatsen via webservice & Ogone activeren indien nodig
+function orderPlaatsen(orderArray) {
+    var betalingSoort = orderArray[4];
+    window.alert("orderPlaatsen:" + orderArray);
+
+    $.mobile.showPageLoadingMsg();
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);
+
+    // build SOAP request
+    var sr =
+            '<?xml version="1.0" encoding="UTF-8"?>' +
+            '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/">' +
+            '<SOAP-ENV:Body>' +
+            '<PlacingOrder  xmlns="http://tempuri.org/">' +
+            '<ns1:logoncode>THIJS123</ns1:logoncode>' +
+            '<MyOrders>' + orderArray + '</MyOrders>' +
+            '</PlacingOrder >' +
+            '</SOAP-ENV:Body>' +
+            '</SOAP-ENV:Envelope>';
+
+    // Send the POST request
+    xmlhttp.setRequestHeader('Content-Type', "text/xml; charset=\"utf-8\"");
+    xmlhttp.setRequestHeader('SOAPAction', 'http://tempuri.org/PlacingOrder');
+    xmlhttp.setRequestHeader("Accept", "application/xml", "text/xml", "\*/\*");
+
+    xmlhttp.send(sr);
+    // send request
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState === 4) {
+            if (xmlhttp.status === 200) {
+                var response = xmlhttp.responseText;
+                window.alert(response);
+                if (betalingSoort === "Online") {
+                    ogone(orderArray);
+                }
+                else {
+                    $.mobile.hidePageLoadingMsg();
+                    $('#overschrijvingContent').html("<p>Na overschrijving verzenden wij uw order!").trigger("create");
+                }
+            }
+        }
+    };
+
+}
+
+function ogone(orderArray) {
+    var prijs = 1500;
+    var naamBetaling = orderArray[1];
+    var email = orderArray[2];
+    var telefoonNummer = orderArray[3];
+    var sha1 = "Test123Test123Test123";
     var taal = "nl_NL";
     var orderID = "STDREF321";
     var sha = 'AMOUNT=' + prijs + sha1 + 'CURRENCY=EUR' + sha1 +
@@ -621,10 +677,13 @@ function maakOverzicht(betalingArray) {
             '<input type="hidden" name="EXCEPTIONURL" value="SwingGiftApp/index.html">' +
             '<input type="hidden" name="CANCELURL" value="SwingGiftApp/index.html">' +
             '</form>';
-    if (betalingSoort === "Online") {
-        $('#ogone').html(ogoneForm).trigger("create");
-    }
+
+    $.mobile.hidePageLoadingMsg();
+    $('#ogone').html(ogoneForm).trigger("create");
+    document.getElementById('ogoneForm').submit();
+
 }
+
 
 //Alle evouchers in een array steken
 function arrayEvouchers(tx, results) {
