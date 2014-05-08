@@ -311,7 +311,7 @@ function shoppingCart(tx, results) {
     var credit = localStorage.getItem("credit");
 
     if (+credit !== 0) {
-        creditContent = "Korting via voucher: &#8364; " + credit;
+        creditContent = "Korting via voucher(s): &#8364; " + credit;
         totaleprijs = +totaleprijs - +credit;
     }
 

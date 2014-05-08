@@ -4,6 +4,10 @@ var filledArray = [];
 var winkelmandArray = [];
 var betalingArray = [];
 
+//fix header image size
+    $(window).on('load', function() {
+        $(this).trigger('resize');
+    });
 
 //Getter & Setters
 
@@ -232,15 +236,8 @@ function readArray() {
 
 //functie die wordt uitgevoerd bij het opstarten van de applicatie
 function onDeviceReady1() {
-    $.mobile.loading('show'); 
-    //fix header image size
-    $(window).on('load', function() {
-        $(this).trigger('resize');
-    });
     document.addEventListener("deviceready", onDeviceReady, false);
-
     function onDeviceReady() {
-        $.mobile.loading('hide'); 
         filledArray = readArray();
         changeButton();
 
@@ -388,8 +385,7 @@ function addBetaalgegevens2() {
     betalingArray.push(betalingswijze);
 
     var factuur = $('#factuur').attr('checked');
-    betalingArray.push(factuur);
-    if (factuur === "true") {
+    if (factuur === "checked") {
         var firmaFac = $('#firmaFac').val();
         if (firmaFac === "")
             fout += "firma, ";
@@ -441,20 +437,20 @@ function addBetaalgegevens2() {
     }
 
     var voorwaarden = $('#voorwaarden').attr('checked');
-    window.alert(voorwaarden);
-    if (voorwaarden !== "true")
+    if (voorwaarden !== "checked")
         fout += "gelieve de voorwaarden te accepteren. ";
 
     if (fout === "Sommige verplichte velden zijn niet ingevuld: ") {
+        window.alert(betalingArray);
         setBetaalgegevens(betalingArray);
         maakOverzicht(betalingArray);
         window.location.href = "#overzicht";
     }
     else {
         if (factuur !== "true")
-            deleteArray(2, 'betaal2');
+            deleteArray(1, 'betaal2');
         else
-            deleteArray(13, 'betaal2');
+            deleteArray(12, 'betaal2');
         $('#errorBoodschap2').html("<div class='message error'><i class='icon-exclamation-sign'></i><p>" + fout + "</p></div>");
         window.location.href = "#errorBoodschap2";
     }
