@@ -652,7 +652,8 @@
                             </label>
                             <input id="telefoon" name="telefoon" placeholder="" value="" type="text" />
                         </div>
-                        <a href="#betaalgegevens2" data-role="button" data-theme="b" id="BetaalgegevensFormGo" name="BetaalgegevensFormGo" onclick="addBetaalgegevens1()">Volgende</a>
+                        <a href="#" data-role="button" data-theme="b" id="BetaalgegevensFormGo" name="BetaalgegevensFormGo" onclick="addBetaalgegevens1()">Volgende</a>
+                        <div id="errorBoodschap1"></div>
                     </fieldset>
                 </form>
             </div>
@@ -802,11 +803,12 @@
                             <label for="voorwaarden">Ik ga akkoord met de algemene voorwaarden.</label>
                         </fieldset>
                     </div>
-                    <a href="#overzicht" data-role="button" data-icon="truck" onclick="addBetaalgegevens2()">Afrekenen</a>
+                    <a href="#" data-role="button" data-icon="truck" onclick="addBetaalgegevens2()">Afrekenen</a>
+                    <div id="errorBoodschap2"></div>
                 </form>
 
                 <div data-role="popup" id="voorwaardenPop" data-theme="b">
-                    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right" onclick="$('#voorwaarden').attr('checked', true);">Close</a>
 
                     <h1>SwingGroup wil er zeker van zijn dat zijn relaties met zijn klanten zo vlot en zo correct mogelijk verlopen. We willen u dan ook vooraf duidelijk informeren over jouw en onze rechten en plichten. Lees deze algemene voorwaarden aandachtig: ze zijn van toepassing op alle overeenkomsten die u met SwingGroup sluit.</h1>
 
@@ -882,7 +884,7 @@
                     <h2>TOEPASSELIJK RECHT – AUTONOMIE EN WIJZIGINGEN</h2>
                     <p>Op alle overeenkomsten met SwingGroup is het Belgische recht van toepassing en zijn uitsluitend de rechtbanken van het gerechtelijke arrondissement Gent van toepassing. Als een of meer onderdelen van onderhavige voorwaarden nietig en/of onafdwingbaar zouden worden verklaard, blijven de andere voorwaarden onverkort van kracht en zullen de onafdwingbare of nietige bepalingen worden vervangen door de afdwingbare bepaling die het nauwst aansluit met de onderliggende bedoeling van de onafdwingbare bepaling. SwingGroup kan onderhavige voorwaarden op elk ogenblik, met onmiddellijke ingang en zonder voorafgaande kennisgeving wijzigen.
                     </p>
-                    <a href="#" data-rel="back" data-role="button" data-theme="b">Close</a>
+                    <a href="#" data-rel="back" data-role="button" data-theme="b" onclick="$('#voorwaarden').attr('checked', true);">Ik accepteer deze voorwaarden</a>
                 </div>
             </div>
 

@@ -331,26 +331,41 @@ function popup(id) {
 }
 
 function addBetaalgegevens1() {
-
+    var fout = "Sommige verplichte velden zijn niet ingevuld: ";
     var betalingArray = [];
 
     var voornaam = $('#voornaam').val();
+    if (voornaam === "")
+        fout += "voornaam, ";
     betalingArray.push(voornaam);
 
     var naam = $('#naam').val();
+    if (naam === "")
+        fout += "naam, ";
     betalingArray.push(naam);
 
     var email = $('#email').val();
+    if (email === "")
+        fout += "e-mail, ";
     betalingArray.push(email);
 
     var telefoon = $('#telefoon').val();
     betalingArray.push(telefoon);
 
-    setBetaalgegevens(betalingArray);
+    if (fout === "Sommige verplichte velden zijn niet ingevuld: ") {
+        setBetaalgegevens(betalingArray);
+        window.location.href = "#betaalgegevens2";
+    }
+    else {
+        deleteArray(4, 'betaal1');
+        $('#errorBoodschap1').html("<div class='message error'><i class='icon-exclamation-sign'></i><p>" + fout + "</p></div>");
+        window.location.href = "#errorBoodschap1";
+    }
 }
 
 function addBetaalgegevens2() {
     var betalingArray = getBetaalgegevens();
+    var fout = "Sommige verplichte velden zijn niet ingevuld: ";
 
     var betalingswijze = $('input[name=betalingswijze]:checked', '#BetaalgegevensForm2').val();
     betalingArray.push(betalingswijze);
@@ -359,30 +374,46 @@ function addBetaalgegevens2() {
     betalingArray.push(factuur);
     if (factuur === "true") {
         var firmaFac = $('#firmaFac').val();
+        if (firmaFac === "")
+            fout += "firma, ";
         betalingArray.push(firmaFac);
 
         var btwFac = $('#btwFac').val();
+        if (btwFac === "")
+            fout += "BTW-nummer, ";
         betalingArray.push(btwFac);
 
         var voornaamFac = $('#voornaamFac').val();
+        if (voornaamFac === "")
+            fout += "voornaam, ";
         betalingArray.push(voornaamFac);
 
         var naamFac = $('#naamFac').val();
+        if (naamFac === "")
+            fout += "naam:, ";
         betalingArray.push(naamFac);
 
         var straatFac = $('#straatFac').val();
+        if (straatFac === "")
+            fout += "straat, ";
         betalingArray.push(straatFac);
 
         var nrFac = $('#nrFac').val();
+        if (nrFac === "")
+            fout += "nr, ";
         betalingArray.push(nrFac);
 
         var busFac = $('#busFac').val();
         betalingArray.push(busFac);
 
         var postCodeFac = $('#postCodeFac').val();
+        if (postCodeFac === "")
+            fout += "postcode, ";
         betalingArray.push(postCodeFac);
 
         var gemeenteFac = $('#gemeenteFac').val();
+        if (gemeenteFac === "")
+            fout += "gemeente, ";
         betalingArray.push(gemeenteFac);
 
         var landFac = $('#landFac').val();
@@ -392,8 +423,25 @@ function addBetaalgegevens2() {
         betalingArray.push(referentieFac);
     }
 
-    setBetaalgegevens(betalingArray);
-    maakOverzicht(betalingArray);
+    var voorwaarden = $('#voorwaarden').attr('checked');
+    if (voorwaarden !== "true")
+        fout += "gelieve de voorwaarden te accepteren. ";
+
+    if (fout === "Sommige verplichte velden zijn niet ingevuld: ") {
+        setBetaalgegevens(betalingArray);
+        maakOverzicht(betalingArray);
+        window.location.href = "#overzicht";
+    }
+    else {
+        if (factuur !== "true")
+            deleteArray(2, 'betaal2');
+        else
+            deleteArray(13, 'betaal2');
+        window.alert(betalingArray);
+        $('#errorBoodschap2').html("<div class='message error'><i class='icon-exclamation-sign'></i><p>" + fout + "</p></div>");
+        window.location.href = "#errorBoodschap2";
+    }
+
 }
 
 function toggleFacDiv() {
