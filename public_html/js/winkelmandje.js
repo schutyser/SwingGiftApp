@@ -37,7 +37,7 @@ function getAantalItem(id) {
         if (+filledArray[i][0] === +id)
             return filledArray[i][2];
     }
-    return "error: Unknow problem. Please restart or contact SwingGift";
+    return window.alert("error: Unknow problem. Please restart or contact SwingGift");
 }
 
 function getTotalePrijs() {

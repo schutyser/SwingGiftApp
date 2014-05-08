@@ -299,7 +299,7 @@ function detailItem(tx, results) {
     });
 
     function calcPrijs(aantal, prijs) {
-        $('#prijsCalcu' + id + '').text((aantal * prijs).toFixed(2));
+        $('#prijsCalcu' + id + '').text(aantal * prijs);
     }
 }
 
@@ -311,7 +311,7 @@ function shoppingCart(tx, results) {
     var credit = localStorage.getItem("credit");
 
     if (+credit !== 0) {
-        creditContent = "Korting via voucher: &#8364; " + credit.toFixed(2);
+        creditContent = "Korting via voucher: &#8364; " + credit;
         totaleprijs = +totaleprijs - +credit;
     }
 
@@ -363,7 +363,7 @@ function shoppingCart(tx, results) {
                         ' + creditContent + '\n\
                     </li>\n\
                     <li data-role="list-divider" style="text-align: right;">\n\
-                        Totale prijs: &#8364; ' + totaleprijs.toFixed(2) + '\n\
+                        Totale prijs: &#8364; ' + totaleprijs + '\n\
                     </li>\n\
                     <li>\n\
                         <a href="#thema" data-role="button" data-icon="truck">Complete order</a>\n\
@@ -492,7 +492,7 @@ function personalisatiePaginaXML(voucherCode) {
 function setCredit(c) {
     if (window.localStorage.getItem("credit", c) !== null) {
         var cc = window.localStorage.getItem("credit", c);
-        c = +c.toFixed(2) + +cc.toFixed(2);
+        c = +c + +cc;
     }
     window.localStorage.setItem("credit", c);
 }
