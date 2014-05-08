@@ -589,7 +589,7 @@ function orderPlaatsen(orderArray) {
     var betalingSoort = orderArray[4];
     window.alert("orderPlaatsen:" + orderArray);
 
-    $.mobile.showPageLoadingMsg();
+    $.mobile.loading('show'); 
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);
@@ -622,7 +622,7 @@ function orderPlaatsen(orderArray) {
                     ogone(orderArray);
                 }
                 else {
-                    $.mobile.hidePageLoadingMsg();
+                    $.mobile.loading('hide'); 
                     $('#overschrijvingContent').html("<p>Na overschrijving verzenden wij uw order!").trigger("create");
                 }
             }
@@ -678,7 +678,7 @@ function ogone(orderArray) {
             '<input type="hidden" name="CANCELURL" value="SwingGiftApp/index.html">' +
             '</form>';
 
-    $.mobile.hidePageLoadingMsg();
+    $.mobile.loading('hide'); 
     $('#ogone').html(ogoneForm).trigger("create");
     document.getElementById('ogoneForm').submit();
 

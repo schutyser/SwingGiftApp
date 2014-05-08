@@ -40,7 +40,8 @@
         <script src='phonegap.js'></script>
 
     </head>
-    <body onload="onDeviceReady(); onDeviceReady1();">
+    <body onload="onDeviceReady();
+            onDeviceReady1();">
         <!-- Index page -->
         <div data-role="page" data-theme='b' id="index">
 
@@ -626,6 +627,7 @@
                 </ul>
                 <form id="BetaalgegevensForm1" >
                     <fieldset data-role="controlgroup" data-mini="true">
+                        <label>Gegevens voor de betaling:</label>
                         <div data-role="fieldcontain">
                             <label for="voornaam">
                                 Voornaam
@@ -797,7 +799,7 @@
                         </div>
 
                         <fieldset data-role="controlgroup">
-                            <input type="checkbox" name="voorwaarden" id="voorwaarden" onclick="popup('#voorwaardenPop')" required>
+                            <input type="checkbox" name="voorwaarden" id="voorwaarden" onclick="popup('#voorwaardenPop')">
                             <label for="voorwaarden">Ik ga akkoord met de algemene voorwaarden.</label>
                         </fieldset>
                     </div>
@@ -953,7 +955,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- overschrijving page -->
         <div data-role="page" data-theme='b' id="overschrijving">
 
@@ -964,7 +966,7 @@
 
             <div data-role="content" data-theme='b' id="overschrijvingContent">
 
-                
+
             </div>
             <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
                 <div data-role="navbar">

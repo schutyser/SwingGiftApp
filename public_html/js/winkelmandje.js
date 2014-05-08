@@ -232,7 +232,7 @@ function readArray() {
 
 //functie die wordt uitgevoerd bij het opstarten van de applicatie
 function onDeviceReady1() {
-    $.mobile.showPageLoadingMsg();
+    $.mobile.loading('show'); 
     //fix header image size
     $(window).on('load', function() {
         $(this).trigger('resize');
@@ -240,7 +240,7 @@ function onDeviceReady1() {
     document.addEventListener("deviceready", onDeviceReady, false);
 
     function onDeviceReady() {
-        $.mobile.hidePageLoadingMsg();
+        $.mobile.loading('hide'); 
         filledArray = readArray();
         changeButton();
 
@@ -441,6 +441,7 @@ function addBetaalgegevens2() {
     }
 
     var voorwaarden = $('#voorwaarden').attr('checked');
+    window.alert(voorwaarden);
     if (voorwaarden !== "true")
         fout += "gelieve de voorwaarden te accepteren. ";
 
@@ -454,7 +455,6 @@ function addBetaalgegevens2() {
             deleteArray(2, 'betaal2');
         else
             deleteArray(13, 'betaal2');
-        window.alert(betalingArray);
         $('#errorBoodschap2').html("<div class='message error'><i class='icon-exclamation-sign'></i><p>" + fout + "</p></div>");
         window.location.href = "#errorBoodschap2";
     }
