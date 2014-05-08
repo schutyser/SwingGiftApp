@@ -447,7 +447,7 @@ function addBetaalgegevens2() {
         window.location.href = "#overzicht";
     }
     else {
-        if (factuur !== "true")
+        if (factuur !== "checked")
             deleteArray(1, 'betaal2');
         else
             deleteArray(12, 'betaal2');
