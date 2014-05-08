@@ -672,6 +672,7 @@ function ogone(orderArray) {
             '<input type="hidden" name="BUTTONTXTCOLOR" value="#FFFFFF">' +
             '<input type="hidden" name="FONTTYPE" value="">' +
             '<!-- feedback na de betaling: zie Transactie feedback naar de klant -->' +
+            '<input type="hidden" name="HOMEURL" value="SwingGiftApp/index.html">' +
             '<input type="hidden" name="ACCEPTURL" value="SwingGiftApp/index.html">' +
             '<input type="hidden" name="DECLINEURL" value="SwingGiftApp/index.html">' +
             '<input type="hidden" name="EXCEPTIONURL" value="SwingGiftApp/index.html">' +
