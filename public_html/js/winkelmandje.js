@@ -4,6 +4,9 @@ var filledArray = [];
 var winkelmandArray = [];
 var betalingArray = [];
 
+
+//Getter & Setters
+
 function setWinkelmandArray(array) {
     winkelmandArray = array;
 }
@@ -76,17 +79,13 @@ function getSuppliers() {
     successCBFilter();
 }
 
-function updateWinkelmand(id, prijs, aantal, eersteKeer) {
+//steek Item in het winkelmandje
+function updateWinkelmand(id, prijs, aantal) {
     var array = [];
-    console.log("aantal b4 dup" + aantal);
     aantal = checkDuplicate(id, aantal);
-    console.log("aantal na dup" + aantal);
 
     if (+aantal !== 0)
     {
-
-        console.log("id: " + id + " prijs: " + prijs + " aantal: " + aantal);
-
         array.push(id);
         array.push(prijs);
         array.push(aantal);
@@ -96,6 +95,7 @@ function updateWinkelmand(id, prijs, aantal, eersteKeer) {
     }
 }
 
+//Personalisatie van de voucher: thema kiezen
 function addTheme() {
     var arrayTheme = [];
     console.log(arrayTheme);
@@ -114,6 +114,7 @@ function addTheme() {
     console.log(filledArray);
 }
 
+//Personalisatie van de voucher: boodschap kiezen + gegevens ontvanger voucher
 function addBoodschap() {
     var arrayBoodschap = getWinkelmandArray();
     var fout = "Sommige verplichte velden zijn niet ingevuld: ";
@@ -187,6 +188,7 @@ function addBoodschap() {
 
 }
 
+//checken of het een email voucher is
 function isEmailVoucher(id) {
     var arrayEvoucher = window.localStorage.getArray("arrayEvoucher");
     for (var i = 0; i < arrayEvoucher.length; i++) {
@@ -195,14 +197,16 @@ function isEmailVoucher(id) {
     }
     return false;
 }
+
+//form opvangen voor het adden van een item
 function winkelmandje(id) {
-    console.log('winkelmandje:' + id);
     var aantal = document.getElementById("addItem" + id).elements.namedItem('aantal').value;
     var prijs = document.getElementById("addItem" + id).elements.namedItem('prijs').value;
     updateWinkelmand(id, prijs, aantal);
     successCBEmail();
 }
 
+//local storage mogelijk maken om arrays te gebruiken
 Storage.prototype.setArray = function(key, obj) {
     return this.setItem(key, JSON.stringify(obj));
 };
@@ -211,12 +215,14 @@ Storage.prototype.getArray = function(key) {
     return JSON.parse(this.getItem(key));
 };
 
+//winkelmandje items opslaan in local storage
 function fillStorage(array) {
     filledArray.push(array);
     window.localStorage.setArray("arrayKey", filledArray);
     changeButton();
 }
 
+//local storage array voor winkelmandjes ophalen
 function readArray() {
     if (window.localStorage.getArray("arrayKey") !== null)
         return window.localStorage.getArray("arrayKey");
@@ -224,7 +230,7 @@ function readArray() {
         return array = [];
 }
 
-
+//functie die wordt uitgevoerd bij het opstarten van de applicatie
 function onDeviceReady1() {
     $.mobile.loading('show');
     //fix header image size
@@ -272,10 +278,12 @@ function onDeviceReady1() {
     }
 }
 
+//update nummer van hoeveelheid items in winkelmandje
 function changeButton() {
     $("span.winkelmandje").html(getAantalItems());
 }
 
+//winkelmandje leegmaken
 function clearWinkelmandje() {
     window.localStorage.removeItem("arrayKey");
     aantalItems = 0;
@@ -286,6 +294,7 @@ function clearWinkelmandje() {
 
 }
 
+//kijken of het item al in het winkelmandje zit, zoja als 1 item aanzien en aantal verhogen
 function checkDuplicate(id, aantal) {
     for (var i = 0; i < filledArray.length; ++i) {
         if (+filledArray[i][0] === +id) {
@@ -299,6 +308,7 @@ function checkDuplicate(id, aantal) {
     return aantal;
 }
 
+//Item uit winkelmandje verwijderen
 function deleteItem(id) {
     console.log("delete item:" + id);
     for (var i = 0; i < filledArray.length; ++i) {
@@ -310,6 +320,7 @@ function deleteItem(id) {
     }
 }
 
+//Vouchercode opvangen en webservice oproepen om code te controleren
 function voucher() {
     var voucherCode = document.getElementById("voucherCode").value;
     var content = "<div class='message error'><i class='icon-exclamation-sign'></i><p>Voer een voucher code in </p></div> ";
@@ -322,14 +333,17 @@ function voucher() {
     }
 }
 
+//popup venster sluiten
 function popupClose(id) {
     $(id).popup("close");
 }
 
+//popup venster openen
 function popup(id) {
     $(id).popup("open");
 }
 
+//betaalgegevens opvangen en valideren
 function addBetaalgegevens1() {
     var fout = "Sommige verplichte velden zijn niet ingevuld: ";
     var betalingArray = [];
@@ -363,6 +377,7 @@ function addBetaalgegevens1() {
     }
 }
 
+//betaalgegevens opvangen en valideren (deel2)
 function addBetaalgegevens2() {
     var betalingArray = getBetaalgegevens();
     var fout = "Sommige verplichte velden zijn niet ingevuld: ";
@@ -444,10 +459,12 @@ function addBetaalgegevens2() {
 
 }
 
+//factuur formulier tonen/verbergen
 function toggleFacDiv() {
     $('#factuurDiv').toggle();
 }
 
+//gegevens uit winkelmandarray/betaalgegevensarray verwijderen
 function deleteArray(number, arrayName) {
     var arrayToDelete = [];
     var numberTotal;
@@ -472,15 +489,7 @@ function deleteArray(number, arrayName) {
     }
 }
 
-function arrayEvouchers(tx, results) {
-    var arrayEvoucher = [];
-    for (var i = 0; i < results.rows.length; i++)
-        arrayEvoucher.push(results.rows.item(i).giftID);
-
-    console.log(arrayEvoucher);
-    window.localStorage.setArray("arrayEvoucher", arrayEvoucher);
-}
-
+//personalisatie doormiddel van foto
 function Neemfoto() {
     if (!navigator.camera) {
         window.alert("Camera API not supported", "Error");

@@ -1,7 +1,7 @@
 var giftID;
 var eindeNodig;
-// PhoneGap is ready
-//
+
+//Wordt uitgevoerd bij opstarten app
 function onDeviceReady() {
     document.addEventListener("deviceready", onDeviceReadyData, false);
 
@@ -11,6 +11,7 @@ function onDeviceReady() {
     }
 }
 
+//Getters & Setters
 function getGiftID() {
     return giftID;
 }
@@ -31,18 +32,19 @@ function seteindeNodig(boolean) {
     eindeNodig = boolean;
 }
 
+//Aanmaken database voor de geschenkbonnnen
 function populateDB(tx) {
     tx.executeSql('DROP TABLE IF EXISTS vouchers');
     tx.executeSql('CREATE TABLE IF NOT EXISTS vouchers (giftID unique, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW INT, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3)');
 
 }
 
+//Error message bij database fout
 function errorCB(err) {
     window.alert("Error processing SQL: " + err.code + " message: " + err.message);
 }
 
-// Transaction success callback
-//
+// Transaction success callbacks
 function successCB() {
     var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(queryDB, errorCB);
@@ -122,6 +124,7 @@ function queryDB4(tx) {
     tx.executeSql('SELECT DISTINCT supplierName FROM vouchers', [], advancedSearch1, errorCB);
 }
 
+//Ophalen van de geschenkbonnen door de webservice op te roepen
 function xmlParse() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=GetVouchers', true);
@@ -185,6 +188,7 @@ function xmlParse() {
     }
 }
 
+//Het aanmaken van de shop (items dynamisch vullen)
 function listItems(tx, results) {
     var len = results.rows.length;
     var content = "";
@@ -237,6 +241,7 @@ function listItems(tx, results) {
 
 }
 
+//Detail pagina van een geschenkbon opmaken
 function detailItem(tx, results) {
     var id = results.rows.item(0).giftID;
     var imageUrl = results.rows.item(0).mainAfb;
@@ -298,6 +303,7 @@ function detailItem(tx, results) {
     }
 }
 
+//Winkelmand pagina opmaken
 function shoppingCart(tx, results) {
     var totaleprijs = 0;
 
@@ -379,6 +385,7 @@ function shoppingCart(tx, results) {
     });
 }
 
+//Zoek pagina aanmaken
 function advancedSearch1(tx, results) {
 
     var len = results.rows.length;
@@ -396,6 +403,7 @@ function advancedSearch1(tx, results) {
     $('#search1').html(content).trigger("create");
 }
 
+//Vouchercode checken via webservice en indien nodig doorverwijzen naar personalisatie pagina
 function personalisatiePaginaXML(voucherCode) {
     var errorCode = "";
     var pers = [];
@@ -480,7 +488,7 @@ function personalisatiePaginaXML(voucherCode) {
     }
 }
 
-
+//Voucher waarde opslaan
 function setCredit(c) {
     if (window.localStorage.getItem("credit", c) !== null) {
         var cc = window.localStorage.getItem("credit", c);
@@ -489,6 +497,7 @@ function setCredit(c) {
     window.localStorage.setItem("credit", c);
 }
 
+//Persoonlijke pagina van het bedrijf gekoppeld aan een voucher
 function maakPersPagina(pers) {
     var contentList;
     var header = '<div data-role="header" id="headerPers"  data-position="fixed" data-tap-toggle="false" data-theme=\'b\'>\n\
@@ -543,6 +552,7 @@ function maakPersPagina(pers) {
     $('#personalisatie').html(header + contentList + footer).trigger("pagecreate");
 }
 
+//Overzicht opmaken van de aankoop
 function maakOverzicht(betalingArray) {
 
     var sha1 = "Test123Test123Test123";
@@ -614,4 +624,13 @@ function maakOverzicht(betalingArray) {
     if (betalingSoort === "Online") {
         $('#ogone').html(ogoneForm).trigger("create");
     }
+}
+
+//Alle evouchers in een array steken
+function arrayEvouchers(tx, results) {
+    var arrayEvoucher = [];
+    for (var i = 0; i < results.rows.length; i++)
+        arrayEvoucher.push(results.rows.item(i).giftID);
+
+    window.localStorage.setArray("arrayEvoucher", arrayEvoucher);
 }
