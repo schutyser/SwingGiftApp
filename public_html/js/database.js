@@ -575,15 +575,7 @@ function maakOverzicht(betalingArray) {
     var telefoon = betalingArray[3];
     var betalingSoort = betalingArray[4];
 
-    var companyName = "";
-    var street = "";
-    var nr = "";
-    var bus = "";
-    var postcode = "";
-    var plaats = "";
-    var land = "";
-
-    var languageID = 1;
+    
 
     window.alert(betalingArray + "==<=>==" + winkelmandArray);
 
@@ -601,6 +593,31 @@ function maakOverzicht(betalingArray) {
     $('#transportContent').html(transport);
     $('#betalingskeuze').html(betalingSoort);
 
+    
+
+    setOrdersArray(betalingArray);
+}
+
+//Order plaatsen via webservice & Ogone activeren indien nodig
+function orderPlaatsen() {
+    var orderArray = getOrdersArray();
+    
+    var voornaamBetaling = orderArray[0];
+    var naamBetaling = orderArray[1];
+    var email = orderArray[2];
+    var telefoon = orderArray[3];
+    var betalingSoort = orderArray[4];
+
+    var companyName = "";
+    var street = "";
+    var nr = "";
+    var bus = "";
+    var postcode = "";
+    var plaats = "";
+    var land = "";
+    
+    var languageID = 1;
+    
     var ordersArray =
             '<Orders>' +
             '<languageID>' + languageID + '</languageID>' +
@@ -634,14 +651,6 @@ function maakOverzicht(betalingArray) {
         ordersArray += OrderdetailsArray;
     }
 
-    setOrdersArray(ordersArray);
-}
-
-//Order plaatsen via webservice & Ogone activeren indien nodig
-function orderPlaatsen(betalingSoort) {
-    var orderArray = getOrdersArray();
-    window.alert("orderPlaatsen:" + orderArray + "betalingSoort: " + betalingSoort);
-
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);
 
@@ -668,12 +677,18 @@ function orderPlaatsen(betalingSoort) {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
                 var response = xmlhttp.responseText;
-                window.alert(response);
+                
+                var orderID = $(response).find("OrderID").text();
+                var totalprice_inclBTW = $(response).find("OrderID").text();4
+                var errorCode = $(response).find("errorCode").text();
+                
+                window.alert("error: " + errorCode + "xml: " + response + "orderId: " + orderID + "price: " + totalprice_inclBTW);
+                
                 if (betalingSoort === "Online") {
-                    ogone(orderArray);
+                    ogone(orderArray, orderID, totalprice_inclBTW);
                 }
                 else {
-                    $('#overschrijvingContent').html("<p>Na overschrijving verzenden wij uw order!").trigger("create");
+                    $('#overschrijvingContent').html("<p>Gelieve €" + totalprice_inclBTW +" over te schrijven naar XXXXX. <br/> Uw order nummer is "+ orderID +" <br/> Na overschrijving verzenden wij uw order!</p>").trigger("create");
                     $.mobile.changePage('#overschrijving1');
                 }
             }
@@ -682,7 +697,7 @@ function orderPlaatsen(betalingSoort) {
 
 }
 
-function ogone(orderArray) {
+function ogone(orderArray, id, totalprice_inclBTW) {
     window.alert("ogone start");
     var prijs = 1500;
     var naamBetaling = orderArray[1];
@@ -724,7 +739,7 @@ function ogone(orderArray) {
             '<input type="hidden" name="BUTTONTXTCOLOR" value="#FFFFFF">' +
             '<input type="hidden" name="FONTTYPE" value="">' +
             '<!-- feedback na de betaling: zie Transactie feedback naar de klant -->' +
-            '<input type="hidden" name="HOMEURL" value="SwingGiftApp/index.html">' +
+            '<input type="hidden" name="HOMEURL" value="SwingGiftApp://index.html">' +
             '<input type="hidden" name="ACCEPTURL" value="SwingGiftApp/index.html">' +
             '<input type="hidden" name="DECLINEURL" value="SwingGiftApp/index.html">' +
             '<input type="hidden" name="EXCEPTIONURL" value="SwingGiftApp/index.html">' +

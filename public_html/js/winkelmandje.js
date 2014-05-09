@@ -385,7 +385,6 @@ function addBetaalgegevens2() {
     betalingArray.push(betalingswijze);
 
     if (document.getElementById('factuur').checked) {
-        window.alert("factuur add");
         var firmaFac = $('#firmaFac').val();
         if (firmaFac === "")
             fout += "firma, ";
@@ -437,7 +436,6 @@ function addBetaalgegevens2() {
     }
 
     var voorwaarden = $('#voorwaarden').attr('checked');
-    window.alert(voorwaarden);
     if (voorwaarden !== "checked")
         fout += "gelieve de voorwaarden te accepteren. ";
 
