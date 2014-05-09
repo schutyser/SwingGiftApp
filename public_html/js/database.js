@@ -30,6 +30,7 @@ function getOrdersArray() {
 }
 
 function setOrdersArray(orderArrayIn) {
+    window.alert(orderArrayIn);
     orderArray = orderArrayIn;
 }
 
@@ -590,7 +591,7 @@ function maakOverzicht(betalingArray) {
     if (winkelmandArray[5] === "afhalen")
         transport = "U heeft gekozen om uw bon op te halen bij SwingGroup";
     else
-        transport = "U heeft gekozen om uw bon op te sturen via Taxipost op";
+        transport = "U heeft gekozen om uw bon op te sturen via Taxipost op ";
     $('#themaContent').html(thema);
     $('#boodschapContent').html(boodschap);
     $('#voornaamContent').html(voornaam);
@@ -642,9 +643,6 @@ function orderPlaatsen() {
     window.alert("orderPlaatsen:" + orderArray);
     var betalingSoort = orderArray[4];
 
-
-    $.mobile.loading('show');
-
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);
 
@@ -665,6 +663,7 @@ function orderPlaatsen() {
     xmlhttp.setRequestHeader('SOAPAction', 'http://tempuri.org/PlacingOrder');
     xmlhttp.setRequestHeader("Accept", "application/xml", "text/xml", "\*/\*");
 
+    window.alert("send ws");
     xmlhttp.send(sr);
     // send request
     xmlhttp.onreadystatechange = function() {
@@ -677,7 +676,6 @@ function orderPlaatsen() {
                     ogone(orderArray);
                 }
                 else {
-                    $.mobile.loading('hide');
                     $('#overschrijvingContent').html("<p>Na overschrijving verzenden wij uw order!").trigger("create");
                 }
             }
@@ -687,6 +685,7 @@ function orderPlaatsen() {
 }
 
 function ogone(orderArray) {
+    window.alert("ogone start");
     var prijs = 1500;
     var naamBetaling = orderArray[1];
     var email = orderArray[2];
@@ -734,7 +733,6 @@ function ogone(orderArray) {
             '<input type="hidden" name="CANCELURL" value="SwingGiftApp/index.html">' +
             '</form>';
 
-    $.mobile.loading('hide');
     $('#ogone').html(ogoneForm).trigger("create");
     document.getElementById('ogoneForm').submit();
 
