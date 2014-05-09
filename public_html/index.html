@@ -935,14 +935,19 @@
                     </li>
                     <li>
                         <h2>Gekozen transport:</h2>
-                        <p><span id="transportContent"></span><span id="leveringsdatumContent">.</span></p>
+                        <p><span id="transportContent"></span><span id="leveringsdatumContent"></span>.</p>
                     </li>
                     <li>
                         <h2>Betalingskeuze:</h2>
                         <p id="betalingskeuze"></p>
                     </li>
+                    <li>
+                        <h2>Op naam van:</h2>
+                        <p><span id="voornaamBetaling"></span> <span id="naamBetaling"></span></p>
+                        <p>Tel: <span id='tel'></span> E-mail: <span id="emailBetaling"></span></p>
+                    </li>
                     <li data-role="list-divider" style="text-align: right;">
-                        Totale prijs: &#8364; 15
+                        Totale prijs: &#8364; <span id="prijsOverzicht">.</span>
                     </li>
                     <li>
                         <a href="#" onclick="orderPlaatsen()">Complete order</a>

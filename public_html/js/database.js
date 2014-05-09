@@ -1,6 +1,7 @@
 var giftID;
 var eindeNodig;
 var orderArray = [];
+var totaleprijs = 0;
 
 //Wordt uitgevoerd bij opstarten app
 function onDeviceReady() {
@@ -314,8 +315,6 @@ function detailItem(tx, results) {
 
 //Winkelmand pagina opmaken
 function shoppingCart(tx, results) {
-    var totaleprijs = 0;
-
     var creditContent = "";
     var credit = localStorage.getItem("credit");
 
@@ -379,6 +378,7 @@ function shoppingCart(tx, results) {
                     </li></ul> <p>*Eventuele verzendingskosten niet inbegrepen.</p>';
     }
 
+    
     $('#shoppingContent').html(content1 + content2 + content3).trigger("create");
 
     $(document).on('change', "#aantalItem" + id, function() {
@@ -569,31 +569,33 @@ function maakOverzicht(betalingArray) {
     var voornaam = winkelmandArray[2];
     var naam = winkelmandArray[3];
     var leveringsdatum = winkelmandArray[4];
+    if(leveringsdatum !== "")
+        leveringsdatum = " op " + leveringsdatum;
     var voornaamBetaling = betalingArray[0];
     var naamBetaling = betalingArray[1];
-    var email = betalingArray[2];
+    var emailBetaling = betalingArray[2];
     var telefoon = betalingArray[3];
     var betalingSoort = betalingArray[4];
-
     
-
     window.alert(betalingArray + "==<=>==" + winkelmandArray);
 
     var transport;
     if (winkelmandArray[5] === "afhalen")
         transport = "U heeft gekozen om uw bon op te halen bij SwingGroup";
     else
-        transport = "U heeft gekozen om uw bon op te sturen via Taxipost op ";
+        transport = "U heeft gekozen om uw bon op te sturen via Taxipost";
     $('#themaContent').html(thema);
     $('#boodschapContent').html(boodschap);
     $('#voornaamContent').html(voornaam);
     $('#naamContent').html(naam);
     $('#leveringsdatumContent').html(leveringsdatum);
-    $('#naamBetalingContent').html(voornaamBetaling);
+    $('#voornaamBetaling').html(voornaamBetaling);
+    $('#naamBetaling').html(naamBetaling);
+    $('#emailBetaling').html(emailBetaling);
+    $('#tel').html(telefoon);
     $('#transportContent').html(transport);
     $('#betalingskeuze').html(betalingSoort);
-
-    
+    $('#prijsOverzicht').html(totaleprijs);
 
     setOrdersArray(betalingArray);
 }
@@ -602,23 +604,24 @@ function maakOverzicht(betalingArray) {
 function orderPlaatsen() {
     var orderArray = getOrdersArray();
     
+    
     var voornaamBetaling = orderArray[0];
     var naamBetaling = orderArray[1];
     var email = orderArray[2];
     var telefoon = orderArray[3];
     var betalingSoort = orderArray[4];
 
-    var companyName = "";
-    var street = "";
-    var nr = "";
-    var bus = "";
-    var postcode = "";
-    var plaats = "";
-    var land = "";
+    var companyName = orderArray[5];
+    var street = orderArray[6];
+    var nr = orderArray[7];
+    var bus = orderArray[8];
+    var postcode = orderArray[9];
+    var plaats = orderArray[10];
+    var land = orderArray[11];
     
     var languageID = 1;
     
-    var ordersArray =
+    var ordersArrayXML =
             '<Orders>' +
             '<languageID>' + languageID + '</languageID>' +
             '<firstname>' + voornaamBetaling + '</firstname>' +
@@ -648,9 +651,10 @@ function orderPlaatsen() {
                 '<price_inclBTW>' + price_inclBTW + '</price_inclBTW>' +
                 '</Orderdetails>';
 
-        ordersArray += OrderdetailsArray;
+        ordersArrayXML += OrderdetailsArray;
     }
-
+    
+    window.alert(orderArray + " == into ==> " + ordersArrayXML);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);
 
@@ -661,7 +665,7 @@ function orderPlaatsen() {
             '<SOAP-ENV:Body>' +
             '<PlacingOrder  xmlns="http://tempuri.org/">' +
             '<ns1:logoncode>THIJS123</ns1:logoncode>' +
-            '<MyOrders>' + orderArray + '</MyOrders>' +
+            '<MyOrders>' + ordersArrayXML + '</MyOrders>' +
             '</PlacingOrder >' +
             '</SOAP-ENV:Body>' +
             '</SOAP-ENV:Envelope>';
