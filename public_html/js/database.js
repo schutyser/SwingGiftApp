@@ -1,5 +1,6 @@
 var giftID;
 var eindeNodig;
+var orderArray = [];
 
 //Wordt uitgevoerd bij opstarten app
 function onDeviceReady() {
@@ -22,6 +23,14 @@ function setGiftID(id) {
     else {
         giftID = id;
     }
+}
+
+function getOrdersArray() {
+    return orderArray;
+}
+
+function setOrdersArray(orderArrayIn) {
+    orderArray = orderArrayIn;
 }
 
 function geteindeNodig() {
@@ -563,8 +572,17 @@ function maakOverzicht(betalingArray) {
     var voornaamBetaling = betalingArray[0];
     var naamBetaling = betalingArray[1];
     var email = betalingArray[2];
-    var telefoonNummer = betalingArray[3];
-    var betalingSoort = betalingArray[4];
+    var telefoon = betalingArray[3];
+
+    var companyName = "";
+    var street = "";
+    var nr = "";
+    var bus = "";
+    var postcode = "";
+    var plaats = "";
+    var land = "";
+
+    var languageID = 1;
 
     window.alert(betalingArray + "==<=>==" + winkelmandArray);
 
@@ -581,15 +599,51 @@ function maakOverzicht(betalingArray) {
     $('#naamBetalingContent').html(voornaamBetaling);
     $('#transportContent').html(transport);
 
-    $('#plaatsOrder').click(orderPlaatsen(winkelmandArray + betalingArray));
+    var ordersArray =
+            '<Orders>' +
+            '<languageID>' + languageID + '</languageID>' +
+            '<firstname>' + voornaamBetaling + '</firstname>' +
+            '<name>' + naamBetaling + '</name>' +
+            '<email>' + email + '</email>' +
+            '<telefoon>' + telefoon + '</telefoon>' +
+            '<companyName>' + companyName + '</companyName>' +
+            '<street>' + street + '</street>' +
+            '<nr>' + nr + '</nr>' +
+            '<bus>' + bus + '</bus>' +
+            '<postcode>' + postcode + '</postcode>' +
+            '<plaats>' + plaats + '</plaats>' +
+            '<countryID>' + land + '</countryID>' +
+            '<isTest>true</isTest>' +
+            '</Orders>';
+
+    window.alert("filledArray: " + filledArray)
+    for (var i = 0; i < filledArray.length; ++i) {
+        var giftID = filledArray[i][0];
+        var price_inclBTW = filledArray[i][1];
+        var quantity = filledArray[i][2];
+
+        var OrderdetailsArray =
+                '<Orderdetails>' +
+                '<giftID>' + giftID + '</giftID>' +
+                '<quantity>' + quantity + '</quantity>' +
+                '<languageID>' + languageID + '</languageID>' +
+                '<price_inclBTW>' + price_inclBTW + '</price_inclBTW>' +
+                '</Orderdetails>';
+
+        ordersArray += OrderdetailsArray;
+    }
+
+    setOrdersArray(ordersArray);
 }
 
 //Order plaatsen via webservice & Ogone activeren indien nodig
-function orderPlaatsen(orderArray) {
-    var betalingSoort = orderArray[4];
+function orderPlaatsen() {
+    var orderArray = getOrdersArray();
     window.alert("orderPlaatsen:" + orderArray);
+    var betalingSoort = orderArray[4];
 
-    $.mobile.loading('show'); 
+
+    $.mobile.loading('show');
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);
@@ -616,13 +670,14 @@ function orderPlaatsen(orderArray) {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
+                window.alert("webservice order gelukt");
                 var response = xmlhttp.responseText;
                 window.alert(response);
                 if (betalingSoort === "Online") {
                     ogone(orderArray);
                 }
                 else {
-                    $.mobile.loading('hide'); 
+                    $.mobile.loading('hide');
                     $('#overschrijvingContent').html("<p>Na overschrijving verzenden wij uw order!").trigger("create");
                 }
             }
@@ -679,7 +734,7 @@ function ogone(orderArray) {
             '<input type="hidden" name="CANCELURL" value="SwingGiftApp/index.html">' +
             '</form>';
 
-    $.mobile.loading('hide'); 
+    $.mobile.loading('hide');
     $('#ogone').html(ogoneForm).trigger("create");
     document.getElementById('ogoneForm').submit();
 
