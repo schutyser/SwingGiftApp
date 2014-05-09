@@ -632,7 +632,7 @@ function orderPlaatsen() {
     var languageID = 1;
 
     var ordersArrayXML =
-            '<Orders>' +
+            '<Order>' +
             '<languageID>' + languageID + '</languageID>' +
             '<firstname>' + voornaamBetaling + '</firstname>' +
             '<name>' + naamBetaling + '</name>' +
@@ -646,7 +646,7 @@ function orderPlaatsen() {
             '<plaats>' + plaats + '</plaats>' +
             '<countryID>' + land + '</countryID>' +
             '<isTest>true</isTest>' +
-            '</Orders>';
+            '</Order>';
 
     for (var i = 0; i < filledArray.length; ++i) {
         var giftID = filledArray[i][0];
