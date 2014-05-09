@@ -937,11 +937,15 @@
                         <h2>Gekozen transport:</h2>
                         <p><span id="transportContent"></span><span id="leveringsdatumContent">.</span></p>
                     </li>
+                    <li>
+                        <h2>Betalingskeuze:</h2>
+                        <p id="betalingskeuze"></p>
+                    </li>
                     <li data-role="list-divider" style="text-align: right;">
                         Totale prijs: &#8364; 15
                     </li>
                     <li>
-                        <a href="#" onclick="orderPlaatsen()">Complete order</a>
+                        <a href="#" onclick="orderPlaatsen($('#betalingskeuze').html())">Complete order</a>
                     </li>
                 </ul>
             </div>

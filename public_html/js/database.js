@@ -30,7 +30,6 @@ function getOrdersArray() {
 }
 
 function setOrdersArray(orderArrayIn) {
-    window.alert(orderArrayIn);
     orderArray = orderArrayIn;
 }
 
@@ -574,6 +573,7 @@ function maakOverzicht(betalingArray) {
     var naamBetaling = betalingArray[1];
     var email = betalingArray[2];
     var telefoon = betalingArray[3];
+    var betalingSoort = betalingArray[4];
 
     var companyName = "";
     var street = "";
@@ -599,6 +599,7 @@ function maakOverzicht(betalingArray) {
     $('#leveringsdatumContent').html(leveringsdatum);
     $('#naamBetalingContent').html(voornaamBetaling);
     $('#transportContent').html(transport);
+    $('#betalingskeuze').html(betalingSoort);
 
     var ordersArray =
             '<Orders>' +
@@ -617,7 +618,6 @@ function maakOverzicht(betalingArray) {
             '<isTest>true</isTest>' +
             '</Orders>';
 
-    window.alert("filledArray: " + filledArray)
     for (var i = 0; i < filledArray.length; ++i) {
         var giftID = filledArray[i][0];
         var price_inclBTW = filledArray[i][1];
@@ -638,10 +638,9 @@ function maakOverzicht(betalingArray) {
 }
 
 //Order plaatsen via webservice & Ogone activeren indien nodig
-function orderPlaatsen() {
+function orderPlaatsen(betalingSoort) {
     var orderArray = getOrdersArray();
-    window.alert("orderPlaatsen:" + orderArray);
-    var betalingSoort = orderArray[4];
+    window.alert("orderPlaatsen:" + orderArray + "betalingSoort: " + betalingSoort);
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);
@@ -663,13 +662,11 @@ function orderPlaatsen() {
     xmlhttp.setRequestHeader('SOAPAction', 'http://tempuri.org/PlacingOrder');
     xmlhttp.setRequestHeader("Accept", "application/xml", "text/xml", "\*/\*");
 
-    window.alert("send ws");
     xmlhttp.send(sr);
     // send request
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
-                window.alert("webservice order gelukt");
                 var response = xmlhttp.responseText;
                 window.alert(response);
                 if (betalingSoort === "Online") {
@@ -677,6 +674,7 @@ function orderPlaatsen() {
                 }
                 else {
                     $('#overschrijvingContent').html("<p>Na overschrijving verzenden wij uw order!").trigger("create");
+                    $.mobile.changePage('#overschrijving1');
                 }
             }
         }
@@ -734,6 +732,7 @@ function ogone(orderArray) {
             '</form>';
 
     $('#ogone').html(ogoneForm).trigger("create");
+    window.alert("submit");
     document.getElementById('ogoneForm').submit();
 
 }
