@@ -384,10 +384,8 @@ function addBetaalgegevens2() {
     var betalingswijze = $('input[name=betalingswijze]:checked', '#BetaalgegevensForm2').val();
     betalingArray.push(betalingswijze);
 
-    var factuur = $('#factuur').attr('checked');
-    window.alert("factuur: " + factuur);
-    window.alert($('input[name=factuur]:checked', '#BetaalgegevensForm2').val());
-    if (factuur === "checked") {
+    window.alert(document.getElementById('factuur').checked);
+    if (document.getElementById('factuur').checked) {
         window.alert("factuur add");
         var firmaFac = $('#firmaFac').val();
         if (firmaFac === "")
@@ -441,7 +439,6 @@ function addBetaalgegevens2() {
 
     var voorwaarden = $('#voorwaarden').attr('checked');
     window.alert(voorwaarden);
-    window.alert($('input[name=voorwaarden]:checked', '#BetaalgegevensForm2').val());
     if (voorwaarden !== "checked")
         fout += "gelieve de voorwaarden te accepteren. ";
 
