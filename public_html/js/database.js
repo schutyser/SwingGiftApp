@@ -378,7 +378,7 @@ function shoppingCart(tx, results) {
                     </li></ul> <p>*Eventuele verzendingskosten niet inbegrepen.</p>';
     }
 
-    
+
     $('#shoppingContent').html(content1 + content2 + content3).trigger("create");
 
     $(document).on('change', "#aantalItem" + id, function() {
@@ -569,14 +569,14 @@ function maakOverzicht(betalingArray) {
     var voornaam = winkelmandArray[2];
     var naam = winkelmandArray[3];
     var leveringsdatum = winkelmandArray[4];
-    if(leveringsdatum !== "")
+    if (leveringsdatum !== "")
         leveringsdatum = " op " + leveringsdatum;
     var voornaamBetaling = betalingArray[0];
     var naamBetaling = betalingArray[1];
     var emailBetaling = betalingArray[2];
     var telefoon = betalingArray[3];
     var betalingSoort = betalingArray[4];
-    
+
     window.alert(betalingArray + "==<=>==" + winkelmandArray);
 
     var transport;
@@ -603,24 +603,34 @@ function maakOverzicht(betalingArray) {
 //Order plaatsen via webservice & Ogone activeren indien nodig
 function orderPlaatsen() {
     var orderArray = getOrdersArray();
-    
-    
+
+
     var voornaamBetaling = orderArray[0];
     var naamBetaling = orderArray[1];
     var email = orderArray[2];
     var telefoon = orderArray[3];
     var betalingSoort = orderArray[4];
+    var companyName = "";
+    var street = "";
+    var nr = "";
+    var bus = "";
+    var postcode = "";
+    var plaats = "";
+    var land = "";
 
-    var companyName = orderArray[5];
-    var street = orderArray[6];
-    var nr = orderArray[7];
-    var bus = orderArray[8];
-    var postcode = orderArray[9];
-    var plaats = orderArray[10];
-    var land = orderArray[11];
+    window.alert(orderArray[5]);
+    if (orderArray[5] !== "undefined") {
+        companyName = orderArray[5];
+        street = orderArray[6];
+        nr = orderArray[7];
+        bus = orderArray[8];
+        postcode = orderArray[9];
+        plaats = orderArray[10];
+        land = orderArray[11];
+    }
     
     var languageID = 1;
-    
+
     var ordersArrayXML =
             '<Orders>' +
             '<languageID>' + languageID + '</languageID>' +
@@ -653,7 +663,7 @@ function orderPlaatsen() {
 
         ordersArrayXML += OrderdetailsArray;
     }
-    
+
     window.alert(orderArray + " == into ==> " + ordersArrayXML);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);
@@ -681,18 +691,19 @@ function orderPlaatsen() {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
                 var response = xmlhttp.responseText;
-                
+
                 var orderID = $(response).find("OrderID").text();
-                var totalprice_inclBTW = $(response).find("OrderID").text();4
+                var totalprice_inclBTW = $(response).find("OrderID").text();
+                4
                 var errorCode = $(response).find("errorCode").text();
-                
+
                 window.alert("error: " + errorCode + "xml: " + response + "orderId: " + orderID + "price: " + totalprice_inclBTW);
-                
+
                 if (betalingSoort === "Online") {
                     ogone(orderArray, orderID, totalprice_inclBTW);
                 }
                 else {
-                    $('#overschrijvingContent').html("<p>Gelieve €" + totalprice_inclBTW +" over te schrijven naar XXXXX. <br/> Uw order nummer is "+ orderID +" <br/> Na overschrijving verzenden wij uw order!</p>").trigger("create");
+                    $('#overschrijvingContent').html("<p>Gelieve €" + totalprice_inclBTW + " over te schrijven naar XXXXX. <br/> Uw order nummer is " + orderID + " <br/> Na overschrijving verzenden wij uw order! Begunstigde rekening: 738-0216946-76 Begunstigde IBAN: BE91 7380 2169 4676 Begunstigde BIC: KREDBEBB Begunstigde naam: SwingGroup</p>").trigger("create");
                     $.mobile.changePage('#overschrijving1');
                 }
             }
