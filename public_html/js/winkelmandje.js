@@ -5,9 +5,9 @@ var winkelmandArray = [];
 var betalingArray = [];
 
 //fix header image size
-    $(window).on('load', function() {
-        $(this).trigger('resize');
-    });
+$(window).on('load', function() {
+    $(this).trigger('resize');
+});
 
 //Getter & Setters
 
@@ -384,7 +384,9 @@ function addBetaalgegevens2() {
     var betalingswijze = $('input[name=betalingswijze]:checked', '#BetaalgegevensForm2').val();
     betalingArray.push(betalingswijze);
 
+    window.alert($('#factuur').attr('checked'));
     window.alert(document.getElementById('factuur').checked);
+    
     if (document.getElementById('factuur').checked) {
         window.alert("factuur add");
         var firmaFac = $('#firmaFac').val();
