@@ -3,6 +3,7 @@ var totalePrijs = 0;
 var filledArray = [];
 var winkelmandArray = [];
 var betalingArray = [];
+var emailLever;
 
 //fix header image size
 $(window).on('load', function() {
@@ -102,20 +103,11 @@ function updateWinkelmand(id, prijs, aantal) {
 //Personalisatie van de voucher: thema kiezen
 function addTheme() {
     var arrayTheme = [];
-    console.log(arrayTheme);
     var theme = $('input[name=Thema]:checked', '#themaSelect').val();
     arrayTheme.push(theme);
-    console.log(arrayTheme);
+    emailLevering();
     setWinkelmandArray(arrayTheme);
-    if (isEmailVoucher(arrayTheme[0])) {
-        $('#emailblok').show();
-        $('#afhalenblok').hide();
-    }
-    else {
-        $('#afhalenblok').show();
-        $('#emailblok').hide();
-    }
-    console.log(filledArray);
+
 }
 
 //Personalisatie van de voucher: boodschap kiezen + gegevens ontvanger voucher
@@ -131,7 +123,6 @@ function addBoodschap() {
         fout += "voornaam, ";
     arrayBoodschap.push(ontvangerVnaam);
 
-
     var ontvangerNaam = $('#ontvangerNaam').val();
     if (ontvangerNaam === "")
         fout += "naam, ";
@@ -140,46 +131,44 @@ function addBoodschap() {
     var leveringsdatum = $('#leveringsdatum').val();
     arrayBoodschap.push(leveringsdatum);
 
-    if (isEmailVoucher(arrayBoodschap[0])) {
-        var ontvangerEmail = $('#ontvangerEmail').val();
-        if (ontvangerEmail === "")
-            fout += "e-mail, ";
-        arrayBoodschap.push(ontvangerEmail);
+    var afhaling = $('input[name=afhaling]:checked', '#boodschapForm').val();
+    arrayBoodschap.push(afhaling);
+    if (afhaling === "taxipost") {
+        var firma = $('#firma').val();
+        arrayBoodschap.push(firma);
+
+        var straat = $('#straat').val();
+        if (straat === "")
+            fout += "straat, ";
+        arrayBoodschap.push(straat);
+
+        var nr = $('#nr').val();
+        if (nr === "")
+            fout += "nr, ";
+        arrayBoodschap.push(nr);
+
+        var bus = $('#bus').val();
+        arrayBoodschap.push(bus);
+
+        var postcode = $('#postcode').val();
+        if (postcode === "")
+            fout += "postcode, ";
+        arrayBoodschap.push(postcode);
+
+        var gemeente = $('#gemeente').val();
+        if (gemeente === "")
+            fout += "gemeente.";
+        arrayBoodschap.push(gemeente);
+
+        var land = $('#land').val();
+        arrayBoodschap.push(land);
     }
-    else {
-        var afhaling = $('input[name=afhaling]:checked', '#boodschapForm').val();
-        arrayBoodschap.push(afhaling);
-        if (afhaling === "taxipost") {
-            var firma = $('#firma').val();
-            arrayBoodschap.push(firma);
 
-            var straat = $('#straat').val();
-            if (straat === "")
-                fout += "straat, ";
-            arrayBoodschap.push(straat);
+    var ontvangerEmail = $('#ontvangerEmail').val();
+    if (ontvangerEmail === "")
+        fout += "e-mail, ";
+    arrayBoodschap.push(ontvangerEmail);
 
-            var nr = $('#nr').val();
-            if (nr === "")
-                fout += "nr, ";
-            arrayBoodschap.push(nr);
-
-            var bus = $('#bus').val();
-            arrayBoodschap.push(bus);
-
-            var postcode = $('#postcode').val();
-            if (postcode === "")
-                fout += "postcode, ";
-            arrayBoodschap.push(postcode);
-
-            var gemeente = $('#gemeente').val();
-            if (gemeente === "")
-                fout += "gemeente.";
-            arrayBoodschap.push(gemeente);
-
-            var land = $('#land').val();
-            arrayBoodschap.push(land);
-        }
-    }
     if (fout === "Sommige verplichte velden zijn niet ingevuld: ") {
         setWinkelmandArray(arrayBoodschap);
         window.location.href = "#betaalgegevens1";
@@ -192,11 +181,44 @@ function addBoodschap() {
 
 }
 
+//checken of het een email voucher of/en levering voucher is
+function emailLevering() {
+    var arrayEvoucher = window.localStorage.getArray("arrayEvoucher");
+    var email = "";
+    var levering = "";
+
+    for (var i = 0; i < filledArray.length; i++) {
+        for (var i = 0; i < arrayEvoucher.length; i++) {
+            if (+arrayEvoucher[i] === +filledArray[i][0])
+                email = "true";
+            else
+                levering = "true";
+        }
+    }
+    if (email === "true" && levering === "true") {
+        $('#afhalenblok').show();
+        $('#emailblok').show();
+        emailLever = 1;
+    }
+    else {
+        if (email === "true") {
+            $('#afhalenblok').hide();
+            $('#emailblok').show();
+            emailLever = 2;
+        }
+        else {
+            $('#afhalenblok').show();
+            $('#emailblok').hide();
+            emailLever = 3;
+        }
+    }
+}
+
 //checken of het een email voucher is
-function isEmailVoucher(id) {
+function isNotAEmailVoucher(id) {
     var arrayEvoucher = window.localStorage.getArray("arrayEvoucher");
     for (var i = 0; i < arrayEvoucher.length; i++) {
-        if (+arrayEvoucher[i] === +id)
+        if (+arrayEvoucher[i] !== +id)
             return true;
     }
     return false;

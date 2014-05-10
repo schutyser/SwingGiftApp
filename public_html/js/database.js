@@ -694,7 +694,7 @@ function orderPlaatsen() {
 
                 var orderID = $(response).find("OrderID").text();
                 var totalprice_inclBTW = $(response).find("OrderID").text();
-                4
+                
                 var errorCode = $(response).find("errorCode").text();
 
                 window.alert("error: " + errorCode + "xml: " + response + "orderId: " + orderID + "price: " + totalprice_inclBTW);
