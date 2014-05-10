@@ -164,10 +164,11 @@ function addBoodschap() {
         arrayBoodschap.push(land);
     }
 
+    if(emailLever === 1 || emailLever === 2){
     var ontvangerEmail = $('#ontvangerEmail').val();
     if (ontvangerEmail === "")
         fout += "e-mail, ";
-    arrayBoodschap.push(ontvangerEmail);
+    arrayBoodschap.push(ontvangerEmail);}
 
     if (fout === "Sommige verplichte velden zijn niet ingevuld: ") {
         setWinkelmandArray(arrayBoodschap);
@@ -187,8 +188,10 @@ function emailLevering() {
     var email = "";
     var levering = "";
 
+    alert(filledArray + arrayEvoucher);
     for (var i = 0; i < filledArray.length; i++) {
         for (var i = 0; i < arrayEvoucher.length; i++) {
+            alert(filledArray[i][0] + arrayEvoucher[i]);
             if (+arrayEvoucher[i] === +filledArray[i][0])
                 email = "true";
             else
@@ -196,22 +199,26 @@ function emailLevering() {
         }
     }
     if (email === "true" && levering === "true") {
+        alert("email + levering");
         $('#afhalenblok').show();
         $('#emailblok').show();
         emailLever = 1;
     }
     else {
         if (email === "true") {
+            alert("email");
             $('#afhalenblok').hide();
             $('#emailblok').show();
             emailLever = 2;
         }
         else {
+            alert("levering");
             $('#afhalenblok').show();
             $('#emailblok').hide();
             emailLever = 3;
         }
     }
+    alert.window("emailLever:" + emailLever);
 }
 
 //checken of het een email voucher is
