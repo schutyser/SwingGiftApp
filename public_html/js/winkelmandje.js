@@ -189,8 +189,8 @@ function emailLevering() {
     var levering = "";
 
     alert(filledArray + " -- "+ arrayEvoucher);
-    for (var i = 0; i < filledArray.length; i++) {
         for (var i = 0; i < arrayEvoucher.length; i++) {
+            for (var i = 0; i < filledArray.length; i++) {
             alert(filledArray[i][0] + "-- "+ arrayEvoucher[i]);
             if (+arrayEvoucher[i] === +filledArray[i][0])
                 email = "true";
