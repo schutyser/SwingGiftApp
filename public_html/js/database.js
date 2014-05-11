@@ -603,7 +603,7 @@ function maakOverzicht(betalingArray) {
 //Order plaatsen via webservice & Ogone activeren indien nodig
 function orderPlaatsen() {
     var orderArray = getOrdersArray();
-    var winkelArray = getBetaalgegevens();
+    var winkelArray = getWinkelmandArray();
 
     var voornaamBetaling = orderArray[0];
     var naamBetaling = orderArray[1];
@@ -691,13 +691,14 @@ function orderPlaatsen() {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
                 var response = xmlhttp.responseText;
-
+                window.alert(response);
+                
                 var orderID = $(response).find("OrderID").text();
                 var totalprice_inclBTW = $(response).find("OrderID").text();
                 
                 var errorCode = $(response).find("errorCode").text();
 
-                window.alert("error: " + errorCode + "xml: " + response + "orderId: " + orderID + "price: " + totalprice_inclBTW);
+                window.alert("error: " + errorCode + "orderId: " + orderID + "price: " + totalprice_inclBTW);
 
                 if (betalingSoort === "Online") {
                     ogone(orderArray, orderID, totalprice_inclBTW);
