@@ -189,10 +189,8 @@ function emailLevering() {
     var email = "";
     var levering = "";
 
-    alert(filledArray + " -- " + arrayEvoucher);
     for (var i2 = 0; i2 < filledArray.length; i2++) {
         for (var i = 0; i < arrayEvoucher.length; i++) {
-            alert(filledArray[i2][0] + "-- " + arrayEvoucher[i]);
             if (+arrayEvoucher[i] === +filledArray[i2][0])
                 email = "true";
             else
@@ -200,20 +198,17 @@ function emailLevering() {
         }
     }
     if (email === "true" && levering === "true") {
-        alert("email + levering");
         $('#afhalenblok').show();
         $('#emailblok').show();
         emailLever = 1;
     }
     else {
         if (email === "true") {
-            alert("email");
             $('#afhalenblok').hide();
             $('#emailblok').show();
             emailLever = 2;
         }
         else {
-            alert("levering");
             $('#afhalenblok').show();
             $('#emailblok').hide();
             emailLever = 3;
@@ -222,15 +217,6 @@ function emailLevering() {
     alert.window("emailLever:" + emailLever);
 }
 
-//checken of het een email voucher is
-function isNotAEmailVoucher(id) {
-    var arrayEvoucher = window.localStorage.getArray("arrayEvoucher");
-    for (var i = 0; i < arrayEvoucher.length; i++) {
-        if (+arrayEvoucher[i] !== +id)
-            return true;
-    }
-    return false;
-}
 
 //form opvangen voor het adden van een item
 function winkelmandje(id) {

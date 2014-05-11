@@ -603,7 +603,7 @@ function maakOverzicht(betalingArray) {
 //Order plaatsen via webservice & Ogone activeren indien nodig
 function orderPlaatsen() {
     var orderArray = getOrdersArray();
-
+    var winkelArray = getBetaalgegevens();
 
     var voornaamBetaling = orderArray[0];
     var naamBetaling = orderArray[1];
@@ -618,15 +618,15 @@ function orderPlaatsen() {
     var plaats = "";
     var land = "";
 
-    window.alert(orderArray[5]);
-    if (orderArray[5] !== "undefined") {
-        companyName = orderArray[5];
-        street = orderArray[6];
-        nr = orderArray[7];
-        bus = orderArray[8];
-        postcode = orderArray[9];
-        plaats = orderArray[10];
-        land = orderArray[11];
+    window.alert("emailLever: " + emailLever + " -- " + winkelArray[4]);
+    if (emailLever !== 2 && winkelArray[4] === "taxipost") {
+        companyName = winkelArray[5];
+        street = winkelArray[6];
+        nr = winkelArray[7];
+        bus = winkelArray[8];
+        postcode = winkelArray[9];
+        plaats = winkelArray[10];
+        land = winkelArray[11];
     }
     
     var languageID = 1;
