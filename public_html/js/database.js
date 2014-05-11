@@ -301,7 +301,7 @@ function detailItem(tx, results) {
                             <label  name="prijs">Totale prijs: &#8364;<span id="prijsCalcu' + id + '">' + prijs + '</span></label> \n\
                         </form>\n\
                         <div>\n\
-                        <a href="#shop" data-icon="ok" data-iconpos="left" data-role="button" data-inline="true" onclick="winkelmandje(' + id + prijs + ')">Add</a>\n\
+                        <a href="#shop" data-icon="ok" data-iconpos="left" data-role="button" data-inline="true" onclick="winkelmandje(' + id + ')">Add</a>\n\
                             <a href="#" data-rel=\'back\' data-icon="delete" data-iconpos="left" data-role="button" data-inline="true">Cancel</a>\n\
                         </div>\n\
                     </div>\n\
