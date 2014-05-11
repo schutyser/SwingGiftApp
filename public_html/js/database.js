@@ -766,7 +766,7 @@ function ogone(orderArray, id, totalprice_inclBTW) {
             '</form>';
 
     $('#ogone').html(ogoneForm).trigger("create");
-    window.alert("ogoneForm");
+    window.alert(ogoneForm);
     document.getElementById('ogoneForm').submit();
 
 }
