@@ -105,8 +105,8 @@ function addTheme() {
     var arrayTheme = [];
     var theme = $('input[name=Thema]:checked', '#themaSelect').val();
     arrayTheme.push(theme);
-    emailLevering();
     setWinkelmandArray(arrayTheme);
+    emailLevering();
 
 }
 
@@ -214,7 +214,6 @@ function emailLevering() {
             emailLever = 3;
         }
     }
-    alert.window("emailLever:" + emailLever);
 }
 
 

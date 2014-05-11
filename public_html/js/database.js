@@ -564,6 +564,7 @@ function maakPersPagina(pers) {
 //Overzicht opmaken van de aankoop
 function maakOverzicht(betalingArray) {
     var winkelmandArray = getWinkelmandArray();
+    alert(betalingArray + winkelmandArray);
     var thema = winkelmandArray[0];
     var boodschap = winkelmandArray[1];
     var voornaam = winkelmandArray[2];
