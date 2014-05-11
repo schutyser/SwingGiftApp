@@ -104,7 +104,6 @@ function updateWinkelmand(id, prijs, aantal) {
 function addTheme() {
     var arrayTheme = [];
     var theme = $('input[name=Thema]:checked', '#themaSelect').val();
-    window.alert(theme);
     arrayTheme.push(theme);
     setWinkelmandArray(arrayTheme);
     emailLevering();
@@ -114,7 +113,6 @@ function addTheme() {
 //Personalisatie van de voucher: boodschap kiezen + gegevens ontvanger voucher
 function addBoodschap() {
     var arrayBoodschap = getWinkelmandArray();
-    window.alert(arrayBoodschap);
     var fout = "Sommige verplichte velden zijn niet ingevuld: ";
 
     var boodschapInhoud = $('#boodschapInhoud').val();

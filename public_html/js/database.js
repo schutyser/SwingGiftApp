@@ -659,7 +659,7 @@ function orderPlaatsen() {
                 '<giftID>' + giftID + '</giftID>' +
                 '<quantity>' + quantity + '</quantity>' +
                 '<languageID>' + languageID + '</languageID>' +
-                '<price_inclBTW>' + price_inclBTW + '</price_inclBTW>' +
+                '<price_incl>' + price_inclBTW + '</price_incl>' +
                 '</Orderdetails>';
 
         ordersArrayXML += OrderdetailsArray;
@@ -723,10 +723,11 @@ function ogone(orderArray, id, totalprice_inclBTW) {
     var telefoonNummer = orderArray[3];
     var sha1 = "Test123Test123Test123";
     var taal = "nl_NL";
-    var orderID = "STDREF321";
+    var orderID = "test123";
     var sha = 'AMOUNT=' + prijs + sha1 + 'CURRENCY=EUR' + sha1 +
             'LANGUAGE=' + taal + sha1 + 'ORDERID=' + orderID + sha1 +
             'PSPID=QCSREW' + sha1;
+    window.alert(sha);
 
     var ogoneForm =
             '<form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm" name="ogoneForm">' +
@@ -765,7 +766,7 @@ function ogone(orderArray, id, totalprice_inclBTW) {
             '</form>';
 
     $('#ogone').html(ogoneForm).trigger("create");
-    window.alert("submit");
+    window.alert("ogoneForm");
     document.getElementById('ogoneForm').submit();
 
 }
