@@ -260,6 +260,13 @@ function detailItem(tx, results) {
     var omschrijving = results.rows.item(0).decr_NL;
     var email = results.rows.item(0).isEvoucher;
     var emailContent;
+    var prijsInfo = "";
+    var typePrijs = "hidden";
+
+    if (prijs === 0) {
+        prijsInfo = "(zelf te kiezen prijs)";
+        typePrijs = "number";
+    }
 
     if (email === "true")
         emailContent = "Deze bon wordt via mail opgestuurd!";
@@ -276,7 +283,7 @@ function detailItem(tx, results) {
                     <li id="' + id + '">\n\
                         <img src="' + imageUrl + '">\n\
                         <h2>' + titel + '</h2>\n\
-                        <p>Prijs: &#8364;' + prijs + '</p>\n\
+                        <p>Prijs: &#8364;' + prijs + prijsInfo + '</p>\n\
                         <p> ' + omschrijving + '</p>\n\
                         <p>' + emailContent + '</p>\n\
                     </li>\n\
@@ -287,7 +294,7 @@ function detailItem(tx, results) {
                             <label>How many?</label>\n\
                             <input id="aantalLabel' + id + '" type="number" name="aantal" value="1"/>\n\
                             <input id="idInput" type="hidden" name="id" value="' + id + '" />\n\
-                            <input id="prijsLabel' + id + '" type="hidden" name="prijs" value="' + prijs + '" />\n\
+                            <input id="prijsLabel' + id + '" type="' + typePrijs + '" name="prijs" value="' + prijs + '" />\n\
                             <input id="email' + id + '" type="hidden" name="email" value="' + email + '" />\n\
                             <label  name="prijs">Totale prijs: &#8364;<span id="prijsCalcu' + id + '">' + prijs + '</span></label> \n\
                         </form>\n\
