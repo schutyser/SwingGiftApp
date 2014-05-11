@@ -1,7 +1,6 @@
 var giftID;
 var eindeNodig;
 var orderArray = [];
-var totaleprijs = 0;
 
 //Wordt uitgevoerd bij opstarten app
 function onDeviceReady() {
@@ -222,6 +221,9 @@ function listItems(tx, results) {
         var imageUrl = results.rows.item(i).mainAfb;
         var titel = results.rows.item(i).title_NL;
         var prijs = results.rows.item(i).price_inclBTW;
+        
+        if(prijs === 0)
+            prijs += " (zelf te kiezen bedrag)";
 
         var con =
                 '<li><a href = #item onclick="successCB2(' + id + ')">\n\
@@ -264,7 +266,7 @@ function detailItem(tx, results) {
     var typePrijs = "hidden";
 
     if (prijs === 0) {
-        prijsInfo = "(zelf te kiezen prijs)";
+        prijsInfo = "(zelf te kiezen bedrag)";
         typePrijs = "number";
     }
 
@@ -299,7 +301,7 @@ function detailItem(tx, results) {
                             <label  name="prijs">Totale prijs: &#8364;<span id="prijsCalcu' + id + '">' + prijs + '</span></label> \n\
                         </form>\n\
                         <div>\n\
-                        <a href="#shop" data-icon="ok" data-iconpos="left" data-role="button" data-inline="true" onclick="winkelmandje(' + id + ')">Add</a>\n\
+                        <a href="#shop" data-icon="ok" data-iconpos="left" data-role="button" data-inline="true" onclick="winkelmandje(' + id + prijs + ')">Add</a>\n\
                             <a href="#" data-rel=\'back\' data-icon="delete" data-iconpos="left" data-role="button" data-inline="true">Cancel</a>\n\
                         </div>\n\
                     </div>\n\
@@ -324,7 +326,8 @@ function detailItem(tx, results) {
 function shoppingCart(tx, results) {
     var creditContent = "";
     var credit = localStorage.getItem("credit");
-
+    var totaleprijs = getTotalePrijs();
+    
     if (+credit !== 0) {
         creditContent = "Korting via voucher(s): &#8364; " + credit;
         totaleprijs = +totaleprijs - +credit;
@@ -351,7 +354,7 @@ function shoppingCart(tx, results) {
         for (var i = 0; i < len; i++) {
             var id = results.rows.item(i).giftID;
             var titel = results.rows.item(i).title_NL;
-            var prijs = results.rows.item(i).price_inclBTW;
+            var prijs = getPrijs(id);
             var aantal = getAantalItem(id);
 
             var con =
@@ -363,7 +366,6 @@ function shoppingCart(tx, results) {
                     </li>';
 
             content2 += con;
-            totaleprijs += +prijs * +aantal;
         }
     }
 
@@ -584,7 +586,7 @@ function maakOverzicht(betalingArray) {
     var telefoon = betalingArray[3];
     var betalingSoort = betalingArray[4];
 
-
+    var totaleprijs = getTotalePrijs();
     var transport;
     var transportKost = 0;
     if (winkelmandArray[5] === "afhalen")

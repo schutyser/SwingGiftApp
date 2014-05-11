@@ -1,5 +1,4 @@
 var aantalItems = 0;
-var totalePrijs = 0;
 var filledArray = [];
 var winkelmandArray = [];
 var betalingArray = [];
@@ -45,13 +44,20 @@ function getAantalItem(id) {
     return window.alert("error: Unknow problem. Please restart or contact SwingGift");
 }
 
+function getPrijs(id) {
+    for (var i = 0; i < filledArray.length; ++i) {
+        if (+filledArray[i][0] === +id)
+            return filledArray[i][1];
+    }
+    return window.alert("error: Unknow problem. Please restart or contact SwingGift");
+}
+
 function getTotalePrijs() {
     var prijs = 0;
     for (var i = 0; i < filledArray.length; ++i) {
         prijs = (+filledArray[i][1] * +filledArray[i][2]) + +prijs;
     }
-    totalePrijs = prijs;
-    return totalePrijs;
+   return prijs;
 }
 
 function getIds() {
@@ -299,7 +305,6 @@ function changeButton() {
 function clearWinkelmandje() {
     window.localStorage.removeItem("arrayKey");
     aantalItems = 0;
-    totalePrijs = 0;
     console.log(filledArray);
     filledArray = [];
     changeButton();
