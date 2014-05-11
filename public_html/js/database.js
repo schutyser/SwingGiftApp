@@ -618,7 +618,7 @@ function orderPlaatsen() {
     var plaats = "";
     var land = "";
 
-    window.alert("emailLever: " + emailLever + " -- " + winkelArray[4]);
+    window.alert("emailLever: " + emailLever + " -- " + winkelArray);
     if (emailLever !== 2 && winkelArray[4] === "taxipost") {
         companyName = winkelArray[5];
         street = winkelArray[6];
@@ -688,6 +688,7 @@ function orderPlaatsen() {
     xmlhttp.send(sr);
     // send request
     xmlhttp.onreadystatechange = function() {
+        window.alert(xmlhttp.readyState + "--" + xmlhttp.status);
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
                 var response = xmlhttp.responseText;
