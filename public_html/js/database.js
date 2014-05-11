@@ -593,6 +593,7 @@ function maakOverzicht(betalingArray) {
         transport = "U heeft gekozen om uw bon op te halen bij SwingGroup";
     else {
         var land = winkelmandArray[11];
+        window.alert(land + "van" + winkelmandArray);
         if (land === "belgie")
             transportKost = 5.95;
         else {
