@@ -564,7 +564,6 @@ function maakPersPagina(pers) {
 //Overzicht opmaken van de aankoop
 function maakOverzicht(betalingArray) {
     var winkelmandArray = getWinkelmandArray();
-    alert(betalingArray + winkelmandArray);
     var thema = winkelmandArray[0];
     var boodschap = winkelmandArray[1];
     var voornaam = winkelmandArray[2];
@@ -578,13 +577,28 @@ function maakOverzicht(betalingArray) {
     var telefoon = betalingArray[3];
     var betalingSoort = betalingArray[4];
 
-    window.alert(betalingArray + "==<=>==" + winkelmandArray);
 
     var transport;
+    var transportKost = 0;
     if (winkelmandArray[5] === "afhalen")
         transport = "U heeft gekozen om uw bon op te halen bij SwingGroup";
-    else
-        transport = "U heeft gekozen om uw bon op te sturen via Taxipost";
+    else {
+        var land = winkelmandArray[11];
+        if (land === "belgie")
+            transportKost = 5.95;
+        else {
+            if (land === "nederland")
+                transportKost = 8.95;
+            else {
+                if (land === "duitsland" || land === "frankrijk")
+                    transportKost = 10.95;
+                else
+                    transportKost = 9.95;
+            }
+
+        }
+        transport = "U heeft gekozen om uw bon op te sturen via Taxipost (+ €" + transportKost + ")";
+    }
     $('#themaContent').html(thema);
     $('#boodschapContent').html(boodschap);
     $('#voornaamContent').html(voornaam);
@@ -596,7 +610,7 @@ function maakOverzicht(betalingArray) {
     $('#tel').html(telefoon);
     $('#transportContent').html(transport);
     $('#betalingskeuze').html(betalingSoort);
-    $('#prijsOverzicht').html(totaleprijs);
+    $('#prijsOverzicht').html(+totaleprijs + +transportKost);
 
     setOrdersArray(betalingArray);
 }
@@ -619,7 +633,6 @@ function orderPlaatsen() {
     var plaats = "";
     var land = "";
 
-    window.alert("emailLever: " + emailLever + " -- " + winkelArray);
     if (emailLever !== 2 && winkelArray[4] === "taxipost") {
         companyName = winkelArray[5];
         street = winkelArray[6];
@@ -629,7 +642,7 @@ function orderPlaatsen() {
         plaats = winkelArray[10];
         land = winkelArray[11];
     }
-    
+
     var languageID = 1;
 
     var ordersArrayXML =
@@ -665,7 +678,6 @@ function orderPlaatsen() {
         ordersArrayXML += OrderdetailsArray;
     }
 
-    window.alert(orderArray + " == into ==> " + ordersArrayXML);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);
 
@@ -689,18 +701,14 @@ function orderPlaatsen() {
     xmlhttp.send(sr);
     // send request
     xmlhttp.onreadystatechange = function() {
-        window.alert(xmlhttp.readyState + "--" + xmlhttp.status);
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
                 var response = xmlhttp.responseText;
-                window.alert(response);
-                
+
                 var orderID = $(response).find("OrderID").text();
                 var totalprice_inclBTW = $(response).find("OrderID").text();
-                
-                var errorCode = $(response).find("errorCode").text();
 
-                window.alert("error: " + errorCode + "orderId: " + orderID + "price: " + totalprice_inclBTW);
+                var errorCode = $(response).find("errorCode").text();
 
                 if (betalingSoort === "Online") {
                     ogone(orderArray, orderID, totalprice_inclBTW);
@@ -716,7 +724,6 @@ function orderPlaatsen() {
 }
 
 function ogone(orderArray, id, totalprice_inclBTW) {
-    window.alert("ogone start");
     var prijs = 1500;
     var naamBetaling = orderArray[1];
     var email = orderArray[2];
@@ -727,7 +734,6 @@ function ogone(orderArray, id, totalprice_inclBTW) {
     var sha = 'AMOUNT=' + prijs + sha1 + 'CURRENCY=EUR' + sha1 +
             'LANGUAGE=' + taal + sha1 + 'ORDERID=' + orderID + sha1 +
             'PSPID=QCSREW' + sha1;
-    window.alert(sha);
 
     var ogoneForm =
             '<form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm" name="ogoneForm">' +
@@ -766,7 +772,6 @@ function ogone(orderArray, id, totalprice_inclBTW) {
             '</form>';
 
     $('#ogone').html(ogoneForm).trigger("create");
-    window.alert(ogoneForm);
     document.getElementById('ogoneForm').submit();
 
 }
