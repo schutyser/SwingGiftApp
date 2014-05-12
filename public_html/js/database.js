@@ -775,7 +775,7 @@ function orderPlaatsen() {
             '</xs:schema><diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"' +
             'xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">' +
             '<DSOrders xmlns="http://tempuri.org/DSOrders.xsd">' +
-            '<Orders diffgr:id="orders1">' +
+            '<Orders>' +
             '<languageID>' + languageID + '</languageID>' +
             '<firstname>' + voornaamBetaling + '</firstname>' +
             '<name>' + naamBetaling + '</name>' +
@@ -797,7 +797,7 @@ function orderPlaatsen() {
         var quantity = filledArray[i][2];
         teller++;
         var OrderdetailsArray =
-                '<Orderdetails diffgr:id="OrderDetails' + teller + '>' +
+                '<Orderdetails>' +
                 '<giftID>' + giftID + '</giftID>' +
                 '<quantity>' + quantity + '</quantity>' +
                 '<languageID>' + languageID + '</languageID>' +
