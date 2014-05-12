@@ -10,7 +10,7 @@
         <script type="text/javascript">
             function test() {
                 var taal = "nl_NL";
-                var orderID = "STDREF321";
+                var orderID = "STDREF123";
                 var prijs = 1500;
                 var sha1 = "Test123Test123Test123";
                 
@@ -18,7 +18,8 @@
                         'AMOUNT=' + prijs + sha1 + 'CURRENCY=EUR' + sha1 +
                         'LANGUAGE=' + taal + sha1 + 'ORDERID=' + orderID + sha1 +
                         'PSPID=QCSREW' + sha1;
-                window.alert(SHA1(sha));
+                $('#invoer').html(sha).trigger('create');
+                $('#sha').html(SHA1(sha)).trigger('create');
                 
             }
         </script>
@@ -29,5 +30,7 @@
             Sha
         </h3>
         <BUTTON onclick="test()">SHABABY</BUTTON>
+        <div id="invoer"></div>
+        <div id="sha"></div>
     </body>
 </html>
