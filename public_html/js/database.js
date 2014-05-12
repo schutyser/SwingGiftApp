@@ -496,7 +496,8 @@ function personalisatiePaginaXML(voucherCode) {
         var voucherCodeArray = [];
         if (window.localStorage.getArray("voucherCodeArray") !== null) {
             voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
-            for (var i = 0; i < voucherCodeArray.length; i=i+2) {
+            for (var i = 0; i < voucherCodeArray.length; ++i) {
+                i=i+1;
                 if (voucherCodeArray[i] === voucherCode) {
                     return false;
                 }
@@ -806,8 +807,10 @@ function voucherCodesFill() {
     if (window.localStorage.getArray("voucherCodeArray") !== null)
     {
         var voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
-        for (var i = 0; i < voucherCodeArray.length; i=i+2) {
-            content += "<li><a href='#'>Voucher: " + voucherCodeArray[i] + " met credit: €"+voucherCodeArray[i+1]+"</a></li>";
+        for (var i = 0; i < voucherCodeArray.length; ++i) {
+            var i2 = i+1;
+            content += "<li><a href='#'>Voucher: " + voucherCodeArray[i] + " met credit: €"+voucherCodeArray[i2]+"</a></li>";
+            i = i2;
         }
     }
     $('#voucherCodes').html(content).trigger("create");
