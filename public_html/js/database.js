@@ -166,7 +166,7 @@ function xmlParse() {
 
     function vouchers(xml) {
         var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
-        window.alert("vouchers");
+        window.alert("vouchers: " + xml);
         $(xml).find('Vouchers').each(function() {
             var voucher = [];
             voucher.push($(this).find("giftID").text());
