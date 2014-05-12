@@ -808,8 +808,6 @@ function orderPlaatsen() {
     }
     ordersArrayXML += '</DSOrders></diffgr:diffgram>';
 
-    window.alert(ordersArrayXML);
-
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);
 
@@ -833,11 +831,9 @@ function orderPlaatsen() {
     xmlhttp.send(sr);
     // send request
     xmlhttp.onreadystatechange = function() {
-        window.alert(xmlhttp.readyState + "--" + xmlhttp.status);
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
                 var response = xmlhttp.responseText;
-                window.alert(response);
 
                 var orderID = $(response).find("OrderID").text();
                 var totalprice_inclBTW = $(response).find("OrderID").text();
@@ -925,6 +921,7 @@ function voucherCodesFill() {
     var content = "<li>Geen voucher codes ingegeven momenteel</li>";
     if (window.localStorage.getArray("voucherCodeArray") !== null)
     {
+        content ="";
         var voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
         for (var i = 0; i < voucherCodeArray.length; ++i) {
             var i2 = i + 1;
@@ -939,6 +936,7 @@ function ordersFill() {
     var content = "<li>Geen orders geplaats momenteel</li>";
     if (window.localStorage.getArray("orders") !== null)
     {
+        content ="";
         var orders = window.localStorage.getArray("orders");
         for (var i = 0; i < orders.length; i++) {
             content += "<li><a href='#orderDetails' onclick='checkOrderStatus(orders[i])'>Order: " + orders[i] + "</a></li>";
