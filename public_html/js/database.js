@@ -503,6 +503,7 @@ function personalisatiePaginaXML(voucherCode) {
         voucherCodeArray.push(voucherCode);
         voucherCodeArray.push(credit);
         window.localStorage.setArray("voucherCodeArray", voucherCodeArray);
+        voucherCodesFill();
         return true;
     }
 }
@@ -799,7 +800,7 @@ function arrayEvouchers(tx, results) {
     window.localStorage.setArray("arrayEvoucher", arrayEvoucher);
 }
 function voucherCodesFill() {
-    var content = "<li>Geen orders geplaats momenteel</li>";
+    var content = "<li>Geen voucher codes ingegeven momenteel</li>";
     if (window.localStorage.getArray("voucherCodeArray") !== null)
     {
         var voucherCodeArray = window.localStorage.getArray("voucherCodeArray");

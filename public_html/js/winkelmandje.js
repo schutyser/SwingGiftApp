@@ -261,8 +261,6 @@ function onDeviceReady1() {
     function onDeviceReady() {
         filledArray = readArray();
         changeButton();
-        ordersFill();
-        voucherCodesFill();
 
         document.addEventListener("backbutton", function(e) {
             if ($.mobile.activePage.is('#index')) {
