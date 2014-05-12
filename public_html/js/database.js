@@ -809,6 +809,9 @@ function orderPlaatsen() {
     ordersArrayXML += '</DSOrders></diffgr:diffgram>';
 
     window.alert(ordersArrayXML);
+    $('#test').html(ordersArrayXML).trigger("pagecreate");
+    $.mobile.changePage('#test');
+
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);
 
@@ -832,6 +835,7 @@ function orderPlaatsen() {
     xmlhttp.send(sr);
     // send request
     xmlhttp.onreadystatechange = function() {
+        window.alert(xmlhttp.readyState + "--" + xmlhttp.status);
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
                 var response = xmlhttp.responseText;
