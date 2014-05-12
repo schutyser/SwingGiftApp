@@ -858,9 +858,9 @@ function orderPlaatsen() {
 
 function ogone(orderArray, id, totalprice_inclBTW) {
     var prijs = 1500;
-    var naamBetaling = orderArray[1];
-    var email = orderArray[2];
-    var telefoonNummer = orderArray[3];
+    var naamBetaling = "thijs1";
+    var email = "orderArray2@test.be";
+    var telefoonNummer = "orderArray3";
     var sha1 = "Test123Test123Test123";
     var taal = "nl_NL";
     var orderID = "test123";
