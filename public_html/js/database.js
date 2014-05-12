@@ -55,6 +55,7 @@ function errorCB(err) {
 
 // Transaction success callbacks
 function successCB() {
+    window.alert(successCB);
     var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
     db.transaction(queryDB, errorCB);
 }
@@ -135,7 +136,6 @@ function queryDB4(tx) {
 
 //Ophalen van de geschenkbonnen door de webservice op te roepen
 function xmlParse() {
-    window.alert("xmlParse");
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=GetVouchers', true);
 
@@ -160,7 +160,6 @@ function xmlParse() {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
-                window.alert("getvoucher succes");
                 vouchers(xmlhttp.responseText);
             }
         }
@@ -190,7 +189,7 @@ function xmlParse() {
             voucher.push($(this).find("detailAfb1").text());
             voucher.push($(this).find("detailAfb2").text());
             voucher.push($(this).find("detailAfb3").text());
-
+            
             db.transaction(function(tx) {
                 tx.executeSql('INSERT INTO vouchers (giftID, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', voucher);
             });
