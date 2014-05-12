@@ -655,7 +655,7 @@ function orderPlaatsen() {
 
     var languageID = 1;
 
-    var ordersArrayXML =
+    var schema =
             '<xs:schema id="DSOrders" targetNamespace="http://tempuri.org/DSOrders.xsd"' +
             'xmlns:mstns="http://tempuri.org/DSOrders.xsd"' +
             'xmlns="http://tempuri.org/DSOrders.xsd"' +
@@ -774,7 +774,8 @@ function orderPlaatsen() {
             '</xs:element>' +
             '</xs:schema><diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"' +
             'xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">' +
-            '<DSOrders xmlns="http://tempuri.org/DSOrders.xsd">' +
+            '<DSOrders xmlns="http://tempuri.org/DSOrders.xsd">';
+    var ordersArrayXML =
             '<Orders diffgr:id="orders1">' +
             '<languageID>' + languageID + '</languageID>' +
             '<firstname>' + voornaamBetaling + '</firstname>' +
@@ -806,7 +807,7 @@ function orderPlaatsen() {
 
         ordersArrayXML += OrderdetailsArray;
     }
-    ordersArrayXML += '</DSOrders></diffgr:diffgram>';
+    //ordersArrayXML += '</DSOrders></diffgr:diffgram>';
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);

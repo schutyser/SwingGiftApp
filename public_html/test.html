@@ -25,7 +25,7 @@
                         'LANGUAGE=' + taal + sha1 + 'ORDERID=' + orderID + sha1 +
                         'PSPID=QCSREW' + sha1;
 
-                var sha = sha3.toUpperCase();
+                var sha = sha2.toUpperCase();
 
                 $('#invoer').html(sha).trigger('create');
                 $('#sha').html(SHA1(sha)).trigger('create');
