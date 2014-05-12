@@ -656,7 +656,7 @@ function orderPlaatsen() {
     var languageID = 1;
 
     var ordersArrayXML =
-            '<Orders>' +
+            '<DSOrders xmlns="http://tempuri.org/DSOrders.xsd"><Orders diffgr:id="orders1">' +
             '<languageID>' + languageID + '</languageID>' +
             '<firstname>' + voornaamBetaling + '</firstname>' +
             '<name>' + naamBetaling + '</name>' +
@@ -678,7 +678,7 @@ function orderPlaatsen() {
         var quantity = filledArray[i][2];
 
         var OrderdetailsArray =
-                '<Orderdetails>' +
+                '<Orderdetails diffgr:id="OrderDetails'+i+'>' +
                 '<giftID>' + giftID + '</giftID>' +
                 '<quantity>' + quantity + '</quantity>' +
                 '<languageID>' + languageID + '</languageID>' +
@@ -687,6 +687,8 @@ function orderPlaatsen() {
 
         ordersArrayXML += OrderdetailsArray;
     }
+    ordersArrayXML += "</DSOrders>";
+    
     window.alert(ordersArrayXML);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);
