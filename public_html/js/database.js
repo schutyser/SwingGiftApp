@@ -863,9 +863,11 @@ function ogone(orderArray, id, totalprice_inclBTW) {
     var sha1 = "Test123Test123Test123";
     var taal = "nl_NL";
     var orderID = "test123";
-    var sha = 'AMOUNT=' + prijs + sha1 + 'CURRENCY=EUR' + sha1 +
-            'LANGUAGE=' + taal + sha1 + 'ORDERID=' + orderID + sha1 +
-            'PSPID=QCSREW' + sha1;
+    var sha = "ACCEPTURL=SwingGiftApp/index.html" + sha1 + "AMOUNT=1500" + sha1 + "BGCOLOR=#FFFFFF" + sha1 + "BUTTONBGCOLOR=orange" + sha1 + "BUTTONTXTCOLOR=#FFFFFF" + sha1 +
+            "CANCELURL=SwingGiftApp/index.html" + sha1 + "CN=gdrgd" + sha1 + "CURRENCY=EUR" + sha1 + "DECLINEURL=SwingGiftApp/index.htm" + sha1 + "EMAIL=fdgr" + sha1 +
+            "EXCEPTIONURL=SwingGiftApp/index.html" + sha1 + "HDTBLBGCOLOR=orange" + sha1 + "HDTBLTXTCOLOR=#FFFFFF" + sha1 + "HOMEURL=SwingGiftApp://index.html" + sha1 + "LANGUAGE=nl_NL" + sha1 +
+            "ORDERID=test123" + sha1 + "OWNERTELNO=fgdrg" + sha1 + "PSPID=QCSREW" + sha1 + "TBLBGCOLOR=orange" + sha1 + "TBLTXTCOLOR=#FFFFFF" + sha1 + "TITLE=SwingGift payment" + sha1 +
+            "TP=PaymentPage_1_iPhone.htm" + sha1 + "TXTCOLOR=#666666" + sha1;
 
     var ogoneForm =
             '<form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm" name="ogoneForm">' +
@@ -921,7 +923,7 @@ function voucherCodesFill() {
     var content = "<li>Geen voucher codes ingegeven momenteel</li>";
     if (window.localStorage.getArray("voucherCodeArray") !== null)
     {
-        content ="";
+        content = "";
         var voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
         for (var i = 0; i < voucherCodeArray.length; ++i) {
             var i2 = i + 1;
@@ -936,7 +938,7 @@ function ordersFill() {
     var content = "<li>Geen orders geplaats momenteel</li>";
     if (window.localStorage.getArray("orders") !== null)
     {
-        content ="";
+        content = "";
         var orders = window.localStorage.getArray("orders");
         for (var i = 0; i < orders.length; i++) {
             content += "<li><a href='#orderDetails' onclick='checkOrderStatus(orders[i])'>Order: " + orders[i] + "</a></li>";
