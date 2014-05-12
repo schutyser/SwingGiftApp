@@ -135,6 +135,7 @@ function queryDB4(tx) {
 
 //Ophalen van de geschenkbonnen door de webservice op te roepen
 function xmlParse() {
+    window.alert("xmlParse");
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=GetVouchers', true);
 
@@ -159,6 +160,7 @@ function xmlParse() {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
+                window.alert("getvoucher succes");
                 vouchers(xmlhttp.responseText);
             }
         }
@@ -199,6 +201,7 @@ function xmlParse() {
 
 //Het aanmaken van de shop (items dynamisch vullen)
 function listItems(tx, results) {
+    window.alert("listItems");
     var len = results.rows.length;
     var content = "";
 

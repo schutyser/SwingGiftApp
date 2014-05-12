@@ -257,10 +257,12 @@ function readArray() {
 
 //functie die wordt uitgevoerd bij het opstarten van de applicatie
 function onDeviceReady1() {
-    document.addEventListener("deviceready", onDeviceReady, false);
-    function onDeviceReady() {
+    document.addEventListener("deviceready", onDeviceReady123, false);
+    function onDeviceReady123() {
         filledArray = readArray();
         changeButton();
+        ordersFill();
+        voucherCodesFill();
 
         document.addEventListener("backbutton", function(e) {
             if ($.mobile.activePage.is('#index')) {
