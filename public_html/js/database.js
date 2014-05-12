@@ -5,7 +5,7 @@ var orderArray = [];
 //Wordt uitgevoerd bij opstarten app
 function onDeviceReady() {
     document.addEventListener("deviceready", onDeviceReadyData, false);
-    
+
     function onDeviceReadyData() {
         var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
         db.transaction(populateDB, errorCB, xmlParse);
@@ -493,7 +493,7 @@ function personalisatiePaginaXML(voucherCode) {
         if (window.localStorage.getArray("voucherCodeArray") !== null) {
             voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
             for (var i = 0; i < voucherCodeArray.length; ++i) {
-                i=i+1;
+                i = i + 1;
                 if (voucherCodeArray[i] === voucherCode) {
                     return false;
                 }
@@ -687,7 +687,7 @@ function orderPlaatsen() {
 
         ordersArrayXML += OrderdetailsArray;
     }
-
+    window.alert(ordersArrayXML);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);
 
@@ -714,6 +714,7 @@ function orderPlaatsen() {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.status === 200) {
                 var response = xmlhttp.responseText;
+                window.alert(response);
 
                 var orderID = $(response).find("OrderID").text();
                 var totalprice_inclBTW = $(response).find("OrderID").text();
@@ -803,8 +804,8 @@ function voucherCodesFill() {
     {
         var voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
         for (var i = 0; i < voucherCodeArray.length; ++i) {
-            var i2 = i+1;
-            content += "<li><a href='#'>Voucher: " + voucherCodeArray[i] + " met credit: €"+voucherCodeArray[i2]+"</a></li>";
+            var i2 = i + 1;
+            content += "<li><a href='#'>Voucher: " + voucherCodeArray[i] + " met credit: €" + voucherCodeArray[i2] + "</a></li>";
             i = i2;
         }
     }
@@ -852,7 +853,7 @@ function checkOrderStatus(id) {
                         '<li data-role="list-divider">\n\
                         <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >\n\
                         Go back</a></li><li>Order: ' + id + '<li/>';
-                
+
                 $(response).find('Vouchers').each(function() {
                     voucher.push($(this).find("giftID").text());
                     var giftID = $(response).find("giftID").text();
