@@ -57,7 +57,7 @@ function getTotalePrijs() {
     for (var i = 0; i < filledArray.length; ++i) {
         prijs = (+filledArray[i][1] * +filledArray[i][2]) + +prijs;
     }
-   return prijs;
+    return prijs;
 }
 
 function getIds() {
@@ -261,6 +261,8 @@ function onDeviceReady1() {
     function onDeviceReady() {
         filledArray = readArray();
         changeButton();
+        ordersFill();
+        voucherCodesFill();
 
         document.addEventListener("backbutton", function(e) {
             if ($.mobile.activePage.is('#index')) {
@@ -525,5 +527,14 @@ function Neemfoto() {
                 window.alert('Error taking picture', 'Error');
             },
             options);
+}
+
+function addOrder(orderID) {
+    var orders = [];
+    if (window.localStorage.getArray("orders") !== null)
+        orders = window.localStorage.getArray("orders");
+    orders.push(orderID);
+    window.localStorage.setArray("orders", orders);
+    ordersFill();
 }
 

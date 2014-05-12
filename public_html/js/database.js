@@ -5,7 +5,7 @@ var orderArray = [];
 //Wordt uitgevoerd bij opstarten app
 function onDeviceReady() {
     document.addEventListener("deviceready", onDeviceReadyData, false);
-
+    
     function onDeviceReadyData() {
         var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
         db.transaction(populateDB, errorCB, xmlParse);
@@ -221,8 +221,8 @@ function listItems(tx, results) {
         var imageUrl = results.rows.item(i).mainAfb;
         var titel = results.rows.item(i).title_NL;
         var prijs = results.rows.item(i).price_inclBTW;
-        
-        if(prijs === 0)
+
+        if (prijs === 0)
             prijs += " (zelf te kiezen bedrag)";
 
         var con =
@@ -327,7 +327,7 @@ function shoppingCart(tx, results) {
     var creditContent = "";
     var credit = localStorage.getItem("credit");
     var totaleprijs = getTotalePrijs();
-    
+
     if (+credit !== 0) {
         creditContent = "Korting via voucher(s): &#8364; " + credit;
         totaleprijs = +totaleprijs - +credit;
@@ -458,9 +458,9 @@ function personalisatiePaginaXML(voucherCode) {
                 var einde = "</p></div>";
 
                 if (error === "OK") {
-                    if (checkDuplicate(voucherCode)) {
+                    if (checkDuplicate(voucherCode, credit)) {
                         setCredit(credit);
-                        if (pers[3] !== "" && pers[5] !== "") {
+                        if (pers[3] !== "" || pers[5] !== "") {
                             maakPersPagina(pers);
                             window.location.href = "#personalisatie";
                             $('#errorVoucher').html("");
@@ -490,17 +490,18 @@ function personalisatiePaginaXML(voucherCode) {
         return errorCode;
     }
 
-    function checkDuplicate(voucherCode) {
+    function checkDuplicate(voucherCode, credit) {
         var voucherCodeArray = [];
         if (window.localStorage.getArray("voucherCodeArray") !== null) {
             voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
-            for (var i = 0; i < voucherCodeArray.length; ++i) {
+            for (var i = 0; i < voucherCodeArray.length; i=i+2) {
                 if (voucherCodeArray[i] === voucherCode) {
                     return false;
                 }
             }
         }
         voucherCodeArray.push(voucherCode);
+        voucherCodeArray.push(credit);
         window.localStorage.setArray("voucherCodeArray", voucherCodeArray);
         return true;
     }
@@ -720,6 +721,8 @@ function orderPlaatsen() {
 
                 var errorCode = $(response).find("errorCode").text();
 
+                if (errorCode === "200")
+                    addOrder(orderID);
                 if (betalingSoort === "Online") {
                     ogone(orderArray, orderID, totalprice_inclBTW);
                 }
@@ -794,4 +797,71 @@ function arrayEvouchers(tx, results) {
         arrayEvoucher.push(results.rows.item(i).giftID);
 
     window.localStorage.setArray("arrayEvoucher", arrayEvoucher);
+}
+function voucherCodesFill() {
+    var content = "<li>Geen orders geplaats momenteel</li>";
+    if (window.localStorage.getArray("voucherCodeArray") !== null)
+    {
+        var voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
+        for (var i = 0; i < voucherCodeArray.length; i=i+2) {
+            content += "<li><a href='#'>Voucher: " + voucherCodeArray[i] + " met credit: €"+voucherCodeArray[i+1]+"</a></li>";
+        }
+    }
+    $('#voucherCodes').html(content).trigger("create");
+}
+
+function ordersFill() {
+    var content = "<li>Geen orders geplaats momenteel</li>";
+    if (window.localStorage.getArray("orders") !== null)
+    {
+        var orders = window.localStorage.getArray("orders");
+        for (var i = 0; i < orders.length; i++) {
+            content += "<li><a href='#orderDetails' onclick='checkOrderStatus(orders[i])'>Order: " + orders[i] + "</a></li>";
+        }
+    }
+    $('#orders').html(content).trigger("create");
+}
+
+function checkOrderStatus(id) {
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=CheckOrderStatus', true);
+    // build SOAP request
+    var sr =
+            '<?xml version="1.0" encoding="UTF-8"?>' +
+            '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/">' +
+            '<SOAP-ENV:Body>' +
+            '<CheckOrderStatus  xmlns="http://tempuri.org/">' +
+            '<ns1:logoncode>THIJS123</ns1:logoncode>' +
+            '<OrderID>' + id + '</OrderID>' +
+            '</CheckOrderStatus>' +
+            '</SOAP-ENV:Body>' +
+            '</SOAP-ENV:Envelope>';
+    // Send the POST request
+    xmlhttp.setRequestHeader('Content-Type', "text/xml; charset=\"utf-8\"");
+    xmlhttp.setRequestHeader('SOAPAction', 'http://tempuri.org/CheckOrderStatus');
+    xmlhttp.setRequestHeader("Accept", "application/xml", "text/xml", "\*/\*");
+    xmlhttp.send(sr);
+    // send request
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState === 4) {
+            if (xmlhttp.status === 200) {
+                var response = xmlhttp.responseText;
+                var content =
+                        '<li data-role="list-divider">\n\
+                        <a href="#" data-rel="back" data-icon="mail-reply" data-role="button" data-inline="true" data-mini="true" >\n\
+                        Go back</a></li><li>Order: ' + id + '<li/>';
+                
+                $(response).find('Vouchers').each(function() {
+                    voucher.push($(this).find("giftID").text());
+                    var giftID = $(response).find("giftID").text();
+                    var orderStatus = $(response).find("orderStatus").text();
+                    var DOLU = $(response).find("DOLU").text();
+                    content += "<li>Gift " + giftID + " order status is: " + orderStatus + " (laatst gewijzigd op " + DOLU + ").</li>";
+
+                });
+                $('#ordersDetailContent').html(content).trigger("create");
+            }
+        }
+    };
 }
