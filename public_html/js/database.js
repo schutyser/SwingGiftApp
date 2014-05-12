@@ -656,6 +656,9 @@ function orderPlaatsen() {
     var languageID = 1;
 
     var ordersArrayXML =
+            '<diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"' +
+            'xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">' +
+            '<DSOrders xmlns="http://tempuri.org/DSOrders.xsd">' +
             '<Orders diffgr:id="orders1">' +
             '<languageID>' + languageID + '</languageID>' +
             '<firstname>' + voornaamBetaling + '</firstname>' +
@@ -671,14 +674,14 @@ function orderPlaatsen() {
             '<countryID>' + land + '</countryID>' +
             '<isTest>true</isTest>' +
             '</Orders>';
-
+    var teller = 0;
     for (var i = 0; i < filledArray.length; ++i) {
         var giftID = filledArray[i][0];
         var price_inclBTW = filledArray[i][1];
         var quantity = filledArray[i][2];
-
+        teller++;
         var OrderdetailsArray =
-                '<Orderdetails diffgr:id="OrderDetails'+ i++ +'>' +
+                '<Orderdetails diffgr:id="OrderDetails' + teller + '>' +
                 '<giftID>' + giftID + '</giftID>' +
                 '<quantity>' + quantity + '</quantity>' +
                 '<languageID>' + languageID + '</languageID>' +
@@ -687,8 +690,9 @@ function orderPlaatsen() {
 
         ordersArrayXML += OrderdetailsArray;
     }
+    ordersArrayXML += '</DSOrders></diffgr:diffgram>';
     
-    window.alert(ordersArrayXML);
+            window.alert(ordersArrayXML);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);
 
