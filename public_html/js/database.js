@@ -656,7 +656,123 @@ function orderPlaatsen() {
     var languageID = 1;
 
     var ordersArrayXML =
-            '<diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"' +
+            '<xs:schema id="DSOrders" targetNamespace="http://tempuri.org/DSOrders.xsd"' +
+            'xmlns:mstns="http://tempuri.org/DSOrders.xsd"' +
+            'xmlns="http://tempuri.org/DSOrders.xsd"' +
+            'xmlns:xs="http://www.w3.org/2001/XMLSchema"' +
+            'xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">' +
+            '<xs:element name="DSOrders" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">' +
+            '<xs:complexType>' +
+            '<xs:choice minOccurs="0" maxOccurs="unbounded">' +
+            '<xs:element name="ErrorMessage">' +
+            '<xs:complexType>' +
+            '<xs:sequence>' +
+            '<xs:element name="errorCode" type="xs:string" minOccurs="0" />' +
+            '<xs:element name="errorMessage" type="xs:string" minOccurs="0" />' +
+            '</xs:sequence>' +
+            '</xs:complexType>' +
+            '</xs:element>' +
+            '<xs:element name="OrderResult">' +
+            '<xs:complexType>' +
+            '<xs:sequence>' +
+            '<xs:element name="OrderID" type="xs:int" minOccurs="0" />' +
+            '<xs:element name="totalprice_inclBTW" type="xs:string" minOccurs="0" />' +
+            '</xs:sequence>' +
+            '</xs:complexType>' +
+            '</xs:element>' +
+            '<xs:element name="Orders">' +
+            '<xs:complexType>' +
+            '<xs:sequence>' +
+            '<xs:element name="languageID" type="xs:int" minOccurs="0" />' +
+            '<xs:element name="companyName" msdata:Caption="levering_companyName" minOccurs="0">' +
+            '<xs:simpleType>' +
+            '<xs:restriction base="xs:string">' +
+            '<xs:maxLength value="255" />' +
+            '</xs:restriction>' +
+            '</xs:simpleType>' +
+            '</xs:element>' +
+            '<xs:element name="street" msdata:Caption="levering_street" minOccurs="0">' +
+            '<xs:simpleType>' +
+            '<xs:restriction base="xs:string">' +
+            '<xs:maxLength value="255" />' +
+            '</xs:restriction>' +
+            '</xs:simpleType>' +
+            '</xs:element>' +
+            '<xs:element name="nr" msdata:Caption="levering_nr" minOccurs="0">' +
+            '<xs:simpleType>' +
+            '<xs:restriction base="xs:string">' +
+            '<xs:maxLength value="255" />' +
+            '</xs:restriction>' +
+            '</xs:simpleType>' +
+            '</xs:element>' +
+            '<xs:element name="postcode" msdata:Caption="levering_postcode" minOccurs="0">' +
+            '<xs:simpleType>' +
+            '<xs:restriction base="xs:string">' +
+            '<xs:maxLength value="255" />' +
+            '</xs:restriction>' +
+            '</xs:simpleType>' +
+            '</xs:element>' +
+            '<xs:element name="plaats" msdata:Caption="levering_plaats" minOccurs="0">' +
+            '<xs:simpleType>' +
+            '<xs:restriction base="xs:string">' +
+            '<xs:maxLength value="255" />' +
+            '</xs:restriction>' +
+            '</xs:simpleType>' +
+            '</xs:element>' +
+            '<xs:element name="email" msdata:Caption="levering_email" minOccurs="0">' +
+            '<xs:simpleType>' +
+            '<xs:restriction base="xs:string">' +
+            '<xs:maxLength value="255" />' +
+            '</xs:restriction>' +
+            '</xs:simpleType>' +
+            '</xs:element>' +
+            '<xs:element name="telefoon" msdata:Caption="levering_telefoon" minOccurs="0">' +
+            '<xs:simpleType>' +
+            '<xs:restriction base="xs:string">' +
+            '<xs:maxLength value="255" />' +
+            '</xs:restriction>' +
+            '</xs:simpleType>' +
+            '</xs:element>' +
+            '<xs:element name="countryID" type="xs:int" minOccurs="0" />' +
+            '<xs:element name="bus" msdata:Caption="levering_bus" minOccurs="0">' +
+            '<xs:simpleType>' +
+            '<xs:restriction base="xs:string">' +
+            '<xs:maxLength value="255" />' +
+            '</xs:restriction>' +
+            '</xs:simpleType>' +
+            '</xs:element>' +
+            '<xs:element name="firstname" msdata:Caption="evoucher_firstname" minOccurs="0">' +
+            '<xs:simpleType>' +
+            '<xs:restriction base="xs:string">' +
+            '<xs:maxLength value="255" />' +
+            '</xs:restriction>' +
+            '</xs:simpleType>' +
+            '</xs:element>' +
+            '<xs:element name="name" msdata:Caption="evoucher_name" minOccurs="0">' +
+            '<xs:simpleType>' +
+            '<xs:restriction base="xs:string">' +
+            '<xs:maxLength value="255" />' +
+            '</xs:restriction>' +
+            '</xs:simpleType>' +
+            '</xs:element>' +
+            '<xs:element name="isTest" type="xs:boolean" minOccurs="0" />' +
+            '</xs:sequence>' +
+            '</xs:complexType>' +
+            '</xs:element>' +
+            '<xs:element name="OrderDetails">' +
+            '<xs:complexType>' +
+            '<xs:sequence>' +
+            '<xs:element name="giftID" type="xs:int" minOccurs="0" />' +
+            '<xs:element name="quantity" type="xs:int" minOccurs="0" />' +
+            '<xs:element name="languageID" type="xs:int" minOccurs="0" />' +
+            '<xs:element name="price_incl" type="xs:string" minOccurs="0" />' +
+            '</xs:sequence>' +
+            '</xs:complexType>' +
+            '</xs:element>' +
+            '</xs:choice>' +
+            '</xs:complexType>' +
+            '</xs:element>' +
+            '</xs:schema><diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"' +
             'xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">' +
             '<DSOrders xmlns="http://tempuri.org/DSOrders.xsd">' +
             '<Orders diffgr:id="orders1">' +
@@ -691,8 +807,8 @@ function orderPlaatsen() {
         ordersArrayXML += OrderdetailsArray;
     }
     ordersArrayXML += '</DSOrders></diffgr:diffgram>';
-    
-            window.alert(ordersArrayXML);
+
+    window.alert(ordersArrayXML);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'http://ws.swinggift.com/SGServices.asmx?op=PlacingOrder', true);
 
