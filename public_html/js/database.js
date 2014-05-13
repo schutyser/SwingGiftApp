@@ -7,11 +7,16 @@ function onDeviceReady() {
     document.addEventListener("deviceready", onDeviceReadyData, false);
 
     function onDeviceReadyData() {
+        document.addEventListener("offline", offline, false);
         var db = window.openDatabase("voucher", "1.0", "Voucher database", 1000000);
         db.transaction(populateDB, errorCB, xmlParse);
     }
 }
 
+//Wanneer geen internet mogelijk
+function offline(){
+    window.alert("No internet acces found, restart the application please.");
+}
 //Getters & Setters
 function getGiftID() {
     return giftID;
