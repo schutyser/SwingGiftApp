@@ -551,7 +551,7 @@ function maakPersPagina(test) {
                             <div>' + pers[5] + '</div>\n\
                         </div></li><li>\n\
                         <a href="#shop" data-icon="check" data-role="button" >Let\'s start shopping!</a>\n\
-                    </li></ul>';
+                    </li></div>';
     }
     else {
         contentList = '<div data-role="content" data-theme=\'b\'>\n\
@@ -564,7 +564,7 @@ function maakPersPagina(test) {
                             <p>' + pers[5] + '</p>\n\
                         </li><li>\n\
                         <a href="#shop" data-icon="check" data-role="button" >Let\'s start shopping!</a>\n\
-                    </li></ul>';
+                    </li></ul></div>';
     }
     var footer =
             '<div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme=\'b\'>\n\
@@ -572,7 +572,7 @@ function maakPersPagina(test) {
                     <ul>\n\
                         <li><a href="#shop" data-icon="gift">Shop</a></li>\n\
                         <li><a href="#index" data-icon="home">Home</a></li>\n\
-                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li> \n\
+                        <li><a href="#voucher" data-icon="barcode">Voucher</a></li>\n\
                     </ul>\n\
                 </div>\n\
             </div>';
