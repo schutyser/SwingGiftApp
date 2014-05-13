@@ -904,11 +904,11 @@ function ogone(orderArray, id, totalprice_inclBTW) {
             '<input type="hidden" name="BUTTONTXTCOLOR" value="#FFFFFF">' +
             '<input type="hidden" name="FONTTYPE" value="">' +
             '<!-- feedback na de betaling: zie Transactie feedback naar de klant -->' +
-            '<input type="hidden" name="HOMEURL" value="SwingGiftApp://index.html">' +
-            '<input type="hidden" name="ACCEPTURL" value="SwingGiftApp/index.html">' +
-            '<input type="hidden" name="DECLINEURL" value="SwingGiftApp/index.html">' +
-            '<input type="hidden" name="EXCEPTIONURL" value="SwingGiftApp/index.html">' +
-            '<input type="hidden" name="CANCELURL" value="SwingGiftApp/index.html">' +
+            '<input type="hidden" name="HOMEURL" value="SwingGiftApp://">' +
+            '<input type="hidden" name="ACCEPTURL" value="SwingGiftApp://">' +
+            '<input type="hidden" name="DECLINEURL" value="SwingGiftApp://">' +
+            '<input type="hidden" name="EXCEPTIONURL" value="SwingGiftApp://">' +
+            '<input type="hidden" name="CANCELURL" value="SwingGiftApp://">' +
             '</form>';
 
     $('#ogone').html(ogoneForm).trigger("create");
