@@ -14,7 +14,7 @@ function onDeviceReady() {
 }
 
 //Wanneer geen internet mogelijk
-function offline(){
+function offline() {
     window.alert("No internet acces found, restart the application please.");
 }
 //Getters & Setters
@@ -467,7 +467,6 @@ function personalisatiePaginaXML(voucherCode) {
                         window.alert(pers);
                         if (pers[3] !== "" || pers[5] !== "") {
                             maakPersPagina(pers);
-                            $.mobile.changePage('#personalisatie');
                             $('#errorVoucher').html("");
                         }
                         else
@@ -528,7 +527,7 @@ function maakPersPagina(pers) {
     window.alert("pers pgina maken");
     var contentList;
     var header = '<div data-role="header" id="headerPers"  data-position="fixed" data-tap-toggle="false" data-theme=\'b\'>\n\
-                <h1>' + pers[0] + '</h1>\n\
+                <h1>Mini</h1>\n\
                 <a href="index.html"><img src="' + pers[1] + '" class="autoresize" alt="swingGiftLogo"/> </a>\n\
                 <a href="#info" data-icon="info" data-role="button">Info</a></div>';
     if (pers[3] !== "") {
@@ -577,6 +576,8 @@ function maakPersPagina(pers) {
                 </div>\n\
             </div>';
     $('#personalisatie').html(header + contentList + footer).trigger("pagecreate");
+    $.mobile.changePage('#personalisatie');
+    window.alert("einde person");
 }
 
 //Overzicht opmaken van de aankoop
@@ -877,7 +878,7 @@ function ogone(orderArray, id, totalprice_inclBTW) {
             "EXCEPTIONURL=SwingGiftApp://" + sha1 + "HDTBLBGCOLOR=orange" + sha1 + "HDTBLTXTCOLOR=#FFFFFF" + sha1 + "HOMEURL=SwingGiftApp://" + sha1 + "LANGUAGE=nl_NL" + sha1 +
             "ORDERID=test123" + sha1 + "OWNERTELNO=orderArray3" + sha1 + "PSPID=QCSREW" + sha1 + "TBLBGCOLOR=orange" + sha1 + "TBLTXTCOLOR=#FFFFFF" + sha1 + "TITLE=SwingGift payment" + sha1 +
             "TP=PaymentPage_1_iPhone.htm" + sha1 + "TXTCOLOR=#666666" + sha1;
-    window.alert(sha +"--"+ SHA1(sha.toLocaleUpperCase()));
+    window.alert(sha + "--" + SHA1(sha.toLocaleUpperCase()));
     var ogoneForm =
             '<form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm" name="ogoneForm">' +
             '<!-- Algemene parameters -->' +
