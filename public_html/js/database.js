@@ -464,9 +464,10 @@ function personalisatiePaginaXML(voucherCode) {
                 if (error === "OK") {
                     if (checkDuplicate(voucherCode, credit)) {
                         setCredit(credit);
+                        window.alert(pers);
                         if (pers[3] !== "" || pers[5] !== "") {
                             maakPersPagina(pers);
-                            window.location.href = "#personalisatie";
+                            $.mobile.changePage('#personalisatie');
                             $('#errorVoucher').html("");
                         }
                         else
@@ -523,6 +524,7 @@ function setCredit(c) {
 
 //Persoonlijke pagina van het bedrijf gekoppeld aan een voucher
 function maakPersPagina(pers) {
+    window.alert("pers pgina maken");
     var contentList;
     var header = '<div data-role="header" id="headerPers"  data-position="fixed" data-tap-toggle="false" data-theme=\'b\'>\n\
                 <h1>' + pers[0] + '</h1>\n\
@@ -869,12 +871,12 @@ function ogone(orderArray, id, totalprice_inclBTW) {
     var sha1 = "Test123Test123Test123";
     var taal = "nl_NL";
     var orderID = "test123";
-    var sha = "ACCEPTURL=SwingGiftApp/index.html" + sha1 + "AMOUNT=1500" + sha1 + "BGCOLOR=#FFFFFF" + sha1 + "BUTTONBGCOLOR=orange" + sha1 + "BUTTONTXTCOLOR=#FFFFFF" + sha1 +
-            "CANCELURL=SwingGiftApp/index.html" + sha1 + "CN=gdrgd" + sha1 + "CURRENCY=EUR" + sha1 + "DECLINEURL=SwingGiftApp/index.htm" + sha1 + "EMAIL=fdgr" + sha1 +
-            "EXCEPTIONURL=SwingGiftApp/index.html" + sha1 + "HDTBLBGCOLOR=orange" + sha1 + "HDTBLTXTCOLOR=#FFFFFF" + sha1 + "HOMEURL=SwingGiftApp://index.html" + sha1 + "LANGUAGE=nl_NL" + sha1 +
-            "ORDERID=test123" + sha1 + "OWNERTELNO=fgdrg" + sha1 + "PSPID=QCSREW" + sha1 + "TBLBGCOLOR=orange" + sha1 + "TBLTXTCOLOR=#FFFFFF" + sha1 + "TITLE=SwingGift payment" + sha1 +
+    var sha = "ACCEPTURL=SwingGiftApp://" + sha1 + "AMOUNT=1500" + sha1 + "BGCOLOR=#FFFFFF" + sha1 + "BUTTONBGCOLOR=orange" + sha1 + "BUTTONTXTCOLOR=#FFFFFF" + sha1 +
+            "CANCELURL=SwingGiftApp://" + sha1 + "CN=thijs1" + sha1 + "CURRENCY=EUR" + sha1 + "DECLINEURL=SwingGiftApp://" + sha1 + "EMAIL=orderArray2@test.be" + sha1 +
+            "EXCEPTIONURL=SwingGiftApp://" + sha1 + "HDTBLBGCOLOR=orange" + sha1 + "HDTBLTXTCOLOR=#FFFFFF" + sha1 + "HOMEURL=SwingGiftApp://" + sha1 + "LANGUAGE=nl_NL" + sha1 +
+            "ORDERID=test123" + sha1 + "OWNERTELNO=orderArray3" + sha1 + "PSPID=QCSREW" + sha1 + "TBLBGCOLOR=orange" + sha1 + "TBLTXTCOLOR=#FFFFFF" + sha1 + "TITLE=SwingGift payment" + sha1 +
             "TP=PaymentPage_1_iPhone.htm" + sha1 + "TXTCOLOR=#666666" + sha1;
-
+    window.alert(sha +"--"+ SHA1(sha.toLocaleUpperCase()));
     var ogoneForm =
             '<form method="post" action="https://secure.ogone.com/ncol/test/orderstandard.asp" id="ogoneForm" name="ogoneForm">' +
             '<!-- Algemene parameters -->' +
@@ -887,7 +889,6 @@ function ogone(orderArray, id, totalprice_inclBTW) {
             '<input type="hidden" name="CN" value="' + naamBetaling + '">' +
             '<input type="hidden" name="EMAIL" value="' + email + '">' +
             '<input type="hidden" name="OWNERTELNO" value="' + telefoonNummer + '">' +
-            '<input type="hidden" name="COM" value="">' +
             '<!-- controle voor de betaling: zie Beveiliging: Controle voor de betaling -->' +
             '<input type="hidden" name="SHASIGN" value="' + SHA1(sha.toLocaleUpperCase()) + '">' +
             '<!-- layout informatie: zie “Look and feel” van de betaalpagina -->' +
