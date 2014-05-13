@@ -528,7 +528,7 @@ function maakPersPagina(pers) {
     var contentList;
     var header = '<div data-role="header" id="headerPers"  data-position="fixed" data-tap-toggle="false" data-theme=\'b\'>\n\
                 <h1>' + pers[0].toLocaleString() + '</h1>\n\
-                <a href="index.html"><img src="' + pers[1] + '" class="autoresize" alt="swingGiftLogo"/> </a>\n\
+                <a href="index.html"><img src="' + pers[1] + '" class="autoresize" alt="swingGiftLogo"/></a>\n\
                 <a href="#info" data-icon="info" data-role="button">Info</a></div>';
     if (pers[3] !== "") {
         contentList = '<div data-role="content" data-theme=\'b\'>\n\
@@ -547,7 +547,7 @@ function maakPersPagina(pers) {
                     <li>\n\
                         <div data-role=\'collapsible\' data-content-theme=\'b\'>\n\
                             <h4>' + pers[4] + '</h4>\n\
-                            <div>' + pers[5] + '</div>\n\
+                            ' + pers[5] + '\n\
                         </div></li><li>\n\
                         <a href="#shop" data-icon="check" data-role="button" >Let\'s start shopping!</a>\n\
                     </li></div>';
@@ -560,7 +560,7 @@ function maakPersPagina(pers) {
                     </li>\n\
                     <li>\n\
                             <h4>' + pers[4] + '</h4>\n\
-                            <p>' + pers[5] + '</p>\n\
+                            ' + pers[5] + '\n\
                         </li><li>\n\
                         <a href="#shop" data-icon="check" data-role="button" >Let\'s start shopping!</a>\n\
                     </li></ul></div>';
