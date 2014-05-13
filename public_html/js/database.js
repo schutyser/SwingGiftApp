@@ -575,6 +575,7 @@ function maakPersPagina(pers) {
                     </ul>\n\
                 </div>\n\
             </div>';
+    window.alert(header + contentList + footer);
     $('#personalisatie').html(header + contentList + footer).trigger("pagecreate");
     $.mobile.changePage('#personalisatie');
     window.alert("einde person");
