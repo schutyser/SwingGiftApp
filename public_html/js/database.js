@@ -484,6 +484,7 @@ function personalisatiePaginaXML(voucherCode) {
     }
     ;
     function personalisatie(xml) {
+        window.alert(xml);
         errorCode = $(xml).find("ErrorMessage").find("errorMessage").text();
         pers.push($(xml).find("levering_contactnaam").text());
         pers.push($(xml).find("logo").text());
