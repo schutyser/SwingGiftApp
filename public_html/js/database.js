@@ -523,11 +523,12 @@ function setCredit(c) {
 }
 
 //Persoonlijke pagina van het bedrijf gekoppeld aan een voucher
-function maakPersPagina(pers) {
+function maakPersPagina(test) {
     window.alert("pers pgina maken");
     var contentList;
+    var pers = ["Mini", "http://asklogo.com/images/B/bmw%20mini%20logo.jpg", "Prettige kerstdagen en gelukkig nieuwjaar!!", "https://www.youtube.com/watch?v=KgDJpiqVPxA", "Prettige kerstdagen en gelukkig nieuwjaar!!", "Omdat jullie je keer op keer inzetten om de beste resultaten te behalen, wouden wij iets terugdoen. Kies zelf een cadeaubon ter waarde van X euro uit het assortiment van SwingGift! Wij wensen u een jaar vol geluk en goede gezondheid! Met hartelijke groeten!"]
     var header = '<div data-role="header" id="headerPers"  data-position="fixed" data-tap-toggle="false" data-theme=\'b\'>\n\
-                <h1>Mini</h1>\n\
+                <h1>' + pers[0] + '</h1>\n\
                 <a href="index.html"><img src="' + pers[1] + '" class="autoresize" alt="swingGiftLogo"/> </a>\n\
                 <a href="#info" data-icon="info" data-role="button">Info</a></div>';
     if (pers[3] !== "") {
