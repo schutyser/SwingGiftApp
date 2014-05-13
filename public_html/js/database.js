@@ -50,7 +50,6 @@ function seteindeNodig(boolean) {
 function populateDB(tx) {
     tx.executeSql('DROP TABLE IF EXISTS vouchers');
     tx.executeSql('CREATE TABLE IF NOT EXISTS vouchers (giftID unique, supplierName, title_NL, title_FR, decr_NL, decr_FR, brands_NL, brands_FR, exclusion_NL, exclusion_FR, price_inclBTW INT, serviceFee, isEvoucher, isFixValidDate, Validtxt, mainAfb, detailAfb1, detailAfb2, detailAfb3)');
-
 }
 
 //Error message bij database fout
@@ -226,7 +225,7 @@ function listItems(tx, results) {
         var prijs = results.rows.item(i).price_inclBTW;
 
         if (prijs === 0)
-            prijs += " (zelf te kiezen bedrag)";
+            prijs = " (zelf te kiezen bedrag)";
 
         var con =
                 '<li><a href = #item onclick="successCB2(' + id + ')">\n\
@@ -317,6 +316,8 @@ function detailItem(tx, results) {
         var prijs = $('#prijsLabel' + id + '').val();
         if (+aantal <= 0)
             aantal = 1;
+        if (+prijs <= 5)
+            aantal = 5;
         calcPrijs(aantal, prijs);
     });
 
@@ -498,7 +499,6 @@ function personalisatiePaginaXML(voucherCode) {
         if (window.localStorage.getArray("voucherCodeArray") !== null) {
             voucherCodeArray = window.localStorage.getArray("voucherCodeArray");
             for (var i = 0; i < voucherCodeArray.length; ++i) {
-                i = i + 1;
                 if (voucherCodeArray[i] === voucherCode) {
                     return false;
                 }
